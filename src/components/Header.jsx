@@ -1,5 +1,3 @@
-import icon_choose from "../assets/images/choose.png";
-
 export const Header = () => {
   return (
     <div className="relative w-[1440px] h-[101px] bg-white rounded-[4px]">
@@ -15,11 +13,9 @@ export const Header = () => {
       <div className="absolute top-[38px] left-[652px] [font-family:'Inter-Regular',Helvetica] font-normal text-[#3e6272] text-[16px] tracking-[0] leading-[26px] whitespace-nowrap cursor-pointer">
         SERVICE
       </div>
-      <img
-        className="absolute w-[18px] h-[12px] top-[46px] left-[722px] cursor-pointer"
-        alt="Image"
-        src={icon_choose}
-      />
+      <button className="absolute w-[18px] h-[12px] top-[38px] left-[722px] cursor-pointer color-[#3e6272]">
+        <i className="fa-solid fa-angle-down"></i>
+      </button>
       <div className="absolute top-[38px] left-[803px] [font-family:'Inter-Regular',Helvetica] font-normal text-[#3e6272] text-[16px] tracking-[0] leading-[26px] whitespace-nowrap cursor-pointer">
         PRICES
       </div>
