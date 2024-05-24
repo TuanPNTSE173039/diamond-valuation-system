@@ -1,6 +1,8 @@
-export const Footer = () => {
+export const Footer = ({ className }) => {
   return (
-    <div className="relative w-[1440px] h-[346px] bg-gray-100 rounded-[4px]">
+    <div
+      className={`relative w-[1440px] h-[346px] bg-gray-100 rounded-[4px] ${className}`}
+    >
       <p className="absolute top-[117px] left-[60px] [font-family:'Inter-Regular',Helvetica] font-normal text-[#9095a0] text-[16px] tracking-[0] leading-[26px] whitespace-nowrap">
         The world&#39;s largest diamond marketplace.
       </p>
