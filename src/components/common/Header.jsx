@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -11,6 +12,8 @@ import PersonIcon from "@mui/icons-material/Person";
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [profileEl, setProfileEl] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const navigate = useNavigate();
 
   const openMenu = Boolean(anchorEl);
   const openProfileMenu = Boolean(profileEl);
@@ -28,17 +31,51 @@ export default function Header() {
     setProfileEl(null);
   };
 
+  const handleMenuItemClick = (text) => {
+    setSelectedItem(text);
+    handleClose(); // Close menu after selection
+    // Perform navigation based on the selected text here
+    switch (text) {
+      case "Diamond Check":
+        navigate("/diamond-check");
+        break;
+      case "Diamond Calculate":
+        navigate("/diamond-calculate");
+        break;
+      case "Rules":
+        navigate("/rules");
+        break;
+      case "HOME":
+        navigate("/home");
+        break;
+      case "ABOUT":
+        navigate("/about");
+        break;
+      case "PRICES":
+        navigate("/prices");
+        break;
+      case "POST":
+        navigate("/post");
+        break;
+      case "Appointment":
+        navigate("/appointment");
+        break;
+      case "Register":
+        navigate("/register");
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <Box
       sx={{
         display: "flex",
         alignItems: "center",
-        width: 1440,
-        height: 101,
-        backgroundColor: "white",
-        borderRadius: 1,
+        padding: "10px 60px",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
         position: "relative",
-        px: 6,
       }}
     >
       <Typography
@@ -51,29 +88,35 @@ export default function Header() {
           fontSize: 30,
           lineHeight: "44px",
           cursor: "pointer",
-          position: "absolute",
-          top: 30,
-          left: 60,
         }}
       >
         Logo
       </Typography>
-      <Box sx={{ display: "flex", gap: 3, ml: "auto", mr: 6 }}>
-        {["HOME", "ABOUT"].map((item, index) => (
-          <Button
-            key={index}
-            sx={{
-              color: "#3e6272",
-              textTransform: "none",
-              fontSize: 16,
-              "&:hover": {
-                color: "#000",
-              },
-            }}
-          >
-            {item}
-          </Button>
-        ))}
+      <Box sx={{ display: "flex", gap: 3, ml: "auto", alignItems: "center" }}>
+        <Button
+          sx={{
+            color: "#3e6272",
+            textTransform: "none",
+            fontSize: 16,
+            "&:hover": {
+              color: "#000",
+            },
+          }}
+        >
+          HOME
+        </Button>
+        <Button
+          sx={{
+            color: "#3e6272",
+            textTransform: "none",
+            fontSize: 16,
+            "&:hover": {
+              color: "#000",
+            },
+          }}
+        >
+          ABOUT
+        </Button>
         <Button
           onClick={handleClick}
           sx={{
@@ -89,9 +132,24 @@ export default function Header() {
           SERVICE
         </Button>
         <Menu anchorEl={anchorEl} open={openMenu} onClose={handleClose}>
-          <MenuItem onClick={handleClose}>Diamond Check</MenuItem>
-          <MenuItem onClick={handleClose}>Diamond Valuation</MenuItem>
-          <MenuItem onClick={handleClose}>Rules</MenuItem>
+          <MenuItem
+            selected={selectedItem === "Diamond Check"}
+            onClick={() => handleMenuItemClick("Diamond Check")}
+          >
+            Diamond Check
+          </MenuItem>
+          <MenuItem
+            selected={selectedItem === "Diamond Calculate"}
+            onClick={() => handleMenuItemClick("Diamond Calculate")}
+          >
+            Diamond Calculate
+          </MenuItem>
+          <MenuItem
+            selected={selectedItem === "Rules"}
+            onClick={() => handleMenuItemClick("Rules")}
+          >
+            Rules
+          </MenuItem>
         </Menu>
         <Button
           sx={{
@@ -118,6 +176,7 @@ export default function Header() {
           POST
         </Button>
         <Button
+          onClick={() => handleMenuItemClick("Appointment")}
           variant="outlined"
           sx={{
             borderColor: "#98690c8a",
