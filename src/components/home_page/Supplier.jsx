@@ -1,11 +1,11 @@
-import allurez from "../assets/images/allurez.png";
-import rockher from "../assets/images/rockher.png";
-import adiamor from "../assets/images/adiamor.png";
-import friendly from "../assets/images/friendly.png";
-import daniel from "../assets/images/daniel.png";
-import with_clarity from "../assets/images/with_clarity.png";
-import dreamstone from "../assets/images/dreamstone.png";
-import whiteflash from "../assets/images/whiteflash.png";
+import allurez from "../../assets/images/allurez.png";
+import rockher from "../../assets/images/rockher.png";
+import adiamor from "../../assets/images/adiamor.png";
+import friendly from "../../assets/images/friendly.png";
+import daniel from "../../assets/images/daniel.png";
+import with_clarity from "../../assets/images/with_clarity.png";
+import dreamstone from "../../assets/images/dreamstone.png";
+import whiteflash from "../../assets/images/whiteflash.png";
 
 export default function Supplier({ className }) {
   return (

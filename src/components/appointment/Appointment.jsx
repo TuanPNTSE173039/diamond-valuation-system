@@ -1,4 +1,4 @@
-import diamond from "../assets/images/diamond_poster.png";
+import diamond from "../../assets/images/diamond_poster.png";
 
 export const Appointment = ({ className }) => {
   return (

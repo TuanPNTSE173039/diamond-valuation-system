@@ -1,5 +1,5 @@
 //import {Appointment} from "./Appointment.jsx";
-import diamond from "../assets/images/diamond_poster.png";
+import diamond from "../../assets/images/diamond_poster.png";
 
 export default function Body({ className }) {
   return (
