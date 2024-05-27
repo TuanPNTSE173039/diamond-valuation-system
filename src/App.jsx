@@ -3,6 +3,8 @@ import RootLayout from "./RootLayout.jsx";
 import CalculatePage from "./components/calculate/CalculatePage.jsx";
 import { Appointment } from "./components/appointment/Appointment.jsx";
 import HomePage from "./components/home_page/HomePage.jsx";
+import DiamondCheckPage from "./components/check_diamond/diamond_check/DiamondCheckPage.jsx";
+import DiamondCheckResultPage from "./components/check_diamond/diamond_check_result/DiamondCheckResultPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -14,12 +16,20 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: "/appointment",
+        element: <Appointment />,
+      },
+      {
         path: "/diamond-calculate",
         element: <CalculatePage />,
       },
       {
-        path: "/appointment",
-        element: <Appointment />,
+        path: "/diamond-check",
+        element: <DiamondCheckPage />,
+      },
+      {
+        path: "/diamond-check/:id",
+        element: <DiamondCheckResultPage />,
       },
     ],
   },
