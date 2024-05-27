@@ -1,18 +1,25 @@
-import { Header } from "./components/Header.jsx";
-import { Footer } from "./components/Footer.jsx";
-import Body from "./components/Body_HomePage.jsx";
-import Supplier from "./components/Supplier.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import RootLayout from "./RootLayout.jsx";
+import CalculateInput from "./components/Calculate/CalculateInput.jsx";
+import { Appointment } from "./components/appointment/Appointment.jsx";
 
-function App() {
-  //vertical center
-  return (
-    <div className="overflow-x-hidden">
-      <Header className="mb-20" />
-      <Body className="my-20" />
-      <Supplier className="mb-20" />
-      <Footer className="mt-10" />
-    </div>
-  );
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/diamond-calculate",
+        element: <CalculateInput />,
+      },
+      {
+        path: "/appointment",
+        element: <Appointment />,
+      },
+    ],
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={router} />;
 }
-
-export default App;
