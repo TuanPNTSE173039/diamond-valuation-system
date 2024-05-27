@@ -12,8 +12,7 @@ export default function Footer() {
         flexWrap: "wrap",
         justifyContent: "space-between",
         padding: "20px 60px",
-        backgroundColor: "gray.100",
-        borderRadius: 1,
+        backgroundColor: "#f1f0f0",
       }}
     >
       <Box sx={{ flex: "1 1 100%", maxWidth: "35%" }}>
