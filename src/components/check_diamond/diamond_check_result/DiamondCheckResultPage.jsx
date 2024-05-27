@@ -2,7 +2,6 @@ import diamond_id from "../../../assets/images/diamond_id.png";
 import DiamondCheckResult from "./DiamondCheckResult";
 
 const DiamondCheckResultPage = () => {
-  // Các giá trị có thể lấy từ cơ sở dữ liệu hoặc tự điền
   const giaId = "2474506136";
   const priceEstimate = "$7,117";
   const estimateRange = "$5,489 - $8,882";
