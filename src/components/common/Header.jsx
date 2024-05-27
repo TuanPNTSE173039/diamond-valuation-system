@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import PersonIcon from "@mui/icons-material/Person";
+import logo from "../../assets/images/logo.png";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -78,20 +78,8 @@ export default function Header() {
         position: "relative",
       }}
     >
-      <Typography
-        variant="h3"
-        component="div"
-        sx={{
-          fontFamily: "Epilogue-Bold, Helvetica",
-          fontWeight: "bold",
-          color: "#171a1f",
-          fontSize: 30,
-          lineHeight: "44px",
-          cursor: "pointer",
-        }}
-      >
-        Logo
-      </Typography>
+      <img src={logo} alt="logo" style={{ width: 70, height: 60, margin: 0 }} />
+
       <Box sx={{ display: "flex", gap: 3, ml: "auto", alignItems: "center" }}>
         <Button
           sx={{
