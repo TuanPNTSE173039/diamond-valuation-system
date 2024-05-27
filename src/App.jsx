@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./RootLayout.jsx";
-import CalculateInput from "./components/Calculate/CalculateInput.jsx";
+import CalculatePage from "./components/calculate/CalculatePage.jsx";
 import { Appointment } from "./components/appointment/Appointment.jsx";
+import HomePage from "./components/home_page/HomePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -9,8 +10,12 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
         path: "/diamond-calculate",
-        element: <CalculateInput />,
+        element: <CalculatePage />,
       },
       {
         path: "/appointment",
