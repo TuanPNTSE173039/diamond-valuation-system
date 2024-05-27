@@ -1,7 +1,7 @@
 import Body_HomePage from "./HomepageImage.jsx";
 import Supplier from "./Supplier.jsx";
 
-function RootLayout() {
+function HomePage() {
   return (
     <div>
       <div style={{ margin: "50px 0" }}>
@@ -14,4 +14,4 @@ function RootLayout() {
   );
 }
 
-export default RootLayout;
+export default HomePage;
