@@ -1,6 +1,6 @@
 import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
 // eslint-disable-next-line react/prop-types
-const DiamondCheckResult = ({
+const DiamondCheckResultForm = ({
   giaId,
   priceEstimate,
   estimateRange,
@@ -150,4 +150,4 @@ const DiamondCheckResult = ({
   );
 };
 
-export default DiamondCheckResult;
+export default DiamondCheckResultForm;
