@@ -2,16 +2,6 @@ import { useState } from "react";
 import { Box, Button } from "@mui/material";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles({
-  noHover: {
-    backgroundColor: "#4F46E5", // This is the original color of the button
-    "&:hover": {
-      backgroundColor: "#4F46E5", // This is the original color of the button
-    },
-  },
-});
 
 const CalculateInputForm = () => {
   const [buttonClick, setButtonClick] = useState({});
