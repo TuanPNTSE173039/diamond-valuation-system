@@ -1,10 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./components/home_page/HomePage.jsx";
-import DiamondCheckPage from "./components/check_diamond/diamond_check/DiamondCheckPage.jsx";
-import DiamondCheckResultPage from "./components/check_diamond/diamond_check_result/DiamondCheckResultPage.jsx";
+import HomePage from "./components/HomePage/HomePage.jsx";
+import Page from "./components/DiamondCheck/CheckInput/Page.jsx";
+import Page from "./components/DiamondCheck/CheckResult/Page.jsx";
 import ScreenAppointmentForm from "./screens/Appointment/Form.jsx";
 import ScreenRootLayout from "./screens/RootLayout.jsx";
 import ScreenCalculatePage from "./screens/Calculate/Page.jsx";
+import ScreenHomePage from "./screens/HomePage.jsx";
+import ScreenDiamondCheckInput from "./screens/DiamondCheck/CheckInput.jsx";
+import ScreenDiamondCheckResult from "./screens/DiamondCheck/CheckResult.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
+        element: <ScreenHomePage />,
       },
       {
         path: "/appointment",
@@ -25,11 +28,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/diamond-check",
-        element: <DiamondCheckPage />,
+        element: <ScreenDiamondCheckInput />,
       },
       {
         path: "/diamond-check/:id",
-        element: <DiamondCheckResultPage />,
+        element: <ScreenDiamondCheckResult />,
       },
     ],
   },
