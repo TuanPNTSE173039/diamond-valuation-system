@@ -13,8 +13,6 @@ const AppointmentForm = () => {
         width: "1440px",
         height: "560px",
         bgcolor: "#717171",
-        borderRadius: "4px",
-        overflow: "hidden",
       }}
     >
       <Box
@@ -37,7 +35,6 @@ const AppointmentForm = () => {
           top: "0px",
           left: "204px",
           bgcolor: "#d8c0989e",
-
           p: 3,
         }}
       >

@@ -8,7 +8,7 @@ import with_clarity from "../../assets/images/with_clarity.png";
 import dreamstone from "../../assets/images/dreamstone.png";
 import whiteflash from "../../assets/images/whiteflash.png";
 
-export default function Supplier({ className }) {
+export default function Supplier() {
   return (
     <Box
       sx={{
@@ -20,8 +20,6 @@ export default function Supplier({ className }) {
         boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
         overflow: "hidden", // To prevent images from overflowing the container
       }}
-      className={className}
-      component="div"
     >
       <img
         src={allurez}
