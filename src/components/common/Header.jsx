@@ -39,7 +39,7 @@ export default function Header() {
       case "Diamond Check":
         navigate("/diamond-check");
         break;
-      case "Diamond calculate":
+      case "Diamond Calculate":
         navigate("/diamond-calculate");
         break;
       case "Rules":
@@ -127,8 +127,8 @@ export default function Header() {
             Diamond Check
           </MenuItem>
           <MenuItem
-            selected={selectedItem === "Diamond calculate"}
-            onClick={() => handleMenuItemClick("Diamond calculate")}
+            selected={selectedItem === "Diamond Calculate"}
+            onClick={() => handleMenuItemClick("Diamond Calculate")}
           >
             Diamond Calculate
           </MenuItem>

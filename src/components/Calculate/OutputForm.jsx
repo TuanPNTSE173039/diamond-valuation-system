@@ -1,4 +1,4 @@
-export const CalculateOutput = () => {
+export const CalculateOutputForm = () => {
   return (
     <div className="relative w-[743px] h-[604px] right-[60px]">
       <div className="w-[747px] h-[604px] top-0 left-0">
@@ -200,3 +200,5 @@ export const CalculateOutput = () => {
     </div>
   );
 };
+
+export default CalculateOutputForm;

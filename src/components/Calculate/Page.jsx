@@ -1,14 +1,14 @@
-import CalculateInput from "./CalculateInput.jsx";
-import { CalculateOutput } from "./CalculateOutput.jsx";
+import CalculateInputForm from "./InputForm.jsx";
+import CalculateOutputForm from "./OutputForm.jsx";
 
 function CalculatePage() {
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <div style={{ marginRight: "50px" }}>
-        <CalculateInput />
+        <CalculateInputForm />
       </div>
       <div>
-        <CalculateOutput />
+        <CalculateOutputForm />
       </div>
     </div>
   );
