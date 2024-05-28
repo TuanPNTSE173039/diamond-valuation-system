@@ -6,26 +6,23 @@ export default function Poster() {
       <Box
           sx={{
             position: 'relative',
-            width: '100%',
-            height: 560,
+            height: "560px",
             bgcolor: '#717171',
-            borderRadius: 4,
           }}
       >
-        <Box
-            sx={{
-              position: 'absolute',
-              width: 681,
-              height: 555,
-              top: 5,
-              left: 5,
-            }}
-        >
-            <img
-                alt="Image"
-                src={diamond}
-            />
-        </Box>
+          <Box
+              component="img"
+              src={diamond}
+              alt="Diamond"
+              sx={{
+                  position: "absolute",
+                  width: "681px",
+                  height: "555px",
+                  top: "5px",
+                  left: "753px",
+              }}
+          />
+
       </Box>
   );
 }
