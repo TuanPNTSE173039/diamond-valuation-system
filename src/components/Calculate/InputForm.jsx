@@ -6,8 +6,6 @@ import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 const CalculateInputForm = () => {
   const [buttonClick, setButtonClick] = useState({});
 
-  const classes = useStyles();
-
   const handleClick = (buttonName) => {
     setButtonClick((prevState) => {
       // First, create a new object where all button colors are set to "default"
@@ -59,7 +57,6 @@ const CalculateInputForm = () => {
               DIAMOND ORIGIN
             </Box>
             <Button
-              //className={classes.noHover}
               onClick={() => handleClick("natual")}
               sx={{
                 width: 190,
