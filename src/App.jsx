@@ -1,7 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./components/HomePage/HomePage.jsx";
-import Page from "./components/DiamondCheck/CheckInput/Page.jsx";
-import Page from "./components/DiamondCheck/CheckResult/Page.jsx";
+
 import ScreenAppointmentForm from "./screens/Appointment/Form.jsx";
 import ScreenRootLayout from "./screens/RootLayout.jsx";
 import ScreenCalculatePage from "./screens/Calculate/Page.jsx";
