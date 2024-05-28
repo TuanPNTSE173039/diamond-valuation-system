@@ -36,7 +36,7 @@ export default function Header() {
     handleClose(); // Close menu after selection
     // Perform navigation based on the selected text here
     switch (text) {
-      case "Diamond Check":
+      case "Diamond CheckInput":
         navigate("/diamond-check");
         break;
       case "Diamond Calculate":
@@ -121,8 +121,8 @@ export default function Header() {
         </Button>
         <Menu anchorEl={anchorEl} open={openMenu} onClose={handleClose}>
           <MenuItem
-            selected={selectedItem === "Diamond Check"}
-            onClick={() => handleMenuItemClick("Diamond Check")}
+            selected={selectedItem === "Diamond CheckInput"}
+            onClick={() => handleMenuItemClick("Diamond CheckInput")}
           >
             Diamond Check
           </MenuItem>
