@@ -6,7 +6,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import PersonIcon from "@mui/icons-material/Person";
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
+import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import logo from "../../assets/images/logo.png";
 
 export default function Header() {
@@ -76,11 +79,12 @@ export default function Header() {
         padding: "10px 60px",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
         position: "relative",
+          justifyItems: "center",
       }}
     >
       <img src={logo} alt="logo" style={{ width: 70, height: 60, margin: 0 }} />
 
-      <Box sx={{ display: "flex", gap: 3, ml: "auto", alignItems: "center" }}>
+          <Box sx={{display: "flex", justifyContent: "center", flex: 1, gap: 3}}>
         <Button
           sx={{
             color: "#3e6272",
@@ -139,18 +143,7 @@ export default function Header() {
             Rules
           </MenuItem>
         </Menu>
-        <Button
-          sx={{
-            color: "#3e6272",
-            textTransform: "none",
-            fontSize: 16,
-            "&:hover": {
-              color: "#000",
-            },
-          }}
-        >
-          PRICES
-        </Button>
+
         <Button
           sx={{
             color: "#3e6272",
@@ -163,6 +156,8 @@ export default function Header() {
         >
           POST
         </Button>
+          </Box>
+          <Box sx={{ display: "flex", gap: 1, alignItems: "center", justifyContent: "flex-end"  }}>
         <Button
           onClick={() => handleMenuItemClick("Appointment")}
           variant="outlined"
@@ -208,11 +203,18 @@ export default function Header() {
             },
           }}
         >
-          <PersonIcon sx={{ fontSize: 30 }} />
+          <AccountCircleOutlinedIcon sx={{ fontSize: 30 }} />
         </Button>
         <Menu anchorEl={profileEl} open={openProfileMenu} onClose={handleClose}>
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+          <MenuItem onClick={handleClose}><Box mr={1}>
+              <PermIdentityOutlinedIcon />
+          </Box> Profile</MenuItem>
+            <MenuItem onClick={handleClose}><Box mr={1}>
+                <AccountBoxOutlinedIcon />
+            </Box> Manager Account</MenuItem>
+          <MenuItem onClick={handleClose}><Box mr={1}>
+              <LogoutOutlinedIcon />
+          </Box> Logout</MenuItem>
         </Menu>
       </Box>
     </Box>
