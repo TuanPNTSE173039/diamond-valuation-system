@@ -1,5 +1,5 @@
 import diamond_id from "../../../assets/images/diamond_id.png";
-import DiamondCheckResult from "./DiamondCheckResult";
+import Form from "./Form.jsx";
 
 const DiamondCheckResultPage = () => {
   const giaId = "2474506136";
@@ -19,7 +19,7 @@ const DiamondCheckResultPage = () => {
 
   return (
     <div>
-      <DiamondCheckResult
+      <Form
         giaId={giaId}
         priceEstimate={priceEstimate}
         estimateRange={estimateRange}
