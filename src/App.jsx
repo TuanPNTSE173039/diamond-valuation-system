@@ -13,23 +13,23 @@ const router = createBrowserRouter([
     element: <ScreenRootLayout />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <ScreenHomePage />,
       },
       {
-        path: "/appointment",
+        path: "appointment",
         element: <ScreenAppointmentForm />,
       },
       {
-        path: "/diamond-calculate",
+        path: "diamond-calculate",
         element: <ScreenCalculatePage />,
       },
       {
-        path: "/diamond-check",
+        path: "diamond-check",
         element: <ScreenDiamondCheckInput />,
       },
       {
-        path: "/diamond-check/:id",
+        path: "diamond-check/:id",
         element: <ScreenDiamondCheckResult />,
       },
     ],

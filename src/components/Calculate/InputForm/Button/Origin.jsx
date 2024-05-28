@@ -4,7 +4,7 @@ import {Box, Button} from "@mui/material";
 const OriginButton = ({onClick, buttonName, icon, state, children}) => {
     return (
         <Button
-            onClick={onClick()}
+            onClick={onClick}
             sx={{
                 width: "45%",
                 height: 37,
