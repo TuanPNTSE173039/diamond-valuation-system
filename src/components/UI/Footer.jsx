@@ -108,20 +108,9 @@ export default function Footer() {
             mb: 1,
           }}
         >
-          Lab Grown Diamonds
+            Price &amp; Quality Check
         </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: "Inter-Regular, Helvetica",
-            fontSize: 16,
-            color: "#9095a0",
-            lineHeight: "26px",
-            mb: 1,
-          }}
-        >
-          Price &amp; Quality Check
-        </Typography>
+
       </Box>
       <Box sx={{ flex: "1 1 auto", maxWidth: "25%" }}>
         <Typography
@@ -158,7 +147,7 @@ export default function Footer() {
             mb: 1,
           }}
         >
-          0.7 Carat Prices
+          1 Carat Prices
         </Typography>
         <Typography
           variant="body1"
@@ -170,19 +159,9 @@ export default function Footer() {
             mb: 1,
           }}
         >
-          1 Carat Prices
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: "Inter-Regular, Helvetica",
-            fontSize: 16,
-            color: "#9095a0",
-            lineHeight: "26px",
-          }}
-        >
           2 Carat Prices
         </Typography>
+
       </Box>
       <Box sx={{ flex: "1 1 auto", maxWidth: "25%" }}>
         <Typography
@@ -207,44 +186,11 @@ export default function Footer() {
             mb: 1,
           }}
         >
-          Guides
+            Blog
         </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: "Inter-Regular, Helvetica",
-            fontSize: 16,
-            color: "#9095a0",
-            lineHeight: "26px",
-            mb: 1,
-          }}
-        >
-          Blog
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: "Inter-Regular, Helvetica",
-            fontSize: 16,
-            color: "#9095a0",
-            lineHeight: "26px",
-            mb: 1,
-          }}
-        >
-          Partners
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: "Inter-Regular, Helvetica",
-            fontSize: 16,
-            color: "#9095a0",
-            lineHeight: "26px",
-          }}
-        >
-          Local Jewelers
-        </Typography>
+
       </Box>
+
       <Box sx={{ flex: "1 1 auto", maxWidth: "25%" }}>
         <Typography
           variant="body1"
@@ -279,9 +225,10 @@ export default function Footer() {
             lineHeight: "26px",
           }}
         >
-          Privacy
+          Rules
         </Typography>
       </Box>
+
     </Box>
   );
 }
