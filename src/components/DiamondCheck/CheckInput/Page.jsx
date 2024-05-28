@@ -1,7 +1,7 @@
-import DiamondCheckerBox from "./DiamondCheckerBox.jsx";
+import DiamondCheckInputForm from "./Form.jsx";
 import check_diamond_img from "../../../assets/images/check_diamond_img.png";
 
-const DiamondCheckPage = () => {
+const DiamondCheckInputPage = () => {
   return (
     <div
       style={{
@@ -11,7 +11,7 @@ const DiamondCheckPage = () => {
       }}
     >
       <div style={{ margin: "auto 0" }}>
-        <DiamondCheckerBox />
+        <DiamondCheckInputForm />
       </div>
       <div style={{ marginRight: "200px" }}>
         <img
@@ -24,4 +24,4 @@ const DiamondCheckPage = () => {
   );
 };
 
-export default DiamondCheckPage;
+export default DiamondCheckInputPage;
