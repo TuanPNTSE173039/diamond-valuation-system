@@ -66,29 +66,23 @@ const CalculateInputForm = () => {
                 left: 8,
                 backgroundColor:
                   buttonClick["natual"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+               ":hover": { bgcolor: "#4F46E5", color: "white" },
+                fontFamily: "Inter-Regular, Helvetica",
+                color:
+                    buttonClick["natual"] === "clicked" ? "white" : "#171a1f",
+                fontSize: 12,
               }}
             >
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: 10,
-                  left: 40,
-                  fontFamily: "Inter-Regular, Helvetica",
-                  fontWeight: "normal",
-                  color:
-                    buttonClick["natual"] === "clicked" ? "white" : "#171a1f",
-                  fontSize: 12,
-                }}
-              >
+
                 NATURAL
-              </Box>
+
               <PublicOutlinedIcon
                 sx={{
                   position: "absolute",
                   width: 20,
                   height: 20,
                   top: 8,
-                  left: 8,
+                  left: 10,
                 }}
               />
             </Button>
@@ -102,25 +96,16 @@ const CalculateInputForm = () => {
                 left: 202,
                 backgroundColor:
                   buttonClick["labGrown"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                ":hover": { bgcolor: "#4F46E5" },
+               ":hover": { bgcolor: "#4F46E5", color: "white" },
+                fontFamily: "Inter-Regular, Helvetica",
+                color:
+                    buttonClick["labGrown"] === "clicked" ? "white" : "#171a1f",
+                fontSize: 12,
               }}
             >
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: 10,
-                  left: 40,
-                  fontFamily: "Inter-Regular, Helvetica",
-                  fontWeight: "normal",
-                  color:
-                    buttonClick["labGrown"] === "clicked" ? "white" : "#171a1f",
-                  fontSize: 12,
-                  lineHeight: "20px",
-                  whiteSpace: "nowrap",
-                }}
-              >
+
                 LAB GROWN
-              </Box>
+              
               <ScienceOutlinedIcon
                 sx={{
                   position: "absolute",
@@ -132,115 +117,218 @@ const CalculateInputForm = () => {
               />
             </Button>
           </Box>
-          <div>
-            <div className="absolute top-[138px] left-[6px] [font-family:'Inter-Regular',Helvetica] font-normal text-[#9095a0] text-[14px]leading-[22px] whitespace-nowrap">
+          <Box>
+            <Box sx={{
+              position: 'absolute',
+              top: 138,
+              left: 6,
+              fontFamily: 'Inter-Regular,Helvetica',
+              color: '#9095a0',
+              fontSize: 14,
+              lineHeight: '22px',
+              whiteSpace: 'nowrap' }}>
               SHAPE
-            </div>
-            <button
-              onClick={() => handleClick("heart")}
-              className={`w-[71px] h-[33px] top-[204px] left-[312px] absolute rounded-[4px] ${buttonClick["heart"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            </Box>
+            <Button
+                onClick={() => handleClick("heart")}
+                sx={{
+                  width: 71,
+                  height: 33,
+                  position: 'absolute',
+                  top: 204, left: 312,
+                  
+                  backgroundColor: buttonClick["heart"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 10,
+                  color: buttonClick["pear"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[7px] left-[21px] [font-family:'Inter-Regular',Helvetica] font-normal text-[10px] text-center whitespace-nowrap ${buttonClick["heart"] === "clicked" ? "text-white" : "text-[#171a1f]"}`}
-              >
+
                 HEART
-              </div>
-            </button>
-            <button
-              onClick={() => handleClick("princess")}
-              className={`w-[71px] h-[33px] top-[166px] left-[312px] absolute rounded-[4px] ${buttonClick["princess"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"} shadow-[0px_0px_1px_#171a1f2,0px_0px_2px_#171a1f1f]`}
+
+            </Button>
+            <Button
+                onClick={() => handleClick("princess")}
+                sx={{
+                  width: 71,
+                  height: 33,
+                  position: 'absolute',
+                  top: 166,
+                  left: 312,
+                  backgroundColor: buttonClick["princess"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 10,
+                  color: buttonClick["pear"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[7px] left-[13px] [font-family:'Inter-Regular',Helvetica] font-normal text-[10px] text-center whitespace-nowrap ${buttonClick["princess"] === "clicked" ? "text-white" : "text-[#171a1f]"}`}
-              >
+
                 PRINCESS
-              </div>
-            </button>
-            <button
-              onClick={() => handleClick("asscher")}
-              className={`w-[71px] h-[33px] top-[204px] left-[236px] absolute rounded-[4px] ${buttonClick["asscher"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+
+            </Button>
+            <Button
+                onClick={() => handleClick("asscher")}
+                sx={{
+                  width: 71,
+                  height: 33,
+                  position: 'absolute',
+                  top: 204,
+                  left: 236,
+                  backgroundColor: buttonClick["asscher"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                  
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 10,
+                  color: buttonClick["pear"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[7px] left-[14px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["asscher"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[10px] text-center whitespace-nowrap`}
-              >
+
                 ASSCHER
-              </div>
-            </button>
-            <button
-              onClick={() => handleClick("oval")}
-              className={`w-[71px] h-[33px] top-[166px] left-[236px] absolute rounded-[4px] ${buttonClick["oval"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+
+            </Button>
+            <Button
+                onClick={() => handleClick("oval")}
+                sx={{
+                  width: 71,
+                  height: 33,
+                  position: 'absolute',
+                  top: 166,
+                  left: 236,
+                  backgroundColor: buttonClick["oval"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                  
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 10,
+                  color: buttonClick["pear"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[7px] left-[24px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["oval"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[10px] text-center whitespace-nowrap`}
-              >
+
                 OVAL
-              </div>
-            </button>
-            <button
-              onClick={() => handleClick("marquise")}
-              className={`w-[71px] h-[33px] top-[204px] left-[160px] absolute rounded-[4px] ${buttonClick["marquise"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+
+            </Button>
+
+            <Button
+                onClick={() => handleClick("marquise")}
+                sx={{
+                  width: 71,
+                  height: 33,
+                  position: 'absolute',
+                  top: 204,
+                  left: 160,
+                  backgroundColor: buttonClick["marquise"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                  
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 10,
+                  color: buttonClick["pear"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`left-[11px] absolute top-[7px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["marquise"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[10px] text-center whitespace-nowrap`}
-              >
+
                 MARQUISE
-              </div>
-            </button>
-            <button
-              onClick={() => handleClick("emerald")}
-              className={`w-[71px] h-[33px] top-[166px] left-[160px] absolute rounded-[4px] ${buttonClick["emerald"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            </Button>
+
+            <Button
+                onClick={() => handleClick("emerald")}
+                sx={{
+                  width: 71,
+                  height: 33,
+                  position: 'absolute',
+                  top: 166,
+                  left: 160,
+                  backgroundColor: buttonClick["emerald"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                  
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 10,
+                  color: buttonClick["pear"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`left-[14px] absolute top-[7px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["emerald"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[10px] text-center whitespace-nowrap`}
-              >
+
                 EMERALD
-              </div>
-            </button>
 
-            <button
-              onClick={() => handleClick("pear")}
-              className={`w-[71px] h-[33px] top-[204px] left-[9px] absolute rounded-[4px] ${buttonClick["pear"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            </Button>
+
+
+            <Button
+                onClick={() => handleClick("pear")}
+                sx={{
+                  width: 71,
+                  height: 33,
+                  position: 'absolute',
+                  top: 204,
+                  left: 9,
+                  backgroundColor: buttonClick["pear"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                  
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 10,
+                  color: buttonClick["pear"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[7px] left-[23px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["pear"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[10px] text-center whitespace-nowrap`}
-              >
+
                 PEAR
-              </div>
-            </button>
 
-            <button
-              onClick={() => handleClick("radiant")}
-              className={`w-[71px] h-[33px] top-[204px] left-[85px] absolute rounded-[4px] ${buttonClick["radiant"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            </Button>
+            <Button
+                onClick={() => handleClick("radiant")}
+                sx={{
+                  width: 71,
+                  height: 33,
+                  position: 'absolute',
+                  top: 204,
+                  left: 85,
+                  backgroundColor: buttonClick["radiant"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                  
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 10,
+                  color: buttonClick["round"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[7px] left-[14px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["radiant"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[10px] text-center whitespace-nowrap`}
-              >
+
                 RADIANT
-              </div>
-            </button>
-
-            <button
-              onClick={() => handleClick("cushion")}
-              className={`w-[71px] h-[33px] top-[166px] left-[85px] absolute rounded-[4px] ${buttonClick["cushion"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            </Button>
+            <Button
+                onClick={() => handleClick("cushion")}
+                sx={{
+                  width: 71,
+                  height: 33,
+                  position: 'absolute',
+                  top: 166,
+                  left: 85,
+                  backgroundColor: buttonClick["cushion"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                  
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 10,
+                  color: buttonClick["round"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[7px] left-[13px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["cushion"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[10px] text-center whitespace-nowrap`}
-              >
+
                 CUSHION
-              </div>
-            </button>
-
-            <button
-              onClick={() => handleClick("round")}
-              className={`w-[70px] h-[32px] top-[166px] left-[10px] absolute rounded-[4px] ${buttonClick["round"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            </Button>
+            <Button
+                onClick={() => handleClick("round")}
+                sx={{
+                  width: 70,
+                  height: 32,
+                  position: 'absolute',
+                  top: 166,
+                  left: 10,
+                  backgroundColor: buttonClick["round"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 10,
+                    color: buttonClick["round"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[7px] left-[17px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["round"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[10px] text-center whitespace-nowrap`}
-              >
+
                 ROUND
-              </div>
-            </button>
-          </div>
+
+            </Button>
+
+          </Box>
 
           <div>
             <div className="absolute top-[252px] left-[7px] [font-family:'Inter-Regular',Helvetica] font-normal text-[#9095a0] text-[14px] leading-[22px] whitespace-nowrap">
@@ -261,189 +349,329 @@ const CalculateInputForm = () => {
             </div>
           </div>
 
-          <div>
-            <div className="absolute top-[348px] left-[7px] [font-family:'Inter-Regular',Helvetica] font-normal text-[#9095a0] text-[14px] leading-[22px] whitespace-nowrap">
+          <Box>
+            <Box sx={{ position: 'absolute', top: 348, left: 7, fontFamily: 'Inter-Regular,Helvetica', fontSize: 14, color: '#9095a0', whiteSpace: 'nowrap' }}>
               COLOR
-            </div>
-            <button
-              onClick={() => handleClick("d")}
-              className={`w-[90px] h-[33px] top-[414px] left-[293px] absolute rounded-[4px] ${buttonClick["d"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            </Box>
+            <Button
+                onClick={() => handleClick("d")}
+                sx={{
+                  width: 90,
+                  height: 33,
+                  position: 'absolute',
+                  top: 414,
+                  left: 293,
+                  
+                  backgroundColor: buttonClick["d"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 14,
+                  color: buttonClick["k"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[6px] left-[42px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["d"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[22px] whitespace-nowrap`}
-              >
-                D
-              </div>
-            </button>
+              D
+            </Button>
 
-            <button
-              onClick={() => handleClick("h")}
-              className={`w-[90px] h-[33px] top-[376px] left-[293px] absolute rounded-[4px] ${buttonClick["h"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            <Button
+                onClick={() => handleClick("h")}
+                sx={{
+                  width: 90,
+                  height: 33,
+                  position: 'absolute',
+                  top: 376,
+                  left: 293,
+                  
+                  backgroundColor: buttonClick["h"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 14,
+                  color: buttonClick["k"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[6px] left-[42px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["h"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[22px] whitespace-nowrap`}
-              >
-                H
-              </div>
-            </button>
+              H
+            </Button>
 
-            <button
-              onClick={() => handleClick("e")}
-              className={`w-[90px] h-[33px] top-[414px] left-[198px] absolute rounded-[4px] ${buttonClick["e"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
-            >
-              <div
-                className={`absolute top-[6px] left-[41px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["e"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[22px] whitespace-nowrap`}
-              >
-                E
-              </div>
-            </button>
 
-            <button
-              onClick={() => handleClick("k")}
-              className={`w-[90px] h-[33px] top-[376px] left-[9px] absolute rounded-[4px] ${buttonClick["k"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            <Button
+                onClick={() => handleClick("e")}
+                sx={{
+                  width: 90,
+                  height: 33,
+                  position: 'absolute',
+                  top: 414,
+                  left: 198,
+                  
+                  backgroundColor: buttonClick["e"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 14,
+                  color: buttonClick["k"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[6px] left-[41px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["k"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[22px] whitespace-nowrap`}
-              >
+              E
+            </Button>
+            <Button
+                onClick={() => handleClick("k")}
+                sx={{
+                  width: 90,
+                  height: 33,
+                  position: 'absolute',
+                  top: 376,
+                  left: 9,
+                  
+                  backgroundColor: buttonClick["k"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 14,
+                  color: buttonClick["k"] === "clicked" ? "white" : "#171a1f",
+                }}
+            >
+
                 K
-              </div>
-            </button>
 
-            <button
-              onClick={() => handleClick("f")}
-              className={`w-[90px] h-[33px] top-[414px] left-[104px] absolute rounded-[4px] ${buttonClick["f"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            </Button>
+
+            <Button
+                onClick={() => handleClick("f")}
+                sx={{
+                  width: 90,
+                  height: 33,
+                  position: 'absolute',
+                  top: 414,
+                  left: 104,
+                  
+                  backgroundColor: buttonClick["f"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 14,
+                  color: buttonClick["f"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[6px] left-[42px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["f"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[22px] whitespace-nowrap`}
-              >
+
                 F
-              </div>
-            </button>
+            </Button>
 
-            <button
-              onClick={() => handleClick("j")}
-              className={`w-[90px] h-[33px] top-[376px] left-[104px] absolute rounded-[4px] ${buttonClick["j"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
-            >
-              <div
-                className={`absolute top-[6px] left-[41px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["j"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[22px] whitespace-nowrap`}
-              >
+
+            <Button
+                onClick={() => handleClick("j")}
+                sx={{
+                  width: 90,
+                  height: 33,
+                  position: 'absolute',
+                  top: 376,
+                  left: 104,
+                  
+                  backgroundColor: buttonClick["j"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 14,
+                  color: buttonClick["j"] === "clicked" ? "white" : "#171a1f",
+                }}
+>
                 J
-              </div>
-            </button>
+            </Button>
 
-            <button
-              onClick={() => handleClick("g")}
-              className={`w-[89px] h-[33px] top-[414px] left-[10px] absolute rounded-[4px] ${buttonClick["g"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+
+            <Button
+                onClick={() => handleClick("g")}
+                sx={{
+                  width: 89,
+                  height: 33,
+                  position: 'absolute',
+                  top: 414,
+                  left: 10,
+                  backgroundColor: buttonClick["g"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: 14,
+                  color: buttonClick["g"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[9px] left-[39px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["g"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[14px] whitespace-nowrap`}
-              >
                 G
-              </div>
-            </button>
+            </Button>
 
-            <button
-              onClick={() => handleClick("i")}
-              className={`absolute w-[90px] h-[33px] top-[376px] left-[198px] rounded-[4px] ${buttonClick["i"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            <Button
+                onClick={() => handleClick("i")}
+                sx={{
+                  width: "90px",
+                  height: "33px",
+                  position: 'absolute',
+                  top: "376px",
+                  left: "198px",
+                  backgroundColor: buttonClick["i"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: "14px",
+                  color: buttonClick["i"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div className="absolute top-[6px] left-[43px] [font-family:'Inter-Regular',Helvetica] font-normal text-[#171a1f] text-[14px] leading-[22px] whitespace-nowrap">
-                I
-              </div>
-            </button>
-          </div>
+              I
+            </Button>
+          </Box>
 
-          <div>
-            <div className="absolute top-[462px] left-[7px] [font-family:'Inter-Regular',Helvetica] font-normal text-[#9095a0] text-[14px] leading-[22px] whitespace-nowrap">
+          <Box>
+            <Box
+                sx={{
+                  position: 'absolute',
+                  top: '462px',
+                  left: '7px',
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: '14px',
+                  color: '#9095a0',
+                  lineHeight: '22px',
+                  whiteSpace: 'nowrap',
+                }}
+            >
               CLARITY
-            </div>
-            <button
-              onClick={() => handleClick("fl")}
-              className={`w-[90px] h-[33px] top-[528px] left-[293px] absolute rounded-[4px] ${buttonClick["fl"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            </Box>
+            <Button
+                onClick={() => handleClick("fl")}
+                sx={{
+                  width: '90px',
+                  height: '33px',
+                  position: 'absolute',
+                  top: '528px',
+                  left: '293px',
+                  backgroundColor: buttonClick["fl"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: '14px',
+                  color: buttonClick["fl"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[5px] left-[37px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["fl"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[22px] whitespace-nowrap`}
-              >
-                FL
-              </div>
-            </button>
+              FL
+            </Button>
 
-            <button
-              onClick={() => handleClick("vs1")}
-              className={`w-[90px] h-[33px] top-[490px] left-[293px] absolute rounded-[4px] ${buttonClick["vs1"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            <Button
+                onClick={() => handleClick("vs1")}
+                sx={{
+                  width: '90px',
+                  height: '33px',
+                  position: 'absolute',
+                  top: '490px',
+                  left: '293px',
+                  backgroundColor: buttonClick["vs1"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: '14px',
+                  color: buttonClick["vs1"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[6px] left-[33px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["vs1"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[20px] whitespace-nowrap`}
-              >
-                VS1
-              </div>
-            </button>
+              VS1
+            </Button>
 
-            <button
-              onClick={() => handleClick("if")}
-              className={`w-[90px] h-[33px] top-[528px] left-[198px] absolute rounded-[4px] ${buttonClick["if"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            <Button
+                onClick={() => handleClick("if")}
+                sx={{
+                  width: '90px',
+                  height: '33px',
+                  position: 'absolute',
+                  top: '528px',
+                  left: '198px',
+                  backgroundColor: buttonClick["if"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: '14px',
+                  color: buttonClick["if"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[5px] left-[39px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["if"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[22px] whitespace-nowrap`}
-              >
-                IF
-              </div>
-            </button>
+              IF
+            </Button>
 
-            <button
-              onClick={() => handleClick("vvs2")}
-              className={`w-[90px] h-[33px] top-[528px] left-[9px] absolute rounded-[4px] ${buttonClick["vvs2"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            <Button
+                onClick={() => handleClick("vvs2")}
+                sx={{
+                  width: '90px',
+                  height: '33px',
+                  position: 'absolute',
+                  top: '528px',
+                  left: '9px',
+                  backgroundColor: buttonClick["vvs2"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: '14px',
+                  color: buttonClick["vvs2"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[8px] left-[28px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["vvs2"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] text-center whitespace-nowrap`}
-              >
-                VVS2
-              </div>
-            </button>
+              VVS2
+            </Button>
 
-            <button
-              onClick={() => handleClick("si2")}
-              className={`w-[90px] h-[33px] top-[490px] left-[9px] absolute rounded-[4px] ${buttonClick["si2"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            <Button
+                onClick={() => handleClick("si2")}
+                sx={{
+                  width: '90px',
+                  height: '33px',
+                  position: 'absolute',
+                  top: '490px',
+                  left: '9px',
+                  backgroundColor: buttonClick["si2"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: '14px',
+                  color: buttonClick["si2"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[6px] left-[34px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["si2"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[22px] whitespace-nowrap`}
-              >
-                SI2
-              </div>
-            </button>
+              SI2
+            </Button>
 
-            <button
-              onClick={() => handleClick("vvs1")}
-              className={`w-[90px] h-[33px] top-[528px] left-[104px] absolute rounded-[4px] ${buttonClick["vvs1"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
-            >
-              <div
-                className={`absolute top-[8px] left-[28px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["vvs1"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] whitespace-nowrap`}
-              >
-                VVS1
-              </div>
-            </button>
 
-            <button
-              onClick={() => handleClick("sl1")}
-              className={`w-[90px] h-[33px] top-[490px] left-[104px] absolute rounded-[4px] ${buttonClick["sl1"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+            <Button
+                onClick={() => handleClick("vvs1")}
+                sx={{
+                  width: '90px',
+                  height: '33px',
+                  position: 'absolute',
+                  top: '528px',
+                  left: '104px',
+                  backgroundColor: buttonClick["vvs1"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: '14px',
+                  color: buttonClick["vvs1"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[6px] left-[36px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["sl1"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[22px] whitespace-nowrap`}
-              >
-                SL1
-              </div>
-            </button>
+              VVS1
+            </Button>
 
-            <button
-              onClick={() => handleClick("vs2")}
-              className={`w-[89px] h-[32px] top-[490px] left-[199px] absolute rounded-[4px] ${buttonClick["vs2"] === "clicked" ? "bg-indigo-600" : "bg-gray-100"}`}
+
+            <Button
+                onClick={() => handleClick("sl1")}
+                sx={{
+                  width: '90px',
+                  height: '33px',
+                  position: 'absolute',
+                  top: '490px',
+                  left: '104px',
+                  backgroundColor: buttonClick["sl1"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: '14px',
+                  color: buttonClick["sl1"] === "clicked" ? "white" : "#171a1f",
+                }}
             >
-              <div
-                className={`absolute top-[9px] left-[32px] [font-family:'Inter-Regular',Helvetica] font-normal ${buttonClick["vs2"] === "clicked" ? "text-white" : "text-[#171a1f]"} text-[14px] leading-[14px] whitespace-nowrap`}
-              >
-                VS2
-              </div>
-            </button>
-          </div>
+              SL1
+            </Button>
+
+
+            <Button
+                onClick={() => handleClick("vs2")}
+                sx={{
+                  width: '89px',
+                  height: '32px',
+                  position: 'absolute',
+                  top: '490px',
+                  left: '199px',
+                  backgroundColor: buttonClick["vs2"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                 ":hover": { bgcolor: "#4F46E5", color: "white" },
+                  fontFamily: 'Inter-Regular,Helvetica',
+                  fontSize: '14px',
+                  color: buttonClick["vs2"] === "clicked" ? "white" : "#171a1f",
+                }}
+            >
+              VS2
+            </Button>
+
+          </Box>
 
           <button className="all-[unset] box-border w-[380px] h-[40px] top-[581px] left-[6px] rounded-[4px] absolute bg-indigo-600 overflow-hidden">
             <div className="absolute top-[8px] left-[165px] [font-family:'Inter-Regular',Helvetica] font-normal text-white text-[15px] leading-[23px] whitespace-nowrap">
