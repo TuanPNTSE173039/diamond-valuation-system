@@ -1,7 +1,7 @@
 //import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const DiamondCheckerBox = () => {
+const DiamondCheckInputForm = () => {
   //const [certificateId, setCertificateId] = useState("");
   const navigate = useNavigate();
 
@@ -49,4 +49,4 @@ const DiamondCheckerBox = () => {
   );
 };
 
-export default DiamondCheckerBox;
+export default DiamondCheckInputForm;
