@@ -1,5 +1,8 @@
 //import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {Box, Typography} from "@mui/material";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const DiamondCheckInputForm = () => {
   //const [certificateId, setCertificateId] = useState("");
@@ -9,43 +12,97 @@ const DiamondCheckInputForm = () => {
     // if (certificateId.trim()) {
     //   //navigate(`/diamond-check/${certificateId}`);
     // }
-    navigate("/diamond-check/:id");
+    navigate("/check/id");
   };
 
   return (
-    <div className="relative left-[130px]">
-      <div className="w-[674px] h-[302px] ">
-        <div className="absolute w-[590px] h-[123px] left-[5px]">
-          <div className="absolute w-[590px] [font-family:'Epilogue-Bold',Helvetica] font-bold text-[#171a1f] text-[50px] ">
-            Check any diamond&#39;s
-          </div>
-          <div className="absolute w-[500px] top-[45px] [font-family:'Epilogue-Bold',Helvetica] font-bold text-[#828df6] text-[45px] ">
-            price &amp; quality
-          </div>
-        </div>
-        <p className="absolute w-[663px] top-[130px] left-[5px] [font-family:'Inter-Regular',Helvetica] font-normal text-[#171a1f] text-[17px] tracking-[0] leading-[26px]">
-          Transact with confidence -- get fair price, cut score, visual carat
-          and more for free
-        </p>
-        <div className="absolute w-[462px] h-[50px] top-[195px] -left-px bg-white rounded-[4px] border border-solid border-[#9095a0]">
-          <input
-            className="absolute top-[11px] left-[20px] w-[422px] h-[28px] [font-family:'Inter-Regular',Helvetica] font-normal text-black text-[16px] tracking-[0] leading-[26px] outline-none bg-transparent"
-            // value={certificateId}
-            // onChange={(e) => setCertificateId(e.target.value)}
-            type="text"
-            placeholder="Enter Certificate ID"
-          />
-        </div>
-        <button
-          onClick={handleCheck}
-          className="all-[unset] box-border absolute w-[151px] h-[50px] top-[195px] left-[471px] bg-[#6366f2] rounded-[4px] overflow-hidden"
-        >
-          <div className="absolute top-[11px] left-[18px] [font-family:'Inter-Regular',Helvetica] font-normal text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap">
-            Run free check
-          </div>
-        </button>
-      </div>
-    </div>
+      <Box position="relative" width={674} height={302} left={130}>
+          <Box position="absolute" width={590} height={123} left={5}>
+            <Typography
+                fontFamily="'Epilogue-Bold', Helvetica"
+                fontWeight="bold"
+                color="#171a1f"
+                fontSize={50}
+            >
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
+              Check any diamond's
+            </Typography>
+            <Typography
+                width={500}
+                position="absolute"
+                top={48}
+                fontFamily="'Epilogue-Bold', Helvetica"
+                fontWeight="bold"
+                color="#828df6"
+                fontSize={45}
+                left={5}
+            >
+              price &amp; quality
+            </Typography>
+          </Box>
+          <Typography
+              position="absolute"
+              width={663}
+              top={130}
+              left={5}
+              fontFamily="'Inter-Regular', Helvetica"
+              color="#171a1f"
+              fontSize={17}
+          >
+            Transact with confidence -- get fair price, cut score, visual carat and more for free
+          </Typography>
+          <Box
+              position="absolute"
+              width={462}
+              height={50}
+              top={195}
+              left={0}
+              bgcolor="white"
+              borderRadius={1}
+              border="1px solid #9095a0"
+          >
+            <TextField
+               // value={certificateId}
+               // onChange={(e) => setCertificateId(e.target.value)}
+                variant="standard"
+                placeholder="Enter Certificate ID"
+                fullWidth
+                InputProps={{
+                  disableUnderline: true,
+                  style: {
+                    paddingLeft: 20,
+                    paddingTop: 8,
+                    fontFamily: "'Inter-Regular', Helvetica",
+                    color: "black",
+                    fontSize: 16,
+                  },
+                }}
+            />
+          </Box>
+          <Button
+              onClick={handleCheck}
+              sx={{
+                position: 'absolute',
+                width: 151,
+                height: 50,
+                top: 195,
+                left: 471,
+                backgroundColor: '#6366f2',
+                borderRadius: 1,
+                textTransform: 'none',
+                ':hover': { backgroundColor: '#6366f2' },
+              }}
+          >
+            <Typography
+                fontFamily="'Inter-Regular', Helvetica"
+                color="white"
+                fontSize={16}
+                lineHeight="26px"
+            >
+              Run free check
+            </Typography>
+          </Button>
+      </Box>
   );
 };
 
