@@ -40,10 +40,10 @@ export default function Header() {
     // Perform navigation based on the selected text here
     switch (text) {
       case "Diamond CheckInput":
-        navigate("/diamond-check");
+        navigate("/check");
         break;
       case "Diamond Calculate":
-        navigate("/diamond-calculate");
+        navigate("/calculate");
         break;
       case "Rules":
         navigate("/rules");
