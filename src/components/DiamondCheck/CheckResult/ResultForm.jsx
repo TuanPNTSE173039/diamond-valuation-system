@@ -4,7 +4,7 @@ const DiamondCheckResultForm = ({
   giaId,
   priceEstimate,
   estimateRange,
-  imageSrc,
+
   cut_score,
   visual_carat,
   shape,
@@ -17,18 +17,8 @@ const DiamondCheckResultForm = ({
   lab,
 }) => {
   return (
-    <div className="relative w-[1440px] h-[626px] bg-white rounded-[4px]">
-      <img
-        className="absolute w-[77px] h-[79px] top-[7px] left-[147px]"
-        alt="Image"
-        src={imageSrc}
-      />
 
-      <img
-        className="absolute w-[558px] h-[568px] top-[2px] left-[255px]"
-        alt="Image"
-        src={imageSrc}
-      />
+  <div>
       <div className="absolute top-[7px] left-[845px] [font-family:'Inter-Regular',Helvetica] font-normal text-[#171a1f] text-[14px] tracking-[0] leading-[22px] whitespace-nowrap">
         GIA ID {giaId}
       </div>
