@@ -1,4 +1,4 @@
-import CalculateInputForm from "./InputForm.jsx";
+import CalculateInputForm from "./InputForm/InputForm.jsx";
 import CalculateOutputForm from "./OutputForm.jsx";
 
 function CalculatePage() {
