@@ -2,7 +2,7 @@ import {useState} from "react";
 import {Box, Button, Grid} from "@mui/material";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
-import OriginButton from "./InputForm/Button/Origin.jsx";
+import OriginButton from "./Button/Origin.jsx";
 
 const CalculateInputForm = () => {
     const [diamondOrigin, setDiamondOrigin] = useState({});
@@ -62,21 +62,23 @@ const CalculateInputForm = () => {
                         </Box>
 
                         <Grid container spacing={2}>
-                            <Grid item>
+                            <Grid item xs={5.5}>
                                 <OriginButton
                                     buttonName={"natural"}
-                                    onClick={() => handleClick(setDiamondOrigin, "natural")}
+                                    onClick={handleClick}
                                     state={diamondOrigin}
+                                    setState={setDiamondOrigin}
                                     icon={<PublicOutlinedIcon />}
                                 >
                                     NATURAL
                                 </OriginButton>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={5.5}>
                                 <OriginButton
                                     buttonName={"labGrown"}
-                                    onClick={() => handleClick(setDiamondOrigin, "labGrown")}
+                                    onClick={handleClick}
                                     state={diamondOrigin}
+                                    setState={setDiamondOrigin}
                                     icon={<ScienceOutlinedIcon />}
                                 >
                                     LAB GROWN
