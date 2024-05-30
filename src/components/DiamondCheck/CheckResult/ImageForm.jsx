@@ -5,12 +5,12 @@ const ImageGallery = ({images}) => {
     const [selectedImage, setSelectedImage] = useState(images[0]);
 
     return (
-        <Box display="flex" flexDirection="row" left={60}>
+        <Box display="flex" flexDirection="row" >
             <ImageList sx={{
                 width: 150,
                 height: 500,
             }} cols={1}
-            gap={10}>
+                       gap={10}>
                 {images.map((item) => (
                     <ImageListItem key={item.img} onClick={() => setSelectedImage(item)}>
                         <img
@@ -19,7 +19,7 @@ const ImageGallery = ({images}) => {
                             alt={item.title}
                             loading="lazy"
                             style={{border: '1px solid black',
-                                    height: '100px',}}
+                                height: '100px',}}
                         />
                     </ImageListItem>
                 ))}
