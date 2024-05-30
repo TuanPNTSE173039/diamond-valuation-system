@@ -1,7 +1,7 @@
 import diamond_id from "../../../assets/images/diamond_id.png";
 import daniel from "../../../assets/images/daniel.png";
 import allurez from "../../../assets/images/allurez.png";
-import Form from "./ResultForm.jsx";
+import DiamondCheckResultForm from "./ResultForm.jsx";
 import ImageGallery from '../CheckResult/ImageForm';
 import {Box} from "@mui/material";
 
@@ -14,14 +14,7 @@ const DiamondCheckResultPage = () => {
       img: diamond_id,
       title: 'Diamond ID Image' // replace with your actual title
     },
-    {
-      img: diamond_id,
-      title: 'Diamond ID Image' // replace with your actual title
-    },
-    {
-      img: diamond_id,
-      title: 'Diamond ID Image' // replace with your actual title
-    },
+
     {
       img: daniel,
       title: 'Daniel Image' // replace with your actual title
@@ -43,19 +36,17 @@ const DiamondCheckResultPage = () => {
   const clarity = "VS1";
   const fluorescence = "None";
   const symmetry = "Excellent";
-  const Polish = "Excellent";
+  const polish = "Excellent";
   const lab = "GIA";
 
   return (
-      <div className="relative w-[1440px] h-[626px] bg-white rounded-[4px] flex ">
+      <Box display="flex" flexDirection="row" marginLeft="120px" justifyContent="space-between" >
         <Box
-          width= "50%"
-          marginLeft="120px"
-        >
+            width= "50%">
           <ImageGallery images={images}/>
         </Box>
-        <div style={{width: '50%'}}>
-          <Form
+        <Box width= "50%" marginLeft="70px">
+          <DiamondCheckResultForm
               giaId={giaId}
               priceEstimate={priceEstimate}
               estimateRange={estimateRange}
@@ -67,11 +58,11 @@ const DiamondCheckResultPage = () => {
               clarity={clarity}
               fluorescence={fluorescence}
               symmetry={symmetry}
-              Polish={Polish}
+              polish={polish}
               lab={lab}
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
   );
 };
 
