@@ -7,8 +7,11 @@ function RootLayout() {
     return (
         <div style={{display: "flex", flexDirection: "column"}}>
             <Header/>
-            <CustomSeparator/>
-            <div style={{margin: "50px 0"}}>
+
+            <div style={{margin: "0px",
+                backgroundColor: "#f5f5f5",
+            }}>
+                <CustomSeparator/>
                 <Outlet/>
             </div>
             <Footer/>
