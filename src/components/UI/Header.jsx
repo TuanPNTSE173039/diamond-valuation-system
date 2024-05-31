@@ -78,7 +78,10 @@ export default function Header() {
         alignItems: "center",
         padding: "10px 60px",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        position: "relative",
+          position: "fixed", // Add this line
+          width: "100%", // Add this line to make the box full width
+          backgroundColor: "#fff", // Add this line to make the background white
+          zIndex: 1000, // Add this line to make sure the box is above all other elements
           justifyItems: "center",
       }}
     >
