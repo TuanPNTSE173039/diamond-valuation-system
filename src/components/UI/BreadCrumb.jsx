@@ -12,6 +12,10 @@ export default function CustomSeparator() {
     const location = useLocation();
     const pathnames = location.pathname.split('/').filter((x) => x);
 
+    if (pathnames.length === 0) {
+        return null;
+    }
+    
     return (
         <Breadcrumbs
             separator={<NavigateNextIcon fontSize="small" />}
