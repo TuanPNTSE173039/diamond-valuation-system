@@ -1,4 +1,5 @@
 import {Box, Typography, Button} from '@mui/material';
+import {useNavigate} from "react-router-dom";
 
 const DiamondCheckResultForm = ({
                                     giaId,
@@ -15,6 +16,11 @@ const DiamondCheckResultForm = ({
                                     polish,
                                     lab,
                                 }) => {
+    const navigate = useNavigate();
+    const handleCheck = () => {
+        navigate("/check");
+    };
+
     return (
         <Box position="relative">
             <Typography
@@ -388,6 +394,7 @@ const DiamondCheckResultForm = ({
             </Box>
 
             <Button
+                onClick={handleCheck}
                 sx={{
                     position: 'absolute',
                     top: '400px',
