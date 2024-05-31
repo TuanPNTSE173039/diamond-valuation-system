@@ -18,7 +18,7 @@ const ImageGallery = ({images}) => {
                             srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                             alt={item.title}
                             loading="lazy"
-                            style={{border: '1px solid black',
+                            style={{borderRadius: '6px',
                                 height: '100px',}}
                         />
                     </ImageListItem>
@@ -29,7 +29,7 @@ const ImageGallery = ({images}) => {
                     src={selectedImage.img}
                     alt={selectedImage.title}
                     style={{width: '500px', height: '500px',
-                        border: '1px solid black'}}
+                        borderRadius: '6px'}}
                 />
             </Box>
         </Box>
