@@ -40,7 +40,12 @@ const DiamondCheckResultPage = () => {
   const lab = "GIA";
 
   return (
-      <Box display="flex" flexDirection="row" marginLeft="120px" justifyContent="space-between" >
+      <Box display="flex"
+           flexDirection="row"
+           marginY="50px"
+           marginLeft="120px"
+           justifyContent="space-between"
+     >
         <Box
             width= "50%">
           <ImageGallery images={images}/>
