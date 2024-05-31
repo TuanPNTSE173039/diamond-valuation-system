@@ -8,7 +8,7 @@ function RootLayout() {
         <div style={{display: "flex", flexDirection: "column"}}>
             <Header/>
 
-            <div style={{margin: "0px",
+            <div style={{ paddingTop: '80px',
                 backgroundColor: "#f5f5f5",
             }}>
                 <CustomSeparator/>
