@@ -1,16 +1,17 @@
 import CalculateInputForm from "./InputForm/InputForm.jsx";
 import CalculateOutputForm from "./OutputForm.jsx";
+import {Box} from "@mui/material";
 
 function CalculatePage() {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <div style={{ marginRight: "50px" }}>
+    <Box style={{ display: "flex", justifyContent: "space-between", margin: "50px 0px"}}>
+      <Box style={{ marginRight: "0px" }}>
         <CalculateInputForm />
-      </div>
-      <div>
+      </Box>
+      <Box>
         <CalculateOutputForm />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
