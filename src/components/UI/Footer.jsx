@@ -2,6 +2,7 @@ import { Box, IconButton, Typography } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -12,7 +13,7 @@ export default function Footer() {
         flexWrap: "wrap",
         justifyContent: "space-between",
         padding: "20px 60px",
-        backgroundColor: "#f1f0f0",
+        backgroundColor: "#e0e0e0",
       }}
     >
       <Box sx={{ flex: "1 1 100%", maxWidth: "35%" }}>
@@ -84,7 +85,9 @@ export default function Footer() {
             mb: 1,
           }}
         >
-          <a href="">Price Calculator</a>
+            <Link to="/calculate" style={{ textDecoration: 'none', color: '#9095a0' }}>
+                Price Calculator
+            </Link>
         </Typography>
         <Typography
           variant="body1"
@@ -96,21 +99,11 @@ export default function Footer() {
             mb: 1,
           }}
         >
-          Search
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: "Inter-Regular, Helvetica",
-            fontSize: 16,
-            color: "#9095a0",
-            lineHeight: "26px",
-            mb: 1,
-          }}
-        >
-            Price &amp; Quality Check
-        </Typography>
+            <Link to="/check" style={{ textDecoration: 'none', color: '#9095a0' }}>
+                Price &amp; Quality Check
+            </Link>
 
+        </Typography>
       </Box>
       <Box sx={{ flex: "1 1 auto", maxWidth: "25%" }}>
         <Typography
