@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
+// eslint-disable-next-line no-unused-vars
 import * as React from "react";
 
 const UITabPanel = ({ children, value, index, ...other }) => {
