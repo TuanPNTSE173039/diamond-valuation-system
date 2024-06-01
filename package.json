@@ -16,6 +16,8 @@
     "@mui/material": "^5.15.18",
     "@mui/utils": "^5.15.14",
     "@mui/x-date-pickers": "^7.5.1",
+    "@tanstack/react-query": "^5.40.0",
+    "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "font-awesome": "^4.7.0",
     "prop-types": "^15.8.1",

@@ -3,7 +3,8 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import diamond from "../../assets/images/diamond_poster.png";
-import { FormControl, FormLabel } from "@mui/material";
+import {FormControl, FormLabel, Select} from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
 
 const AppointmentForm = () => {
   return (
@@ -118,22 +119,30 @@ const AppointmentForm = () => {
             />
           </FormControl>
 
-          <FormControl sx={{ width: "400px", ml: "22px" }}>
-            <FormLabel sx={{ color: "white", margin: "2px" }}>
-              Service*
-            </FormLabel>
-            <TextField
-              variant="outlined"
-              required
-              placeholder="Diamond valuation"
-              InputProps={{
-                sx: {
-                  height: "40px",
-                  backgroundColor: "white",
-                },
-              }}
-            />
-          </FormControl>
+            <FormControl sx={{ width: "400px", ml: "22px" }}>
+                <FormLabel sx={{ color: "white", margin: "2px" }}>
+                    Service*
+                </FormLabel>
+                <Select
+                    variant="outlined"
+                    required
+                    defaultValue=""
+                    InputProps={{
+                        sx: {
+                            height: "40px",
+                            backgroundColor: "white",
+                        },
+                    }}
+                >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"Diamond valuation"}>Diamond valuation</MenuItem>
+                    <MenuItem value={"Service 2"}>Service 2</MenuItem>
+                    <MenuItem value={"Service 3"}>Service 3</MenuItem>
+                    {/* Add more MenuItem components for each service you offer */}
+                </Select>
+            </FormControl>
 
           <FormControl sx={{ width: "400px", ml: "22px" }}>
             <FormLabel sx={{ color: "white", margin: "2px" }}>
