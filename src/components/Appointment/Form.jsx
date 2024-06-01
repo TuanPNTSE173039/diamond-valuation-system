@@ -10,9 +10,11 @@ const AppointmentForm = () => {
     <Box
       sx={{
         position: "relative",
-        width: "1440px",
+        width: "100%",
         height: "560px",
         bgcolor: "#717171",
+          marginTop:'20px',
+          marginBottom:'30px'
       }}
     >
       <Box
@@ -24,7 +26,7 @@ const AppointmentForm = () => {
           width: "681px",
           height: "555px",
           top: "5px",
-          left: "753px",
+          left: "740px",
         }}
       />
       <Box
@@ -147,6 +149,9 @@ const AppointmentForm = () => {
                   height: "40px",
                   backgroundColor: "white",
                 },
+              }}
+              inputProps={{
+                  min: 0,
               }}
             />
           </FormControl>

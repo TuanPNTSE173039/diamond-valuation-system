@@ -8,6 +8,8 @@ export default function Poster() {
             position: 'relative',
             height: "560px",
             bgcolor: '#717171',
+            marginTop: '60px',
+              marginBottom:'30px'
           }}
       >
           <Box
@@ -19,7 +21,7 @@ export default function Poster() {
                   width: "681px",
                   height: "555px",
                   top: "5px",
-                  left: "695px",
+                  left: "740px",
               }}
           />
 

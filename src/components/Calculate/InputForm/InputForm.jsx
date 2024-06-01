@@ -6,6 +6,7 @@ import OriginButton from "./Button/Origin.jsx";
 import Typography from "@mui/material/Typography";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+//import InputSlider from "../../UI/TestSlider.jsx";
 import UISilder from "../../UI/Slider.jsx";
 
 const CalculateInputForm = () => {
@@ -320,6 +321,7 @@ const CalculateInputForm = () => {
             <div className="absolute w-[373px] h-[22px] top-[313px] left-[10px]">
               <div className="relative h-[22px]">
                 <UISilder />
+                {/*  <InputSlider />*/}
 
                 {/*<div className="absolute w-[373px] h-[6px] top-[8px] left-0 bg-[#a6f5ff] rounded-[3px] overflow-hidden">*/}
                 {/*  <div className="w-[141px] h-[6px] bg-[#00bdd6]" />*/}
