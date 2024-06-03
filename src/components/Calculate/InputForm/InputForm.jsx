@@ -10,14 +10,14 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import UISilder from "../../UI/Slider.jsx";
 
 const CalculateInputForm = () => {
-  const [diamondOrigin, setDiamondOrigin] = useState({});
-  const [shape, setShape] = useState({});
-  const [color, setColor] = useState({});
-  const [clarity, setClarity] = useState({});
-  const [cut, setCut] = useState({});
-  const [symmetry, setSymmetry] = useState({});
-  const [polish, setPolish] = useState({});
-  const [fluorescence, setFluorescence] = useState({});
+  const [diamondOrigin, setDiamondOrigin] = useState({ natural: "clicked" });
+  const [shape, setShape] = useState({ round: "clicked" });
+  const [color, setColor] = useState({ i: "clicked" });
+  const [clarity, setClarity] = useState({ vs2: "clicked" });
+  const [cut, setCut] = useState({ cex: "clicked" });
+  const [symmetry, setSymmetry] = useState({ sex: "clicked" });
+  const [polish, setPolish] = useState({ pex: "clicked" });
+  const [fluorescence, setFluorescence] = useState({ fex: "clicked" });
 
   const [showMoreInputs, setShowMoreInputs] = useState(false);
 

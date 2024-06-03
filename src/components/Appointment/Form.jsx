@@ -259,7 +259,9 @@ const AppointmentForm = ({ services, customer }) => {
 
         <Dialog
           open={open}
-          onClose={() => setOpen(false)}
+          onClose={() => {
+            setOpen(false);
+          }}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
@@ -338,7 +340,15 @@ const AppointmentForm = ({ services, customer }) => {
           </DialogContent>
           <DialogActions>
             <Box display="flex" justifyContent="center" width="100%">
-              <Button onClick={() => setOpen(false)} color="primary" autoFocus>
+              <Button
+                onClick={() => {
+                  setOpen(false);
+                  setService(""); // Reset the service state
+                  setDiamondQuantity(0);
+                }}
+                color="primary"
+                autoFocus
+              >
                 Close
               </Button>
             </Box>
