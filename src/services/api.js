@@ -23,3 +23,7 @@ export const addValuationRequest = (body) => {
 //DIAMOND CHECK
 
 //CALCULATE
+export const getDiamondPriceData = async (params) => {
+  const response = await http.get(`diamond-price-lists/search`, { params });
+  return response.data;
+};
