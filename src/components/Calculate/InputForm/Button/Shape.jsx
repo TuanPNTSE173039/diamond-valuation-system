@@ -4,7 +4,10 @@ import { Button } from "@mui/material";
 const ShapeButton = ({ buttonName, onClick, state, setState }) => {
   return (
     <Button
-      onClick={() => onClick(setState, buttonName)}
+      onClick={(e) => {
+        onClick(setState, buttonName);
+        handleChange(e);
+      }}
       sx={{
         width: 71,
         height: 33,
