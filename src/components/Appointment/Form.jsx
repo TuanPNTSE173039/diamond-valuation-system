@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { addValuationRequest } from "../../services/ValuationRequest/api.js";
+import { addValuationRequest } from "../../services/api.js";
 
 const AppointmentForm = ({ services, customer }) => {
   const [service, setService] = useState(""); // Service selection state
@@ -58,6 +58,7 @@ const AppointmentForm = ({ services, customer }) => {
         id: services.find((s) => s.name === service).id,
       },
       customerID: customer.id,
+      staffID: 0,
     };
     console.log(body);
     mutate(body);

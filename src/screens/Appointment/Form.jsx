@@ -1,9 +1,8 @@
 import AppointmentForm from "../../components/Appointment/Form.jsx";
 import { useQuery } from "@tanstack/react-query";
-import { getServices } from "../../services/Service/api.js";
 import UICircularIndeterminate from "../../components/UI/CircularIndeterminate.jsx";
-import { getCustomer, getCustomers } from "../../services/Customers/api.js";
-import { getCustomerByID } from "../../services/Customers/utils.js";
+import { getCustomer } from "../../services/api.js";
+import { getServices } from "../../services/api.js";
 
 const ScreenAppointmentForm = () => {
   const {
@@ -21,14 +20,12 @@ const ScreenAppointmentForm = () => {
     error: customerError,
   } = useQuery({
     queryKey: ["customer"],
-    queryFn: () => getCustomer(1),
+    queryFn: () => getCustomer(2),
   });
 
   if (isServiceLoading || isCustomerLoading) {
     return <UICircularIndeterminate />;
   }
-
-  // const customer = getCustomerByID(customers, 1);
 
   console.log("Services: ", services);
   console.log("Customer: ", customer);
