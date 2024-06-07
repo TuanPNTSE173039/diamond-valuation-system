@@ -8,6 +8,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 //import InputSlider from "../../UI/TestSlider.jsx";
 import UISilder from "../../UI/Slider.jsx";
+import ShapeButton from "./Button/Shape.jsx";
 
 const CalculateInputForm = () => {
   const [diamondOrigin, setDiamondOrigin] = useState({ natural: "clicked" });
@@ -40,7 +41,7 @@ const CalculateInputForm = () => {
     <Box
       sx={{
         width: 410,
-        height: showMoreInputs ? 980 : 700,
+        height: showMoreInputs ? 990 : 710,
         position: "relative",
         left: "110px",
         backgroundColor: "white",
@@ -67,22 +68,19 @@ const CalculateInputForm = () => {
           >
             Calculator Input
           </Box>
-          <Box>
+          <Box position="absolute" top="54px" left="9px">
             <Box
               sx={{
-                position: "absolute",
-                top: 54,
-                left: 7,
                 fontFamily: "Inter-Regular, Helvetica",
                 color: "#9095a0",
                 fontSize: 14,
+                marginBottom: "10px",
               }}
             >
               DIAMOND ORIGIN
             </Box>
-
-            <Grid container spacing={2} display="flex" justifyContent="center">
-              <Grid item xs={5.5}>
+            <Grid container spacing={23} columnSpacing={25}>
+              <Grid item xs={6}>
                 <OriginButton
                   buttonName={"natural"}
                   onClick={handleClick}
@@ -93,7 +91,7 @@ const CalculateInputForm = () => {
                   NATURAL
                 </OriginButton>
               </Grid>
-              <Grid item xs={5.5}>
+              <Grid item xs={6}>
                 <OriginButton
                   buttonName={"labGrown"}
                   onClick={handleClick}
@@ -112,205 +110,114 @@ const CalculateInputForm = () => {
                 fontFamily: "Inter-Regular,Helvetica",
                 color: "#9095a0",
                 fontSize: 14,
-                lineHeight: "22px",
-                whiteSpace: "nowrap",
               }}
             >
               SHAPE
             </Box>
-            <Button
-              onClick={() => handleClick(setShape, "round")}
-              sx={{
-                width: 70,
-                height: 32,
-                position: "absolute",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "6px",
-                backgroundColor:
-                  shape["round"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                ":hover": { bgcolor: "#4F46E5", color: "white" },
-                fontFamily: "Inter-Regular,Helvetica",
-                fontSize: 10,
-                color: shape["round"] === "clicked" ? "white" : "#171a1f",
-              }}
-            >
-              ROUND
-            </Button>
-            <Button
-              onClick={() => handleClick(setShape, "pear")}
-              sx={{
-                width: 71,
-                height: 33,
-                position: "absolute",
-                top: 63,
-                backgroundColor:
-                  shape["pear"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "6px",
-                ":hover": { bgcolor: "#4F46E5", color: "white" },
-                fontFamily: "Inter-Regular,Helvetica",
-                fontSize: 10,
-                color: shape["pear"] === "clicked" ? "white" : "#171a1f",
-              }}
-            >
-              PEAR
-            </Button>
-            <Button
-              onClick={() => handleClick(setShape, "cushion")}
-              sx={{
-                width: 71,
-                height: 33,
-                position: "absolute",
-                left: 78,
-                backgroundColor:
-                  shape["cushion"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "6px",
-                ":hover": { bgcolor: "#4F46E5", color: "white" },
-                fontFamily: "Inter-Regular,Helvetica",
-                fontSize: 10,
-                color: shape["cushion"] === "clicked" ? "white" : "#171a1f",
-              }}
-            >
-              CUSHION
-            </Button>
-            <Button
-              onClick={() => handleClick(setShape, "radiant")}
-              sx={{
-                width: 71,
-                height: 33,
-                position: "absolute",
-                top: 63,
-                left: 78,
-                backgroundColor:
-                  shape["radiant"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "6px",
-                ":hover": { bgcolor: "#4F46E5", color: "white" },
-                fontFamily: "Inter-Regular,Helvetica",
-                fontSize: 10,
-                color: shape["radiant"] === "clicked" ? "white" : "#171a1f",
-              }}
-            >
-              RADIANT
-            </Button>
-            <Button
-              onClick={() => handleClick(setShape, "emerald")}
-              sx={{
-                width: 71,
-                height: 33,
-                position: "absolute",
-                left: 157,
-                backgroundColor:
-                  shape["emerald"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "6px",
-                ":hover": { bgcolor: "#4F46E5", color: "white" },
-                fontFamily: "Inter-Regular,Helvetica",
-                fontSize: 10,
-                color: shape["emerald"] === "clicked" ? "white" : "#171a1f",
-              }}
-            >
-              EMERALD
-            </Button>
-            <Button
-              onClick={() => handleClick(setShape, "marquise")}
-              sx={{
-                width: 71,
-                height: 33,
-                position: "absolute",
-                top: 63,
-                left: 157,
-                backgroundColor:
-                  shape["marquise"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "6px",
-                ":hover": { bgcolor: "#4F46E5", color: "white" },
-                fontFamily: "Inter-Regular,Helvetica",
-                fontSize: 10,
-                color: shape["marquise"] === "clicked" ? "white" : "#171a1f",
-              }}
-            >
-              MARQUISE
-            </Button>
-            <Button
-              onClick={() => handleClick(setShape, "oval")}
-              sx={{
-                width: 71,
-                height: 33,
-                position: "absolute",
-                left: 233,
-                backgroundColor:
-                  shape["oval"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "6px",
-                ":hover": { bgcolor: "#4F46E5", color: "white" },
-                fontFamily: "Inter-Regular,Helvetica",
-                fontSize: 10,
-                color: shape["oval"] === "clicked" ? "white" : "#171a1f",
-              }}
-            >
-              OVAL
-            </Button>
-            <Button
-              onClick={() => handleClick(setShape, "asscher")}
-              sx={{
-                width: 71,
-                height: 33,
-                position: "absolute",
-                top: 63,
-                left: 233,
-                backgroundColor:
-                  shape["asscher"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "6px",
-                ":hover": { bgcolor: "#4F46E5", color: "white" },
-                fontFamily: "Inter-Regular,Helvetica",
-                fontSize: 10,
-                color: shape["asscher"] === "clicked" ? "white" : "#171a1f",
-              }}
-            >
-              ASSCHER
-            </Button>
-            <Button
-              onClick={() => handleClick(setShape, "princess")}
-              sx={{
-                width: 71,
-                height: 33,
-                position: "absolute",
-                left: 309,
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "6px",
-                backgroundColor:
-                  shape["princess"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                ":hover": { bgcolor: "#4F46E5", color: "white" },
-                fontFamily: "Inter-Regular,Helvetica",
-                fontSize: 10,
-                color: shape["princess"] === "clicked" ? "white" : "#171a1f",
-              }}
-            >
-              PRINCESS
-            </Button>
-            <Button
-              onClick={() => handleClick(setShape, "heart")}
-              sx={{
-                width: 71,
-                height: 33,
-                position: "absolute",
-                top: 63,
-                left: 309,
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "6px",
-                backgroundColor:
-                  shape["heart"] === "clicked" ? "#4F46E5" : "#f5f5f5",
-                ":hover": { bgcolor: "#4F46E5", color: "white" },
-                fontFamily: "Inter-Regular,Helvetica",
-                fontSize: 10,
-                color: shape["heart"] === "clicked" ? "white" : "#171a1f",
-              }}
-            >
-              HEART
-            </Button>
+            <Grid container spacing={2}>
+              <Grid
+                item
+                xs={12}
+                style={{ marginBottom: "27px", marginTop: "10px" }}
+              >
+                <Grid container justifyContent="space-between" spacing={7}>
+                  <Grid item>
+                    <ShapeButton
+                      buttonName="round"
+                      selectedShape={shape}
+                      state={shape}
+                      setState={setShape}
+                      onClick={handleClick}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ShapeButton
+                      buttonName="cushion"
+                      selectedShape={shape}
+                      state={shape}
+                      setState={setShape}
+                      onClick={handleClick}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ShapeButton
+                      buttonName="emerald"
+                      selectedShape={shape}
+                      state={shape}
+                      setState={setShape}
+                      onClick={handleClick}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ShapeButton
+                      buttonName="oval"
+                      selectedShape={shape}
+                      state={shape}
+                      setState={setShape}
+                      onClick={handleClick}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ShapeButton
+                      buttonName="princess"
+                      selectedShape={shape}
+                      state={shape}
+                      setState={setShape}
+                      onClick={handleClick}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container justifyContent="space-between" spacing={2}>
+                  <Grid item>
+                    <ShapeButton
+                      buttonName="pear"
+                      selectedShape={shape}
+                      state={shape}
+                      setState={setShape}
+                      onClick={handleClick}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ShapeButton
+                      buttonName="radiant"
+                      selectedShape={shape}
+                      state={shape}
+                      setState={setShape}
+                      onClick={handleClick}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ShapeButton
+                      buttonName="marquise"
+                      selectedShape={shape}
+                      state={shape}
+                      setState={setShape}
+                      onClick={handleClick}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ShapeButton
+                      buttonName="asscher"
+                      selectedShape={shape}
+                      state={shape}
+                      setState={setShape}
+                      onClick={handleClick}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ShapeButton
+                      buttonName="heart"
+                      selectedShape={shape}
+                      state={shape}
+                      setState={setShape}
+                      onClick={handleClick}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </Box>
 
           <div>
@@ -321,12 +228,6 @@ const CalculateInputForm = () => {
             <div className="absolute w-[373px] h-[22px] top-[313px] left-[10px]">
               <div className="relative h-[22px]">
                 <UISilder />
-                {/*  <InputSlider />*/}
-
-                {/*<div className="absolute w-[373px] h-[6px] top-[8px] left-0 bg-[#a6f5ff] rounded-[3px] overflow-hidden">*/}
-                {/*  <div className="w-[141px] h-[6px] bg-[#00bdd6]" />*/}
-                {/*</div>*/}
-                {/*<div className="absolute w-[22px] h-[22px] top-0 left-[130px] bg-white rounded-[11px] border border-solid border-[#00bdd6] shadow-[0px_0px_1px_#00bdd612,0px_0px_2px_#00bdd61f]" />*/}
               </div>
             </div>
           </div>
