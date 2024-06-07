@@ -1,10 +1,20 @@
 import { Box, Button } from "@mui/material";
 
 // eslint-disable-next-line react/prop-types
-const OriginButton = ({ onClick, buttonName, icon, state, setState }) => {
+const OriginButton = ({
+  onClick,
+  buttonName,
+  icon,
+  state,
+  handleChange,
+  setState,
+}) => {
   return (
     <Button
-      onClick={() => onClick(setState, buttonName)}
+      onClick={(e) => {
+        onClick(setState, buttonName);
+        handleChange(e);
+      }}
       sx={{
         width: 175,
         height: 37,
