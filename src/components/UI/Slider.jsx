@@ -6,10 +6,16 @@ function valuetext(value) {
   return `{value}`;
 }
 
-export default function UISilder() {
+export default function UISilder({ carat, setCarat }) {
+  const handleSliderChange = (event, newValue) => {
+    setCarat(newValue);
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <Slider
+        value={carat}
+        onChange={handleSliderChange}
         aria-label="Always visible"
         defaultValue={1}
         getAriaValueText={valuetext}
