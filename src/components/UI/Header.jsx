@@ -6,10 +6,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
-import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import logo from "../../assets/images/logo.png";
 
 export default function Header() {
@@ -66,6 +66,15 @@ export default function Header() {
       case "Register":
         navigate("/register");
         break;
+      case "Profile":
+        navigate("/profile");
+        break;
+      case "Manage":
+        navigate("/manage");
+        break;
+      case "Logout":
+        navigate("/logout");
+        break;
       default:
         break;
     }
@@ -78,16 +87,16 @@ export default function Header() {
         alignItems: "center",
         padding: "10px 60px",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          position: "fixed", // Add this line
-          width: "100%", // Add this line to make the box full width
-          backgroundColor: "#fff", // Add this line to make the background white
-          zIndex: 1000, // Add this line to make sure the box is above all other elements
-          justifyItems: "center",
+        position: "fixed", // Add this line
+        width: "100%", // Add this line to make the box full width
+        backgroundColor: "#fff", // Add this line to make the background white
+        zIndex: 1000, // Add this line to make sure the box is above all other elements
+        justifyItems: "center",
       }}
     >
       <img src={logo} alt="logo" style={{ width: 70, height: 60, margin: 0 }} />
 
-          <Box sx={{display: "flex", justifyContent: "center", flex: 1, gap: 3}}>
+      <Box sx={{ display: "flex", justifyContent: "center", flex: 1, gap: 3 }}>
         <Button
           sx={{
             color: "#3e6272",
@@ -159,8 +168,15 @@ export default function Header() {
         >
           POST
         </Button>
-          </Box>
-          <Box sx={{ display: "flex", gap: 1, alignItems: "center", justifyContent: "flex-end"  }}>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          gap: 1,
+          alignItems: "center",
+          justifyContent: "flex-end",
+        }}
+      >
         <Button
           onClick={() => handleMenuItemClick("Appointment")}
           variant="outlined"
@@ -209,15 +225,24 @@ export default function Header() {
           <AccountCircleOutlinedIcon sx={{ fontSize: 30 }} />
         </Button>
         <Menu anchorEl={profileEl} open={openProfileMenu} onClose={handleClose}>
-          <MenuItem onClick={handleClose}><Box mr={1}>
+          <MenuItem onClick={() => handleMenuItemClick("Profile")}>
+            <Box mr={1}>
               <PermIdentityOutlinedIcon />
-          </Box> Profile</MenuItem>
-            <MenuItem onClick={handleClose}><Box mr={1}>
-                <AccountBoxOutlinedIcon />
-            </Box> Manager Account</MenuItem>
-          <MenuItem onClick={handleClose}><Box mr={1}>
+            </Box>{" "}
+            Profile
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick("Manage")}>
+            <Box mr={1}>
+              <AccountBoxOutlinedIcon />
+            </Box>{" "}
+            Manage{" "}
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick("Logout")}>
+            <Box mr={1}>
               <LogoutOutlinedIcon />
-          </Box> Logout</MenuItem>
+            </Box>{" "}
+            Logout
+          </MenuItem>
         </Menu>
       </Box>
     </Box>
