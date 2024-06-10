@@ -1,14 +1,14 @@
 import CalculateInputForm from "./InputForm/InputForm.jsx";
 import CalculateOutputForm from "./OutputForm.jsx";
-import { Box } from "@mui/material";
-import { getDiamondPriceData } from "../../services/api";
+import { Box, Container } from "@mui/material";
+import { getDiamondData, getDiamondMarketData } from "../../services/api";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 function CalculatePage() {
   const [params, setParams] = useState({
     diamondOrigin: "NATURAL",
-    caratWeight: "1.0",
+    caratWeight: "1",
     color: "G",
     clarity: "VS1",
     cut: "EXCELLENT",
@@ -18,43 +18,48 @@ function CalculatePage() {
     fluorescence: "NONE",
   });
 
-  const [defaultData, setDefaultData] = useState({
-    fairPriceEstimate: 5115,
-    estimateRange: { min: 4135, max: 6193 },
-    last30DayChange: -2.72,
+  const {
+    data: diamondData,
+    isLoading: isDiamondLoading,
+    error: diamondError,
+  } = useQuery({
+    queryKey: ["diamondData", params],
+    queryFn: () => getDiamondData(params),
   });
+  console.log(diamondData);
 
-  const [submitting, setSubmitting] = useState(false);
-
-  const { data, isLoading, error } = useQuery({
+  const {
+    data: marketData,
+    isLoading: isMarketLoading,
+    error: marketError,
+  } = useQuery({
     queryKey: ["diamondPriceData", params],
-    queryFn: () => getDiamondPriceData(params),
+    queryFn: () => getDiamondMarketData(params),
   });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-  };
 
   return (
-    <Box
+    <Container
       style={{
         display: "flex",
         justifyContent: "space-between",
         margin: "50px 0px",
+        position: "relative",
       }}
     >
       <Box style={{ marginRight: "0px" }}>
-        <CalculateInputForm setParams={setParams} handleSubmit={handleSubmit} />
+        <CalculateInputForm setParams={setParams} />
       </Box>
       <Box>
         <CalculateOutputForm
-          diamondData={data || defaultData}
-          isLoading={isLoading}
-          error={error}
+          diamondData={diamondData}
+          isDiamondLoading={isDiamondLoading}
+          diamondError={diamondError}
+          marketData={marketData}
+          isMarketLoading={isMarketLoading}
+          marketError={marketError}
         />
       </Box>
-    </Box>
+    </Container>
   );
 }
 
