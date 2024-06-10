@@ -23,12 +23,17 @@ const router = createBrowserRouter([
         element: <ScreenAppointmentForm />,
       },
       {
-        path: "/check",
-        element: <ScreenDiamondCheckInput />,
-      },
-      {
-        path: "/check/id",
-        element: <ScreenDiamondCheckResult />,
+        path: "check",
+        children: [
+          {
+            index: true,
+            element: <ScreenDiamondCheckInput />,
+          },
+          {
+            path: ":id",
+            element: <ScreenDiamondCheckResult />,
+          },
+        ],
       },
       {
         path: "/calculate",
