@@ -22,8 +22,20 @@ export const addValuationRequest = (body) => {
 
 //DIAMOND CHECK
 
+export const getDiamondCheckByCertificateId = async (certificateId) => {
+  const response = await http.get(`diamond-valuation-notes/search`, {
+    params: { certificateId },
+  });
+  return response.data;
+};
+
 //CALCULATE
-export const getDiamondPriceData = async (params) => {
-  const response = await http.get(`diamond-price-lists/search`, { params });
+export const getDiamondData = async (params) => {
+  const response = await http.get(`diamond-market/price-list`, { params });
+  return response.data;
+};
+
+export const getDiamondMarketData = async (params) => {
+  const response = await http.get(`diamond-market/search`, { params });
   return response.data;
 };
