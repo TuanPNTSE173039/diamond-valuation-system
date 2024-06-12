@@ -21,7 +21,7 @@ export default function Poster() {
                   width: "681px",
                   height: "555px",
                   top: "5px",
-                  left: "740px",
+                  left: "695px",
               }}
           />
 
