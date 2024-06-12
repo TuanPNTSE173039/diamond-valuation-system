@@ -1,4 +1,4 @@
-import ValuationRequestList from "../../components/ManageAccount/ManageAppointment/List.jsx";
+import ValuationRequestList from "../../components/ManageAccount/List.jsx";
 
 
 const ScreenValuationRequestList = () => {
