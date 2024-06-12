@@ -206,6 +206,8 @@ const AppointmentForm = ({ services, customer }) => {
               <ArrowForwardIosIcon
                 onClick={handleUpdate}
                 sx={{ color: "white", marginTop: "-15px" }}
+                cursor="pointer"
+
               />
             </Box>
           </FormControl>
