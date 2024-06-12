@@ -8,6 +8,7 @@ import ScreenDiamondCheckInput from "./screens/DiamondCheck/CheckInput.jsx";
 import ScreenDiamondCheckResult from "./screens/DiamondCheck/CheckResult.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import ScreenValuationRequestList from "./screens/ManageAppointment/List.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
         path: "/calculate",
         element: <ScreenCalculatePage />,
       },
+      {
+        path: "/manage",
+        element: <ScreenValuationRequestList />,
+      }
     ],
   },
 ]);
