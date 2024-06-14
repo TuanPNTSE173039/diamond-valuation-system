@@ -15,29 +15,49 @@ import {
   MenuItem,
   DialogTitle,
 } from "@mui/material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { addValuationRequest } from "../../services/api.js";
+import {
+  addValuationRequest,
+  getCustomer,
+  getServices,
+} from "../../services/api.js";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useNavigate } from "react-router-dom";
+import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 
-const AppointmentForm = ({ services, customer }) => {
+const AppointmentForm = () => {
+  // Query for services
+  const { data: services, isLoading: isServiceLoading } = useQuery({
+    queryKey: ["services"],
+    queryFn: getServices,
+  });
+
+  // Query for customer
+  const { data: customer, isLoading: isCustomerLoading } = useQuery({
+    queryKey: ["customer"],
+    queryFn: () => getCustomer(4),
+  });
+
+  // State initialization
   const [service, setService] = useState(""); // Service selection state
   const [diamondQuantity, setDiamondQuantity] = useState(0); // Quantity state
   const [appointmentTime, setAppointmentTime] = useState("");
   const [valuationRequestId, setValuationRequestId] = useState(null);
   const [open, setOpen] = useState(false);
 
+  // Hooks
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const queryClient = useQueryClient();
-
+  // Effect to set initial service
   useEffect(() => {
-    if (services.length > 0) {
+    if (services && services.length > 0) {
       setService(services[0].name);
     }
   }, [services]);
 
+  // Mutation for adding valuation request
   const { mutate } = useMutation({
     mutationFn: (body) => {
       return addValuationRequest(body); // Call the addValuationRequest function with the body
@@ -89,6 +109,10 @@ const AppointmentForm = ({ services, customer }) => {
   const handleUpdate = () => {
     navigate("/update");
   };
+
+  if (isServiceLoading || isCustomerLoading) {
+    return <UICircularIndeterminate />;
+  }
 
   return (
     <Box
@@ -207,7 +231,6 @@ const AppointmentForm = ({ services, customer }) => {
                 onClick={handleUpdate}
                 sx={{ color: "white", marginTop: "-15px" }}
                 cursor="pointer"
-
               />
             </Box>
           </FormControl>
