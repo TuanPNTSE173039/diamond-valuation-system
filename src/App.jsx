@@ -1,49 +1,49 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import ScreenAppointmentForm from "./screens/Appointment/Form.jsx";
-import ScreenRootLayout from "./screens/RootLayout.jsx";
-import ScreenCalculatePage from "./screens/Calculate/Page.jsx";
-import ScreenHomePage from "./screens/HomePage.jsx";
-import ScreenDiamondCheckInput from "./screens/DiamondCheck/CheckInput.jsx";
-import ScreenDiamondCheckResult from "./screens/DiamondCheck/CheckResult.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import ScreenValuationRequestList from "./screens/ManageAppointment/List.jsx";
+import CalculatePage from "./components/Calculate/Page.jsx";
+import DiamondCheckInputPage from "./components/DiamondCheck/CheckInput/Page.jsx";
+import DiamondCheckResultPage from "./components/DiamondCheck/CheckResult/Page.jsx";
+import HomePage from "./components/HomePage/HomePage.jsx";
+import ValuationRequestList from "./components/ManageAccount/List.jsx";
+import RootLayout from "./components/RootLayout.jsx";
+import AppointmentForm from "./components/Appointment/Form.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ScreenRootLayout />,
+    element: <RootLayout />,
     children: [
       {
         path: "/",
-        element: <ScreenHomePage />,
+        element: <HomePage />,
       },
       {
         path: "/appointment",
-        element: <ScreenAppointmentForm />,
+        element: <AppointmentForm />,
       },
       {
         path: "check",
         children: [
           {
             index: true,
-            element: <ScreenDiamondCheckInput />,
+            element: <DiamondCheckInputPage />,
           },
           {
             path: ":id",
-            element: <ScreenDiamondCheckResult />,
+            element: <DiamondCheckResultPage />,
           },
         ],
       },
       {
         path: "/calculate",
-        element: <ScreenCalculatePage />,
+        element: <CalculatePage />,
       },
       {
         path: "/manage",
-        element: <ScreenValuationRequestList />,
-      }
+        element: <ValuationRequestList />,
+      },
     ],
   },
 ]);
