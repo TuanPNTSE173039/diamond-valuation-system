@@ -158,7 +158,7 @@ export const DetailHeadCells = [
     id: "certificateId",
     numeric: false,
     disablePadding: false,
-    label: "GIA",
+    label: "Certificate",
   },
   {
     id: "diamondOrigin",
