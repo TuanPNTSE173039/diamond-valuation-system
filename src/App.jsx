@@ -9,6 +9,7 @@ import HomePage from "./components/HomePage/HomePage.jsx";
 import ValuationRequestList from "./components/ManageAppointment/List.jsx";
 import RootLayout from "./components/RootLayout.jsx";
 import AppointmentForm from "./components/Appointment/Form.jsx";
+import RequestItem from "./components/ManageAppointment/Item.jsx";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
           },
           {
             path: ":id",
-            element: <DiamondCheckResultPage />,
+            element: <RequestItem />,
           },
         ],
       },
