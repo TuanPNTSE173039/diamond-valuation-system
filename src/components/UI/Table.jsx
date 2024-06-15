@@ -8,7 +8,32 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-export default function UITable({ heading, rows = [], headCells = [] }) {
+export default function UITable({
+  heading,
+  rows = [],
+  headCells = [],
+  selected = [],
+  setSelected,
+}) {
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, id);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1),
+      );
+    }
+    setSelected(newSelected);
+  };
+
   return (
     <TableContainer component={Paper} sx={{ marginRight: "30px" }}>
       <Typography
@@ -31,7 +56,11 @@ export default function UITable({ heading, rows = [], headCells = [] }) {
         </TableHead>
         <TableBody>
           {rows.map((row, rowIndex) => (
-            <TableRow key={rowIndex}>
+            <TableRow
+              onClick={(event) => handleClick(event, row.number)}
+              sx={{ cursor: "pointer" }}
+              key={rowIndex}
+            >
               {Object.keys(row).map((key, cellIndex) => (
                 <TableCell key={cellIndex}>{row[key]}</TableCell>
               ))}
