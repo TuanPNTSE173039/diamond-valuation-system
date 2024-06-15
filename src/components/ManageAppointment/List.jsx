@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getValuationRequestsByCustomerID } from "../../services/api.js";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 
 // Utility function to format date and time
 const formatDateTime = (dateTimeString) => {
@@ -21,8 +20,6 @@ const formatDateTime = (dateTimeString) => {
 };
 
 const ValuationRequestList = () => {
-  const [selectedRequests, setSelectedRequests] = useState([]);
-
   const { data: requests, isFetching: isRequestFetching } = useQuery({
     queryKey: ["requests"],
     queryFn: () => getValuationRequestsByCustomerID(2),
@@ -71,8 +68,6 @@ const ValuationRequestList = () => {
         heading="All Valuations"
         rows={requestRows}
         headCells={RequestHeadCells}
-        selected={selectedRequests}
-        setSelected={setSelectedRequests}
       />
     </div>
   );
