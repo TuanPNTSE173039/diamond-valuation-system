@@ -7,31 +7,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function UITable({
-  heading,
-  rows = [],
-  headCells = [],
-  selected = [],
-  setSelected,
-}) {
-  const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
+export default function UITable({ heading, rows = [], headCells = [] }) {
+  const navigate = useNavigate();
 
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-    setSelected(newSelected);
+  const handleClick = async (id) => {
+    navigate(`/manage/${id}`);
   };
 
   return (
@@ -57,12 +40,14 @@ export default function UITable({
         <TableBody>
           {rows.map((row, rowIndex) => (
             <TableRow
-              onClick={(event) => handleClick(event, row.number)}
+              onClick={() => handleClick(row.number)}
               sx={{ cursor: "pointer" }}
               key={rowIndex}
             >
               {Object.keys(row).map((key, cellIndex) => (
-                <TableCell key={cellIndex}>{row[key]}</TableCell>
+                <TableCell key={cellIndex}>
+                  <Link to={`/manage/${row.number}`}>{row[key]}</Link>
+                </TableCell>
               ))}
             </TableRow>
           ))}
