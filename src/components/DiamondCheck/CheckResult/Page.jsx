@@ -9,17 +9,17 @@ import { useEffect, useState } from "react";
 import { getDiamondCheckByCertificateId } from "../../../services/api.js";
 
 const DiamondCheckResultPage = () => {
-  const { id } = useParams();
+  const { certificateID } = useParams();
   const [diamondData, setDiamondData] = useState(null);
 
   useEffect(() => {
     const fetchDiamondData = async () => {
-      const data = await getDiamondCheckByCertificateId(id);
+      const data = await getDiamondCheckByCertificateId(certificateID);
       setDiamondData(data);
     };
 
     fetchDiamondData();
-  }, [id]);
+  }, [certificateID]);
 
   const images = [
     {
