@@ -3,7 +3,7 @@ import Drawer from "../UI/Drawer.jsx";
 import UITable from "../UI/Table";
 import { RequestHeadCells } from "../../utilities/Table.js";
 import { useQuery } from "@tanstack/react-query";
-import { getValuationRequests } from "../../services/api.js";
+import { getValuationRequestsByCustomerID } from "../../services/api.js";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -20,17 +20,12 @@ const formatDateTime = (dateTimeString) => {
   return new Date(dateTimeString).toLocaleString(undefined, options);
 };
 
-// const [page, setPage] = useState(0);
-// const [rowsPerPage, setRowsPerPage] = useState(5);
-
 const ValuationRequestList = () => {
-  const {
-    data: requests,
-    isFetching: isRequestFetching,
-    error,
-  } = useQuery({
+  const [selectedRequests, setSelectedRequests] = useState([]);
+
+  const { data: requests, isFetching: isRequestFetching } = useQuery({
     queryKey: ["requests"],
-    queryFn: () => getValuationRequests(2),
+    queryFn: () => getValuationRequestsByCustomerID(2),
   });
 
   // Handle loading state
@@ -45,24 +40,6 @@ const ValuationRequestList = () => {
         }}
       >
         <CircularProgress />
-      </Box>
-    );
-  }
-
-  // Handle error state
-  if (error) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <Typography variant="h6" color="error">
-          Failed to fetch data
-        </Typography>
       </Box>
     );
   }
@@ -94,6 +71,8 @@ const ValuationRequestList = () => {
         heading="All Valuations"
         rows={requestRows}
         headCells={RequestHeadCells}
+        selected={selectedRequests}
+        setSelected={setSelectedRequests}
       />
     </div>
   );
