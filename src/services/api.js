@@ -42,7 +42,12 @@ export const getDiamondMarketData = async (params) => {
 
 //MANAGE
 
-export const getValuationRequests = async (customerID) => {
+export const getValuationRequestsByCustomerID = async (customerID) => {
   const response = await http.get(`valuation-requests/customer/${customerID}`);
+  return response.data;
+};
+
+export const getValuationRequestByID = async (requestID) => {
+  const response = await http.get(`valuation-requests/${requestID}`);
   return response.data;
 };
