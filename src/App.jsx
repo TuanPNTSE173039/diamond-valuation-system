@@ -6,7 +6,7 @@ import CalculatePage from "./components/Calculate/Page.jsx";
 import DiamondCheckInputPage from "./components/DiamondCheck/CheckInput/Page.jsx";
 import DiamondCheckResultPage from "./components/DiamondCheck/CheckResult/Page.jsx";
 import HomePage from "./components/HomePage/HomePage.jsx";
-import ValuationRequestList from "./components/ManageAccount/List.jsx";
+import ValuationRequestList from "./components/ManageAppointment/List.jsx";
 import RootLayout from "./components/RootLayout.jsx";
 import AppointmentForm from "./components/Appointment/Form.jsx";
 
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/appointment",
+        path: "appointment",
         element: <AppointmentForm />,
       },
       {
@@ -37,12 +37,21 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/calculate",
+        path: "calculate",
         element: <CalculatePage />,
       },
       {
-        path: "/manage",
-        element: <ValuationRequestList />,
+        path: "manage",
+        children: [
+          {
+            index: true,
+            element: <ValuationRequestList />,
+          },
+          {
+            path: ":id",
+            element: <DiamondCheckResultPage />,
+          },
+        ],
       },
     ],
   },
