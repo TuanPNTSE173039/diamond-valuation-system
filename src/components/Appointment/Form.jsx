@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import diamond from "../../assets/images/diamond_poster.png";
+//import diamond from "../../assets/images/diamond_poster.png";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import {
+  DialogTitle,
   FormControl,
   FormLabel,
-  Select,
   MenuItem,
-  DialogTitle,
+  Select,
 } from "@mui/material";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import {
   addValuationRequest,
@@ -47,7 +47,6 @@ const AppointmentForm = () => {
   const [open, setOpen] = useState(false);
 
   // Hooks
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   // Effect to set initial service
@@ -128,17 +127,17 @@ const AppointmentForm = () => {
         alignItems: "center",
       }}
     >
-      <Box
-        component="img"
-        src={diamond}
-        alt="Diamond"
-        sx={{
-          position: "absolute",
-          width: "681px",
-          height: "550px",
-          left: "740px",
-        }}
-      />
+      {/*<Box*/}
+      {/*  component="img"*/}
+      {/*  src={diamond}*/}
+      {/*  alt="Diamond"*/}
+      {/*  sx={{*/}
+      {/*    position: "absolute",*/}
+      {/*    width: "681px",*/}
+      {/*    height: "550px",*/}
+      {/*    left: "740px",*/}
+      {/*  }}*/}
+      {/*/>*/}
       <Box
         sx={{
           position: "absolute",
@@ -263,15 +262,18 @@ const AppointmentForm = () => {
           </FormControl>
 
           <FormControl sx={{ width: "380px", ml: "15px" }}>
-            <FormLabel sx={{ color: "white", margin: "2px" }}>
-              Quantity*
+            <FormLabel
+              htmlFor="quantity"
+              sx={{ color: "white", margin: "2px" }}
+            >
+              Quantity
             </FormLabel>
             <TextField
+              id="quantity"
               type="number"
               variant="outlined"
-              required
-              placeholder="Input quantity"
-              value={diamondQuantity || ""}
+              placeholder="Enter quantity"
+              value={diamondQuantity || "0"}
               onChange={handleDiamondQuantityChange}
               InputProps={{
                 sx: {
