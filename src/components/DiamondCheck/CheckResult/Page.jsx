@@ -10,14 +10,15 @@ import { getDiamondCheckByCertificateId } from "../../../services/api.js";
 
 const DiamondCheckResultPage = () => {
   const { certificateID } = useParams();
+  console.log(certificateID);
   const [diamondData, setDiamondData] = useState(null);
 
   useEffect(() => {
     const fetchDiamondData = async () => {
       const data = await getDiamondCheckByCertificateId(certificateID);
+      console.log(data); // Log the data for now, you can handle it as needed
       setDiamondData(data);
     };
-
     fetchDiamondData();
   }, [certificateID]);
 
@@ -36,20 +37,6 @@ const DiamondCheckResultPage = () => {
       title: "Allurez Image", // replace with your actual title
     },
   ];
-  const giaId = "2474506136";
-  const priceEstimate = "$7,117";
-  const estimateRange = "$5,489 - $8,882";
-  //const imageSrc = diamond_id;
-  const cut_score = "9.4";
-  const visual_carat = "1.01";
-  const shape = "Round";
-  const carat = "1.01";
-  const color = "D";
-  const clarity = "VS1";
-  const fluorescence = "None";
-  const symmetry = "Excellent";
-  const polish = "Excellent";
-  const lab = "GIA";
 
   return (
     <Box
@@ -68,8 +55,10 @@ const DiamondCheckResultPage = () => {
             giaId={diamondData.certificateId}
             priceEstimate={`$${diamondData.fairPrice}`}
             estimateRange={`$${diamondData.minPrice} - $${diamondData.maxPrice}`}
-            cut_score={cut_score}
-            visual_carat={visual_carat}
+            cut_score="0.9"
+            visual_carat="1.0"
+            //cut_score={cut_score}
+            //visual_carat={visual_carat}
             shape={diamondData.shape}
             carat={diamondData.caratWeight}
             color={diamondData.color}
@@ -77,7 +66,8 @@ const DiamondCheckResultPage = () => {
             fluorescence={diamondData.fluorescence}
             symmetry={diamondData.symmetry}
             polish={diamondData.polish}
-            lab={lab}
+            lab="GIA"
+            //lab={lab}
           />
         )}
       </Box>
