@@ -1,38 +1,56 @@
 import { useParams } from "react-router-dom";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { useQuery } from "@tanstack/react-query";
-import { getValuationRequestByID } from "../../services/api.js";
+import {
+  getValuationRequestByID,
+  getValuationRequestsByCustomerID,
+} from "../../services/api.js";
 import { DetailHeadCells } from "../../utilities/Table.js";
 import UITable from "../UI/Table.jsx";
 import Drawer from "../UI/Drawer.jsx";
 import React from "react";
 
+const formatDateTime = (dateTimeString) => {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+  return new Date(dateTimeString).toLocaleString(undefined, options);
+};
+
 const RequestItem = () => {
-  const { id } = useParams();
-  const { data: request, isLoading } = useQuery({
-    queryKey: ["request", { requestId: id }],
-    queryFn: () => getValuationRequestByID(id),
+  const { requestID } = useParams();
+  const { data: requests } = useQuery({
+    queryKey: ["requests"],
+    queryFn: () => getValuationRequestsByCustomerID(2),
   });
-  console.log(id);
+
+  // Find the correct request by display number
+
+  console.log(requestID);
+
+  const { data: request, isLoading } = useQuery({
+    queryKey: ["request", { requestId: requestID }],
+    queryFn: () => getValuationRequestByID(requestID),
+  });
+  console.log(requestID);
   console.log(request);
   if (isLoading) {
     return <UICircularIndeterminate />;
   }
 
-  const detailRows = request.valuationRequestDetails.map((item) => {
+  const detailRows = request.valuationRequestDetails.map((item, index) => {
     return {
-      number: item.id,
-      returnedDate: request.returnDate ? request.returnDate : "N/A",
+      number: index + 1,
       service: request.service.name,
       size: (item.size === 0 && "N/A") || item.size,
-      servicePrice: item.servicePrice === 0 ? "N/A" : item.servicePrice,
-      certificateId: item.diamondValuationNote?.certificateId || "N/A",
-      diamondOrigin: item.diamondValuationNote?.diamondOrigin || "N/A",
-      caratWeight: item.diamondValuationNote?.caratWeight || "N/A",
-      valuationPrice:
-        item.valuationPrice === "0.0" || item.valuationPrice === null
+      servicePrice:
+        item.servicePrice === "0.0" || item.servicePrice === null
           ? "N/A"
-          : item.valuationPrice,
+          : item.servicePrice,
       status: item.status,
     };
   });
@@ -48,7 +66,14 @@ const RequestItem = () => {
       <div style={{ marginRight: "20px" }}>
         <Drawer />
       </div>
-      <UITable heading="Detail" headCells={DetailHeadCells} rows={detailRows} />
+      <UITable
+        heading="Detail"
+        headCells={DetailHeadCells}
+        rows={detailRows}
+        showTotalPrice={true}
+        totalPrice={request.totalServicePrice}
+        requestStatus={request.status}
+      />
     </div>
   );
 };
