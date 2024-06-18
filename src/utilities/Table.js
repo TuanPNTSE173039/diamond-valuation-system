@@ -26,69 +26,6 @@ export function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
-export const ValuationHeadCells = [
-  {
-    id: "number",
-    numeric: false,
-    disablePadding: false,
-    label: "Id",
-  },
-  {
-    id: "valuationStaffName",
-    numeric: false,
-    disablePadding: false,
-    label: "Staff",
-  },
-  {
-    id: "returnDate",
-    numeric: false,
-    disablePadding: true,
-    label: "Deadline",
-  },
-  {
-    id: "service",
-    numeric: true,
-    disablePadding: false,
-    label: "Service",
-  },
-  {
-    id: "certificateId",
-    numeric: false,
-    disablePadding: true,
-    label: "Report Number",
-  },
-  {
-    id: "diamondOrigin",
-    numeric: false,
-    disablePadding: true,
-    label: "Origin",
-  },
-  {
-    id: "caratWeight",
-    numeric: false,
-    disablePadding: true,
-    label: "Carat",
-  },
-  {
-    id: "valuationPrice",
-    numeric: false,
-    disablePadding: true,
-    label: "Price",
-  },
-  {
-    id: "status",
-    numeric: false,
-    disablePadding: false,
-    label: "Status",
-  },
-];
 export const RequestHeadCells = [
   {
     id: "number",
@@ -106,7 +43,13 @@ export const RequestHeadCells = [
     id: "creationDate",
     numeric: false,
     disablePadding: false,
-    label: "Date",
+    label: "Created Date",
+  },
+  {
+    id: "returnedDate",
+    numeric: false,
+    disablePadding: false,
+    label: "Returned Date",
   },
   {
     id: "diamondAmount",
@@ -120,6 +63,12 @@ export const RequestHeadCells = [
     disablePadding: false,
     label: "Service",
   },
+  {
+    id: "delete",
+    numeric: false,
+    disablePadding: false,
+    label: "Action",
+  },
 ];
 export const DetailHeadCells = [
   {
@@ -127,13 +76,6 @@ export const DetailHeadCells = [
     numeric: false,
     disablePadding: false,
     label: "Number",
-  },
-
-  {
-    id: "returnedDate",
-    numeric: false,
-    disablePadding: false,
-    label: "Returned Date",
   },
   {
     id: "service",
@@ -154,30 +96,7 @@ export const DetailHeadCells = [
     disablePadding: true,
     label: "Service Price",
   },
-  {
-    id: "certificateId",
-    numeric: false,
-    disablePadding: false,
-    label: "Certificate",
-  },
-  {
-    id: "diamondOrigin",
-    numeric: false,
-    disablePadding: true,
-    label: "Origin",
-  },
-  {
-    id: "caratWeight",
-    numeric: false,
-    disablePadding: false,
-    label: "Carat",
-  },
-  {
-    id: "valuationPrice",
-    numeric: true,
-    disablePadding: true,
-    label: "Valuation Price",
-  },
+
   {
     id: "status",
     numeric: false,
