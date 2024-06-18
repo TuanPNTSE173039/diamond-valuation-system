@@ -9,11 +9,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import {
+  DialogTitle,
   FormControl,
   FormLabel,
-  Select,
   MenuItem,
-  DialogTitle,
+  Select,
 } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
@@ -25,8 +25,10 @@ import {
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useNavigate } from "react-router-dom";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
+import { useSelector } from "react-redux";
 
 const AppointmentForm = () => {
+  const { id } = useSelector((state) => state.auth.user);
   // Query for services
   const { data: services, isLoading: isServiceLoading } = useQuery({
     queryKey: ["services"],
@@ -36,7 +38,7 @@ const AppointmentForm = () => {
   // Query for customer
   const { data: customer, isLoading: isCustomerLoading } = useQuery({
     queryKey: ["customer"],
-    queryFn: () => getCustomer(4),
+    queryFn: () => getCustomer(id),
   });
 
   // State initialization
