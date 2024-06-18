@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -10,23 +11,35 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
 import logo from "../../assets/images/logo.png";
+import SignIn from "../Auth/SignIn.jsx";
+import { logout } from "../../redux/authSlice";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [profileEl, setProfileEl] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user: currentUser } = useSelector((state) => state.auth);
+
+  const handleDialogOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
 
   const openMenu = Boolean(anchorEl);
   const openProfileMenu = Boolean(profileEl);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const handleProfileClick = (event) => {
-    setProfileEl(event.currentTarget);
   };
 
   const handleClose = () => {
@@ -36,8 +49,7 @@ export default function Header() {
 
   const handleMenuItemClick = (text) => {
     setSelectedItem(text);
-    handleClose(); // Close menu after selection
-    // Perform navigation based on the selected text here
+    handleClose();
     switch (text) {
       case "Diamond CheckInput":
         navigate("/check");
@@ -69,15 +81,20 @@ export default function Header() {
       case "Profile":
         navigate("/profile");
         break;
-      case "Manage":
-        navigate("/manage");
+      case "Appointments":
+        navigate("/appointments");
         break;
       case "Logout":
-        navigate("/logout");
+        dispatch(logout());
+        navigate("/");
         break;
       default:
         break;
     }
+  };
+
+  const handleProfileClick = (event) => {
+    setProfileEl(event.currentTarget);
   };
 
   return (
@@ -87,10 +104,10 @@ export default function Header() {
         alignItems: "center",
         padding: "10px 60px",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        position: "fixed", // Add this line
-        width: "100%", // Add this line to make the box full width
-        backgroundColor: "#fff", // Add this line to make the background white
-        zIndex: 1000, // Add this line to make sure the box is above all other elements
+        position: "fixed",
+        width: "100%",
+        backgroundColor: "#fff",
+        zIndex: 1000,
         justifyItems: "center",
       }}
     >
@@ -197,53 +214,85 @@ export default function Header() {
         >
           Appointment
         </Button>
-        <Button
-          sx={{
-            color: "#3e6282",
-            textTransform: "none",
-            fontSize: 17,
-            "&:hover": {
-              color: "#000",
-            },
-          }}
-        >
-          Register
-        </Button>
-        <Button
-          onClick={handleProfileClick}
-          sx={{
-            color: "#3e6272",
-            minWidth: 50,
-            "&:hover": {
-              backgroundColor: "#f0f0f0",
-            },
-            "&:active": {
-              backgroundColor: "#ddd",
-            },
-          }}
-        >
-          <AccountCircleOutlinedIcon sx={{ fontSize: 30 }} />
-        </Button>
-        <Menu anchorEl={profileEl} open={openProfileMenu} onClose={handleClose}>
-          <MenuItem onClick={() => handleMenuItemClick("Profile")}>
-            <Box mr={1}>
-              <PermIdentityOutlinedIcon />
-            </Box>{" "}
-            Profile
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuItemClick("Manage")}>
-            <Box mr={1}>
-              <AccountBoxOutlinedIcon />
-            </Box>{" "}
-            Manage{" "}
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuItemClick("Logout")}>
-            <Box mr={1}>
-              <LogoutOutlinedIcon />
-            </Box>{" "}
-            Logout
-          </MenuItem>
-        </Menu>
+        {currentUser ? (
+          <>
+            <Button
+              onClick={handleProfileClick}
+              sx={{
+                color: "#3e6272",
+                minWidth: 50,
+                "&:hover": {
+                  backgroundColor: "#f0f0f0",
+                },
+                "&:active": {
+                  backgroundColor: "#ddd",
+                },
+              }}
+            >
+              <AccountCircleOutlinedIcon sx={{ fontSize: 30 }} />
+            </Button>
+            <Menu
+              anchorEl={profileEl}
+              open={openProfileMenu}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => handleMenuItemClick("Profile")}>
+                <Box mr={1}>
+                  <PermIdentityOutlinedIcon />
+                </Box>
+                Profile
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuItemClick("Appointments")}>
+                <Box mr={1}>
+                  <AccountBoxOutlinedIcon />
+                </Box>
+                Appointments
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuItemClick("Logout")}>
+                <Box mr={1}>
+                  <LogoutOutlinedIcon />
+                </Box>
+                Logout
+              </MenuItem>
+            </Menu>
+          </>
+        ) : (
+          <>
+            <Button
+              sx={{
+                color: "#3e6282",
+                textTransform: "none",
+                fontSize: 17,
+                "&:hover": {
+                  color: "#000",
+                },
+              }}
+              onClick={() => handleMenuItemClick("Register")}
+            >
+              Register
+            </Button>
+            <Button
+              onClick={handleDialogOpen}
+              sx={{
+                color: "#3e6272",
+                minWidth: 50,
+                "&:hover": {
+                  backgroundColor: "#f0f0f0",
+                },
+                "&:active": {
+                  backgroundColor: "#ddd",
+                },
+              }}
+            >
+              LOG IN
+            </Button>
+            <Dialog open={openDialog} onClose={handleDialogClose}>
+              <DialogContent>
+                <SignIn />
+              </DialogContent>
+            </Dialog>
+          </>
+        )}
       </Box>
     </Box>
   );
