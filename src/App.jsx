@@ -1,7 +1,6 @@
+// App.jsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
 import CalculatePage from "./components/Calculate/Page.jsx";
 import DiamondCheckInputPage from "./components/DiamondCheck/CheckInput/Page.jsx";
 import DiamondCheckResultPage from "./components/DiamondCheck/CheckResult/Page.jsx";
@@ -10,6 +9,9 @@ import ValuationRequestList from "./components/ManageAppointment/List.jsx";
 import RootLayout from "./components/RootLayout.jsx";
 import AppointmentForm from "./components/Appointment/Form.jsx";
 import RequestItem from "./components/ManageAppointment/Item.jsx";
+import AuthSignIn from "./components/Auth/SignIn.jsx";
+import AuthGuard from "./components/Auth/AuthGuard.jsx";
+import GuestGuard from "./components/Auth/GuestGuard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,12 +19,16 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <HomePage />,
       },
       {
         path: "appointment",
-        element: <AppointmentForm />,
+        element: (
+          <AuthGuard>
+            <AppointmentForm />
+          </AuthGuard>
+        ),
       },
       {
         path: "check",
@@ -32,7 +38,7 @@ const router = createBrowserRouter([
             element: <DiamondCheckInputPage />,
           },
           {
-            path: ":id",
+            path: ":certificateID",
             element: <DiamondCheckResultPage />,
           },
         ],
@@ -42,26 +48,44 @@ const router = createBrowserRouter([
         element: <CalculatePage />,
       },
       {
-        path: "manage",
+        path: "appointments",
+        element: (
+          <AuthGuard>
+            <ValuationRequestList />
+          </AuthGuard>
+        ),
         children: [
           {
-            index: true,
-            element: <ValuationRequestList />,
-          },
-          {
-            path: ":id",
+            path: ":requestID",
             element: <RequestItem />,
           },
         ],
       },
     ],
   },
+  {
+    path: "/auth",
+    children: [
+      {
+        path: "login",
+        element: (
+          <GuestGuard>
+            <AuthSignIn />
+          </GuestGuard>
+        ),
+      },
+      // {
+      //   path: "register",
+      //   element: (
+      //       <GuestGuard>
+      //         <Register />
+      //       </GuestGuard>
+      //   ),
+      // },
+    ],
+  },
 ]);
 
 export default function App() {
-  return (
-    <RouterProvider router={router}>
-      <ToastContainer />
-    </RouterProvider>
-  );
+  return <RouterProvider router={router} />;
 }
