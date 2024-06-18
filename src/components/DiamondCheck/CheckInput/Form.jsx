@@ -3,18 +3,14 @@ import { Box, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import { getDiamondCheckByCertificateId } from "../../../services/api.js";
 
 const DiamondCheckInputForm = () => {
   const [certificateId, setCertificateId] = useState("");
   const navigate = useNavigate();
 
   const handleCheck = async () => {
-    if (certificateId.trim()) {
-      const data = await getDiamondCheckByCertificateId(certificateId);
-      console.log(data); // Log the data for now, you can handle it as needed
-      navigate(`/check/${certificateId}`);
-    }
+    console.log(certificateId);
+    navigate(`/check/${certificateId}`);
   };
 
   return (
