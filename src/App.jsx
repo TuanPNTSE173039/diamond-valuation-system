@@ -12,6 +12,7 @@ import RequestItem from "./components/ManageAppointment/Item.jsx";
 import AuthSignIn from "./components/Auth/SignIn.jsx";
 import AuthGuard from "./components/Auth/AuthGuard.jsx";
 import GuestGuard from "./components/Auth/GuestGuard.jsx";
+import Register from "./components/Auth/Register.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
           <AuthGuard>
             <AppointmentForm />
           </AuthGuard>
+        ),
+      },
+      {
+        path: "register",
+        element: (
+          <GuestGuard>
+            <Register />
+          </GuestGuard>
         ),
       },
       {
@@ -74,14 +83,14 @@ const router = createBrowserRouter([
           </GuestGuard>
         ),
       },
-      // {
-      //   path: "register",
-      //   element: (
-      //       <GuestGuard>
-      //         <Register />
-      //       </GuestGuard>
-      //   ),
-      // },
+      {
+        path: "register",
+        element: (
+          <GuestGuard>
+            <Register />
+          </GuestGuard>
+        ),
+      },
     ],
   },
 ]);
