@@ -14,7 +14,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import logo from "../../assets/images/logo.png";
-import SignIn from "../Auth/SignIn.jsx";
+import SignIn from "../Auth/SignIn";
 import { logout } from "../../redux/authSlice";
 
 export default function Header() {
@@ -22,6 +22,7 @@ export default function Header() {
   const [profileEl, setProfileEl] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const [showAppointmentDialog, setShowAppointmentDialog] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -73,7 +74,11 @@ export default function Header() {
         navigate("/post");
         break;
       case "Appointment":
-        navigate("/appointment");
+        if (!currentUser) {
+          setShowAppointmentDialog(true);
+        } else {
+          navigate("/appointment");
+        }
         break;
       case "Register":
         navigate("/register");
@@ -115,6 +120,7 @@ export default function Header() {
 
       <Box sx={{ display: "flex", justifyContent: "center", flex: 1, gap: 3 }}>
         <Button
+          onClick={() => handleMenuItemClick("HOME")}
           sx={{
             color: "#3e6272",
             textTransform: "none",
@@ -127,6 +133,7 @@ export default function Header() {
           HOME
         </Button>
         <Button
+          onClick={() => handleMenuItemClick("ABOUT")}
           sx={{
             color: "#3e6272",
             textTransform: "none",
@@ -174,6 +181,7 @@ export default function Header() {
         </Menu>
 
         <Button
+          onClick={() => handleMenuItemClick("POST")}
           sx={{
             color: "#3e6272",
             textTransform: "none",
@@ -288,7 +296,29 @@ export default function Header() {
             </Button>
             <Dialog open={openDialog} onClose={handleDialogClose}>
               <DialogContent>
-                <SignIn />
+                <SignIn open={openDialog} onClose={handleDialogClose} />
+              </DialogContent>
+            </Dialog>
+            <Dialog
+              open={showAppointmentDialog}
+              onClose={() => setShowAppointmentDialog(false)}
+            >
+              <DialogContent
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                <div>
+                  <p>You need to log in to create an Appointment.</p>
+                  <Button
+                    onClick={() => {
+                      setShowAppointmentDialog(false);
+                      handleDialogOpen();
+                    }}
+                  >
+                    Log In
+                  </Button>
+                </div>
               </DialogContent>
             </Dialog>
           </>
