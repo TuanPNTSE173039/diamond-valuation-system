@@ -6,9 +6,30 @@ const user = JSON.parse(localStorage.getItem("auth"))?.userInformation;
 
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ username, email, password }, thunkAPI) => {
+  async (
+    {
+      username,
+      password,
+      email,
+      firstName,
+      lastName,
+      phone,
+      address,
+      identityDocument,
+    },
+    thunkAPI,
+  ) => {
     try {
-      const response = await AuthService.register(username, email, password);
+      const response = await AuthService.register(
+        username,
+        password,
+        email,
+        firstName,
+        lastName,
+        phone,
+        address,
+        identityDocument,
+      );
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {
@@ -19,7 +40,7 @@ export const register = createAsyncThunk(
         error.message ||
         error.toString();
       thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();
+      return thunkAPI.rejectWithValue(message);
     }
   },
 );
@@ -61,6 +82,15 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(register.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
+        state.user = action.payload;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        state.user = null;
+        state.error = action.payload; // Add error to state
+      })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoggedIn = true;
         state.user = action.payload.user;
