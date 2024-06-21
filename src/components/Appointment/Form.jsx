@@ -138,7 +138,7 @@ const AppointmentForm = () => {
           position: "absolute",
           width: "681px",
           height: "550px",
-          left: "740px",
+          left: "685px",
         }}
       />
       <Box
