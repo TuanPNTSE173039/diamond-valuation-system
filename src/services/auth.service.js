@@ -1,5 +1,31 @@
 import { http } from "./config.js";
 
+const register = async (
+  username,
+  password,
+  email,
+  firstName,
+  lastName,
+  phone,
+  address,
+  identityDocument,
+) => {
+  const response = await http.post("/auth/register", {
+    username,
+    password,
+    email,
+    firstName,
+    lastName,
+    phone,
+    address,
+    identityDocument,
+  });
+  if (response.status !== 200) {
+    throw new Error("Error registering");
+  }
+  return response.data;
+};
+
 const login = async (usernameOrEmail, password) => {
   const response = await http.post("/auth/login", {
     usernameOrEmail,
@@ -33,6 +59,7 @@ const getCurrentToken = () => {
 const AuthService = {
   login,
   logout,
+  register,
   getCurrentUser,
   getCurrentToken,
 };
