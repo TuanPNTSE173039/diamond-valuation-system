@@ -56,14 +56,14 @@ const router = createBrowserRouter([
         path: "calculate",
         element: <CalculatePage />,
       },
+
       {
         path: "appointments",
-        element: (
-          <AuthGuard>
-            <ValuationRequestList />
-          </AuthGuard>
-        ),
         children: [
+          {
+            index: true,
+            element: <ValuationRequestList />,
+          },
           {
             path: ":requestID",
             element: <RequestItem />,
