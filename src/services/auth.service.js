@@ -20,7 +20,8 @@ const register = async (
     address,
     identityDocument,
   });
-  if (response.status !== 200) {
+  console.log("Register API call response:", response);
+  if (response.status !== 201) {
     throw new Error("Error registering");
   }
   return response.data;
