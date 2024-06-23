@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -15,7 +15,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { register } from "../../redux/authSlice";
-import { clearMessage, setMessage } from "../../redux/messageSlide";
+import { clearMessage } from "../../redux/messageSlide";
 import SignIn from "./SignIn.jsx";
 import { useNavigate } from "react-router-dom";
 import background from "../../assets/images/background.png";
@@ -24,15 +24,22 @@ const defaultTheme = createTheme();
 
 export default function Register() {
   const [successful, setSuccessful] = useState(false);
-  const navigate = useNavigate();
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
 
-  const { message } = useSelector((state) => state.message);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(clearMessage());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (successful && openLoginDialog) {
+      console.log(successful, openLoginDialog);
+      navigate("/", { replace: true });
+    }
+  }, [successful, openLoginDialog, navigate]);
 
   const initialValues = {
     username: "",
@@ -68,7 +75,7 @@ export default function Register() {
     firstName: Yup.string()
       .test(
         "len",
-        // "The first name must be between 2 and 20 characters.",
+        "The first name must be between 2 and 20 characters.",
         (val) =>
           val && val.toString().length >= 2 && val.toString().length <= 20,
       )
@@ -76,16 +83,15 @@ export default function Register() {
     lastName: Yup.string()
       .test(
         "len",
-        //"The last name must be between 2 and 20 characters.",
+        "The last name must be between 2 and 20 characters.",
         (val) =>
           val && val.toString().length >= 2 && val.toString().length <= 20,
       )
       .required("This field is required!"),
-
     phone: Yup.string()
       .test(
         "len",
-        "The username must be 10 characters.",
+        "The phone number must be 10 characters.",
         (val) => val && val.toString().length === 10,
       )
       .required("This field is required!"),
@@ -93,7 +99,7 @@ export default function Register() {
     identityDocument: Yup.string()
       .test(
         "len",
-        "The username must be between 3 and 40 characters.",
+        "The identity document must be between 3 and 40 characters.",
         (val) =>
           val && val.toString().length >= 3 && val.toString().length <= 40,
       )
@@ -113,8 +119,7 @@ export default function Register() {
     } = formValue;
 
     try {
-      console.log("Dispatching register action...");
-      const response = await dispatch(
+      await dispatch(
         register({
           username,
           password,
@@ -125,14 +130,15 @@ export default function Register() {
           address,
           identityDocument,
         }),
-      ).unwrap();
-      console.log("Response from registration:", response);
+      );
+
+      // After successful registration
       setSuccessful(true);
-      setOpenLoginDialog(true); // Changed to true to open dialog
+      setOpenLoginDialog(true);
     } catch (error) {
-      console.error("Error during registration:", error);
-      dispatch(setMessage(error));
+      // Handle any errors if registration fails
       setSuccessful(false);
+      setOpenLoginDialog(false);
     }
   };
 
@@ -342,28 +348,22 @@ export default function Register() {
                         />
                       </Grid>
                     </Grid>
-                    {message && (
-                      <Typography
-                        color="error"
-                        fontStyle="italic"
-                        fontSize="13px"
-                        sx={{ mt: 2 }}
-                      >
-                        {message}
-                      </Typography>
-                    )}
                     <Button
-                      onClick={formik.handleSubmit}
                       type="submit"
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
+                      onClick={formik.handleSubmit}
                     >
                       Sign Up
                     </Button>
                     <Grid container justifyContent="flex-end">
                       <Grid item>
-                        <Link href="#" variant="body2">
+                        <Link
+                          href="#"
+                          variant="body2"
+                          onClick={() => navigate("/login")}
+                        >
                           Already have an account? Sign in
                         </Link>
                       </Grid>
@@ -373,14 +373,13 @@ export default function Register() {
               )}
             </Formik>
           </Box>
-          {successful && (
-            <SignIn
-              open={openLoginDialog}
-              onClose={() => setOpenLoginDialog(false)}
-            />
-          )}
         </Container>
       </Box>
+
+      <SignIn
+        open={openLoginDialog}
+        onClose={() => setOpenLoginDialog(false)}
+      />
     </ThemeProvider>
   );
 }
