@@ -30,15 +30,14 @@ export const register = createAsyncThunk(
         address,
         identityDocument,
       );
-      thunkAPI.dispatch(setMessage(response.data.message));
+      console.log("Response:", response); // Log the entire response object
+      const message = response?.data?.message || "Registration successful";
+      thunkAPI.dispatch(setMessage(message));
+
       return response.data;
     } catch (error) {
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+        error?.response?.data?.message || error.message || error.toString();
       thunkAPI.dispatch(setMessage(message));
       return thunkAPI.rejectWithValue(message);
     }
@@ -83,13 +82,10 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, action) => {
-        state.isLoggedIn = true;
-        state.user = action.payload;
+        state.isLoggedIn = false;
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoggedIn = false;
-        state.user = null;
-        state.error = action.payload; // Add error to state
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoggedIn = true;
