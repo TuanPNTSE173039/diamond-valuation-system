@@ -31,8 +31,9 @@ export default function UITable({
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);
 
-  const handleClick = async (number) => {
-    navigate(`/appointments/${number}`);
+  const handleClick = async (requestID) => {
+    console.log(requestID);
+    navigate(`/appointments/${requestID}`);
   };
 
   const queryClient = useQueryClient();
