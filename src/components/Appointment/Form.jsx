@@ -159,7 +159,6 @@ const AppointmentForm = () => {
           variant="h4"
           component="div"
           sx={{
-            fontFamily: "'Epilogue-Bold', Helvetica",
             fontWeight: "bold",
             color: "#003565",
             mb: 3,
