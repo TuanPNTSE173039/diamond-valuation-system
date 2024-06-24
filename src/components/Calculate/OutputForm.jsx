@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import daniel from "../../assets/images/daniel.png";
-import diamond_id from "../../assets/images/diamond_id.png";
+import diamond1 from "../../assets/images/diamond1.png";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { useState } from "react";
 
@@ -12,7 +12,19 @@ export const CalculateOutputForm = ({
   isMarketLoading,
   marketError,
 }) => {
-  if (isDiamondLoading || isMarketLoading) return <UICircularIndeterminate />;
+  if (isDiamondLoading || isMarketLoading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh", // This assumes you want to center it in the whole viewport. Adjust as needed.
+        }}
+      >
+        <UICircularIndeterminate />
+      </Box>
+    );
 
   if (diamondError || marketError) {
     // Display error message if there's an error fetching data
@@ -261,7 +273,7 @@ export const CalculateOutputForm = ({
                     left: 7,
                   }}
                 >
-                  <img src={diamond_id} alt="diamond" />
+                  <img src={diamond1} alt="diamond" />
                 </Box>
 
                 <Box
