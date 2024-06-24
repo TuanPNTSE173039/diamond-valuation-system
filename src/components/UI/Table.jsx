@@ -27,6 +27,15 @@ export default function UITable({
   totalPrice = 0,
   requestStatus,
 }) {
+  const formattedMoney = (money) => {
+    if (money === "N/A" || money === 0) {
+      return "N/A";
+    }
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(money);
+  };
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);

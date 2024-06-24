@@ -8,6 +8,16 @@ import Drawer from "../UI/Drawer.jsx";
 import React from "react";
 
 const RequestItem = () => {
+  const formattedMoney = (money) => {
+    if (money === "N/A" || money === 0) {
+      return "N/A";
+    }
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(money);
+  };
+
   const { requestID } = useParams();
 
   console.log(requestID);
@@ -30,10 +40,12 @@ const RequestItem = () => {
       servicePrice:
         item.servicePrice === "0.0" || item.servicePrice === null
           ? "N/A"
-          : item.servicePrice,
+          : formattedMoney(item.servicePrice),
       status: item.status,
     };
   });
+  // In your UITable component props
+  const totalPriceFormat = formattedMoney(request.totalServicePrice);
   return (
     <div
       style={{
@@ -51,7 +63,7 @@ const RequestItem = () => {
         headCells={DetailHeadCells}
         rows={detailRows}
         showTotalPrice={true}
-        totalPrice={request.totalServicePrice}
+        totalPrice={totalPriceFormat}
         requestStatus={request.status}
       />
     </div>
