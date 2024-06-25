@@ -12,6 +12,15 @@ export const CalculateOutputForm = ({
   isMarketLoading,
   marketError,
 }) => {
+  const formattedMoney = (money) => {
+    if (money === "N/A" || money === 0) {
+      return "N/A";
+    }
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(money);
+  };
   if (isDiamondLoading || isMarketLoading)
     return (
       <Box
@@ -36,6 +45,11 @@ export const CalculateOutputForm = ({
       </Box>
     );
   }
+
+  const fairPriceFormat = formattedMoney(diamondData.fairPrice);
+  const estimatePerCaratFormat = formattedMoney(diamondData.pricePerCarat);
+  const minPriceFormat = formattedMoney(diamondData.minPrice);
+  const maxPriceFormat = formattedMoney(diamondData.maxPrice);
 
   const [visibleCount, setVisibleCount] = useState(5);
 
@@ -105,7 +119,7 @@ export const CalculateOutputForm = ({
               color: "#171a1f",
             }}
           >
-            {`$${diamondData.fairPrice}`}
+            {fairPriceFormat}
           </Typography>
 
           <Typography
@@ -176,7 +190,7 @@ export const CalculateOutputForm = ({
               textAlign: "center",
             }}
           >
-            {`$${diamondData.minPrice} - $${diamondData.maxPrice}`}
+            {minPriceFormat} - {maxPriceFormat}
           </Typography>
         </Box>
         <Box
@@ -217,7 +231,7 @@ export const CalculateOutputForm = ({
               color: "#171a1f",
             }}
           >
-            {`$${diamondData.pricePerCarat}`}
+            {estimatePerCaratFormat}
           </Typography>
         </Box>
 
