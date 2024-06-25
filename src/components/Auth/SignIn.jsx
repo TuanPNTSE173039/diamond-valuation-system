@@ -15,7 +15,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
@@ -76,7 +75,6 @@ export default function SignIn({ open, onClose }) {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Sign in</DialogTitle>
       <DialogContent>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
