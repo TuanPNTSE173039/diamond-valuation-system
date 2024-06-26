@@ -1,85 +1,82 @@
-import diamond_id from "../../../assets/images/diamond_id.png";
-import daniel from "../../../assets/images/daniel.png";
-import allurez from "../../../assets/images/allurez.png";
+import diamond1 from "../../../assets/images/diamond1.png";
+import dimond2 from "../../../assets/images/dimond2.png";
+import diamond3 from "../../../assets/images/diamond3.png";
 import DiamondCheckResultForm from "./ResultForm.jsx";
 import ImageGallery from "../CheckResult/ImageForm";
 import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getDiamondCheckByCertificateId } from "../../../services/api.js";
+import DiamondDetails from "./DiamondDetails.jsx";
 
 const DiamondCheckResultPage = () => {
   const { certificateID } = useParams();
+  console.log(certificateID);
   const [diamondData, setDiamondData] = useState(null);
 
   useEffect(() => {
     const fetchDiamondData = async () => {
       const data = await getDiamondCheckByCertificateId(certificateID);
+      console.log(data); // Log the data for now, you can handle it as needed
       setDiamondData(data);
     };
-
     fetchDiamondData();
   }, [certificateID]);
 
   const images = [
     {
-      img: diamond_id,
-      title: "Diamond ID Image", // replace with your actual title
-    },
-
-    {
-      img: daniel,
-      title: "Daniel Image", // replace with your actual title
+      img: diamond1,
+      title: "First Diamond Image",
     },
     {
-      img: allurez,
-      title: "Allurez Image", // replace with your actual title
+      img: dimond2,
+      title: "Second Diamond Image",
+    },
+    {
+      img: diamond3,
+      title: "Thirst Diamond Image",
     },
   ];
-  const giaId = "2474506136";
-  const priceEstimate = "$7,117";
-  const estimateRange = "$5,489 - $8,882";
-  //const imageSrc = diamond_id;
-  const cut_score = "9.4";
-  const visual_carat = "1.01";
-  const shape = "Round";
-  const carat = "1.01";
-  const color = "D";
-  const clarity = "VS1";
-  const fluorescence = "None";
-  const symmetry = "Excellent";
-  const polish = "Excellent";
-  const lab = "GIA";
 
   return (
     <Box
       display="flex"
-      flexDirection="row"
+      flexDirection="column"
       marginY="50px"
       marginLeft="120px"
       justifyContent="space-between"
     >
-      <Box width="50%">
-        <ImageGallery images={images} />
+      <Box
+        display="flex"
+        flexDirection="row"
+        width="100%"
+        justifyContent="space-between"
+      >
+        <Box width="50%">
+          <ImageGallery images={images} />
+        </Box>
+        <Box width="50%" marginLeft="70px">
+          {diamondData && (
+            <DiamondCheckResultForm
+              giaId={diamondData.certificateId}
+              priceEstimate={`$${diamondData.fairPrice}`}
+              estimateRange={`$${diamondData.minPrice} - $${diamondData.maxPrice}`}
+              cut_score="0.9"
+              visual_carat="1.0"
+              shape={diamondData.shape}
+              carat={diamondData.caratWeight}
+              color={diamondData.color}
+              clarity={diamondData.clarity}
+              fluorescence={diamondData.fluorescence}
+              symmetry={diamondData.symmetry}
+              polish={diamondData.polish}
+              lab="GIA"
+            />
+          )}
+        </Box>
       </Box>
-      <Box width="50%" marginLeft="70px">
-        {diamondData && (
-          <DiamondCheckResultForm
-            giaId={diamondData.certificateId}
-            priceEstimate={`$${diamondData.fairPrice}`}
-            estimateRange={`$${diamondData.minPrice} - $${diamondData.maxPrice}`}
-            cut_score={cut_score}
-            visual_carat={visual_carat}
-            shape={diamondData.shape}
-            carat={diamondData.caratWeight}
-            color={diamondData.color}
-            clarity={diamondData.clarity}
-            fluorescence={diamondData.fluorescence}
-            symmetry={diamondData.symmetry}
-            polish={diamondData.polish}
-            lab={lab}
-          />
-        )}
+      <Box marginTop="40px">
+        <DiamondDetails />
       </Box>
     </Box>
   );

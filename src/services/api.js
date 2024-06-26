@@ -51,3 +51,8 @@ export const getValuationRequestByID = async (requestID) => {
   const response = await http.get(`valuation-requests/${requestID}`);
   return response.data;
 };
+
+export const deleteValuationRequestByID = async (requestID) => {
+  const response = await http.delete(`valuation-requests/${requestID}`);
+  return response.data;
+};

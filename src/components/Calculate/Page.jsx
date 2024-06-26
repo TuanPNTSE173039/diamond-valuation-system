@@ -26,7 +26,7 @@ function CalculatePage() {
     queryKey: ["diamondData", params],
     queryFn: () => getDiamondData(params),
   });
-  console.log(diamondData);
+  //console.log(diamondData);
 
   const {
     data: marketData,

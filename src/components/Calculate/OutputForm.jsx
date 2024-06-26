@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import daniel from "../../assets/images/daniel.png";
-import diamond_id from "../../assets/images/diamond_id.png";
+import diamond1 from "../../assets/images/diamond1.png";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { useState } from "react";
 
@@ -12,7 +12,28 @@ export const CalculateOutputForm = ({
   isMarketLoading,
   marketError,
 }) => {
-  if (isDiamondLoading || isMarketLoading) return <UICircularIndeterminate />;
+  const formattedMoney = (money) => {
+    if (money === "N/A" || money === 0) {
+      return "N/A";
+    }
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(money);
+  };
+  if (isDiamondLoading || isMarketLoading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh", // This assumes you want to center it in the whole viewport. Adjust as needed.
+        }}
+      >
+        <UICircularIndeterminate />
+      </Box>
+    );
 
   if (diamondError || marketError) {
     // Display error message if there's an error fetching data
@@ -24,6 +45,11 @@ export const CalculateOutputForm = ({
       </Box>
     );
   }
+
+  const fairPriceFormat = formattedMoney(diamondData.fairPrice);
+  const estimatePerCaratFormat = formattedMoney(diamondData.pricePerCarat);
+  const minPriceFormat = formattedMoney(diamondData.minPrice);
+  const maxPriceFormat = formattedMoney(diamondData.maxPrice);
 
   const [visibleCount, setVisibleCount] = useState(5);
 
@@ -93,7 +119,7 @@ export const CalculateOutputForm = ({
               color: "#171a1f",
             }}
           >
-            {`$${diamondData.fairPrice}`}
+            {fairPriceFormat}
           </Typography>
 
           <Typography
@@ -164,7 +190,7 @@ export const CalculateOutputForm = ({
               textAlign: "center",
             }}
           >
-            {`$${diamondData.minPrice} - $${diamondData.maxPrice}`}
+            {minPriceFormat} - {maxPriceFormat}
           </Typography>
         </Box>
         <Box
@@ -205,7 +231,7 @@ export const CalculateOutputForm = ({
               color: "#171a1f",
             }}
           >
-            {`$${diamondData.pricePerCarat}`}
+            {estimatePerCaratFormat}
           </Typography>
         </Box>
 
@@ -261,7 +287,7 @@ export const CalculateOutputForm = ({
                     left: 7,
                   }}
                 >
-                  <img src={diamond_id} alt="diamond" />
+                  <img src={diamond1} alt="diamond" />
                 </Box>
 
                 <Box

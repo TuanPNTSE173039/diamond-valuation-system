@@ -3,21 +3,14 @@ import { Box, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import { getDiamondCheckByCertificateId } from "../../../services/api.js";
 
 const DiamondCheckInputForm = () => {
   const [certificateId, setCertificateId] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleCheck = async () => {
-    if (certificateId.trim().length < 10) {
-      setErrorMessage("CertificateID must be 10 digits.");
-    } else {
-      const data = await getDiamondCheckByCertificateId(certificateId);
-      console.log(data); // Log the data for now, you can handle it as needed
-      navigate(`/check/${certificateId}`);
-    }
+    console.log(certificateId);
+    navigate(`/check/${certificateId}`);
   };
 
   return (
@@ -85,19 +78,6 @@ const DiamondCheckInputForm = () => {
           }}
         />
       </Box>
-      {errorMessage && (
-        <Typography
-          position="absolute"
-          top={250}
-          left={0}
-          color="error"
-          data-testid="error-message"
-          fontSize={14}
-          fontStyle={"italic"}
-        >
-          {errorMessage}
-        </Typography>
-      )}
       <Button
         onClick={handleCheck}
         sx={{

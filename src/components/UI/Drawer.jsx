@@ -2,7 +2,6 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -13,13 +12,13 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
-
-const drawerWidth = 240;
+import { useNavigate } from "react-router-dom";
 
 function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -45,9 +44,17 @@ function ResponsiveDrawer(props) {
       </Toolbar>
       <Divider />
       <List>
-        {["Profile", "Appointment"].map((text, index) => (
+        {["Profile", "Appointments"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              onClick={() => {
+                if (text === "Profile") {
+                  navigate("/profile");
+                } else if (text === "Appointments") {
+                  navigate("/appointments");
+                }
+              }}
+            >
               <ListItemIcon>
                 {index % 2 === 0 ? (
                   <AccountCircleOutlinedIcon />

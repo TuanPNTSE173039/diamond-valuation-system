@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Drawer from "../UI/Drawer.jsx";
 import UITable from "../UI/Table";
 import { RequestHeadCells } from "../../utilities/Table.js";
@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getValuationRequestsByCustomerID } from "../../services/api.js";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import { useSelector } from "react-redux";
 
 // Utility function to format date and time
 const formatDateTime = (dateTimeString) => {
@@ -20,9 +21,11 @@ const formatDateTime = (dateTimeString) => {
 };
 
 const ValuationRequestList = () => {
+  const { id } = useSelector((state) => state.auth.user);
+  console.log(id);
   const { data: requests, isFetching: isRequestFetching } = useQuery({
     queryKey: ["requests"],
-    queryFn: () => getValuationRequestsByCustomerID(2),
+    queryFn: () => getValuationRequestsByCustomerID(id),
   });
 
   // Handle loading state
@@ -42,15 +45,18 @@ const ValuationRequestList = () => {
   }
 
   // Map data to the format expected by UITable
-  const requestRows = requests?.content.map((row) => {
+  const requestRows = requests?.content.map((row, index) => {
     return {
+      //id: row.id,
       number: row.id,
       status: row.status,
       creationDate: formatDateTime(row.creationDate),
+      returnedDate: row.returnDate ? formatDateTime(row.returnDate) : "N/A",
       diamondAmount: row.diamondAmount,
       service: row.serviceName,
     };
   });
+  console.log(requestRows);
 
   return (
     <div
@@ -68,6 +74,7 @@ const ValuationRequestList = () => {
         heading="All Valuations"
         rows={requestRows}
         headCells={RequestHeadCells}
+        showDeleteButton={true}
       />
     </div>
   );

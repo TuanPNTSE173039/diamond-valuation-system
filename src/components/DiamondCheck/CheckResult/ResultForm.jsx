@@ -1,5 +1,5 @@
-import { Box, Typography, Button } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { Box, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const DiamondCheckResultForm = ({
@@ -44,7 +44,7 @@ const DiamondCheckResultForm = ({
           width: 106,
           height: 22,
           top: 7,
-          left: 140,
+          left: 155,
           backgroundColor: "#d9fcda",
           borderRadius: 1,
           border: "1px solid #00c853",

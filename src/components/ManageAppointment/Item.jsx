@@ -8,34 +8,44 @@ import Drawer from "../UI/Drawer.jsx";
 import React from "react";
 
 const RequestItem = () => {
-  const { id } = useParams();
+  const formattedMoney = (money) => {
+    if (money === "N/A" || money === 0) {
+      return "N/A";
+    }
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(money);
+  };
+
+  const { requestID } = useParams();
+
+  console.log(requestID);
+
   const { data: request, isLoading } = useQuery({
-    queryKey: ["request", { requestId: id }],
-    queryFn: () => getValuationRequestByID(id),
+    queryKey: ["request", { requestId: requestID }],
+    queryFn: () => getValuationRequestByID(requestID),
   });
-  console.log(id);
+  console.log(requestID);
   console.log(request);
   if (isLoading) {
     return <UICircularIndeterminate />;
   }
 
-  const detailRows = request.valuationRequestDetails.map((item) => {
+  const detailRows = request.valuationRequestDetails.map((item, index) => {
     return {
-      number: item.id,
-      returnedDate: request.returnDate ? request.returnDate : "N/A",
+      number: index + 1,
       service: request.service.name,
-      size: (item.size === 0 && "N/A") || item.size,
-      servicePrice: item.servicePrice === 0 ? "N/A" : item.servicePrice,
-      certificateId: item.diamondValuationNote?.certificateId || "N/A",
-      diamondOrigin: item.diamondValuationNote?.diamondOrigin || "N/A",
-      caratWeight: item.diamondValuationNote?.caratWeight || "N/A",
-      valuationPrice:
-        item.valuationPrice === "0.0" || item.valuationPrice === null
+      size: item.size === 0 || item.size === null ? "N/A" : item.size,
+      servicePrice:
+        item.servicePrice === "0.0" || item.servicePrice === null
           ? "N/A"
-          : item.valuationPrice,
+          : formattedMoney(item.servicePrice),
       status: item.status,
     };
   });
+  // In your UITable component props
+  const totalPriceFormat = formattedMoney(request.totalServicePrice);
   return (
     <div
       style={{
@@ -48,7 +58,14 @@ const RequestItem = () => {
       <div style={{ marginRight: "20px" }}>
         <Drawer />
       </div>
-      <UITable heading="Detail" headCells={DetailHeadCells} rows={detailRows} />
+      <UITable
+        heading="Detail"
+        headCells={DetailHeadCells}
+        rows={detailRows}
+        showTotalPrice={true}
+        totalPrice={totalPriceFormat}
+        requestStatus={request.status}
+      />
     </div>
   );
 };
