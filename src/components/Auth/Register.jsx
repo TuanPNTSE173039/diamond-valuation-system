@@ -35,12 +35,12 @@ export default function Register() {
     dispatch(clearMessage());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (successful && openLoginDialog) {
-      console.log(successful, openLoginDialog);
-      navigate("/", { replace: true });
-    }
-  }, [successful, openLoginDialog, navigate]);
+  // useEffect(() => {
+  //   if (successful && openLoginDialog) {
+  //     console.log(successful, openLoginDialog);
+  //     navigate("/", { replace: true });
+  //   }
+  // }, [successful, openLoginDialog, navigate]);
 
   const initialValues = {
     username: "",
