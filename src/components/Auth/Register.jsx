@@ -17,7 +17,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { register } from "../../redux/authSlice";
 import { clearMessage } from "../../redux/messageSlide";
 //import SignIn from "./SignIn.jsx";
-import { useNavigate } from "react-router-dom";
 //import background from "../../assets/images/background.png";
 
 const defaultTheme = createTheme();
@@ -27,7 +26,7 @@ export default function Register() {
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
   const { message } = useSelector((state) => state.message);
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -129,6 +128,7 @@ export default function Register() {
   });
 
   const handleRegister = async (formValue) => {
+    console.log(formValue);
     const {
       username,
       password,
@@ -153,11 +153,13 @@ export default function Register() {
           identityDocument,
         }),
       );
-
+      console.log("Register success");
+      console.log(message);
       // After successful registration
       setSuccessful(true);
       setOpenLoginDialog(true);
     } catch (error) {
+      console.log("Register failed:", error.message);
       // Handle any errors if registration fails
       setSuccessful(false);
       setOpenLoginDialog(false);
@@ -370,11 +372,21 @@ export default function Register() {
                         />
                       </Grid>
                     </Grid>
+                    {message && (
+                      <Typography
+                        color={"error"}
+                        fontSize={12}
+                        fontStyle={"italic"}
+                        sx={{ mt: 1 }}
+                      >
+                        **{message}
+                      </Typography>
+                    )}
                     <Button
                       type="submit"
                       fullWidth
                       variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
+                      sx={{ mt: 2, mb: 2 }}
                       onClick={formik.handleSubmit}
                     >
                       Sign Up
@@ -397,7 +409,6 @@ export default function Register() {
           </Box>
         </Container>
       </Box>
-      {message && <Typography color={"secondary"}>{message}</Typography>}
 
       {/*<SignIn*/}
       {/*  open={openLoginDialog}*/}
