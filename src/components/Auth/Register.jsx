@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -16,17 +16,17 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { register } from "../../redux/authSlice";
 import { clearMessage } from "../../redux/messageSlide";
-import SignIn from "./SignIn.jsx";
-import { useNavigate } from "react-router-dom";
-import background from "../../assets/images/background.png";
+//import SignIn from "./SignIn.jsx";
+//import background from "../../assets/images/background.png";
 
 const defaultTheme = createTheme();
 
 export default function Register() {
   const [successful, setSuccessful] = useState(false);
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
+  const { message } = useSelector((state) => state.message);
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -34,12 +34,12 @@ export default function Register() {
     dispatch(clearMessage());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (successful && openLoginDialog) {
-      console.log(successful, openLoginDialog);
-      navigate("/", { replace: true });
-    }
-  }, [successful, openLoginDialog, navigate]);
+  // useEffect(() => {
+  //   if (successful && openLoginDialog) {
+  //     console.log(successful, openLoginDialog);
+  //     navigate("/", { replace: true });
+  //   }
+  // }, [successful, openLoginDialog, navigate]);
 
   const initialValues = {
     username: "",
@@ -53,60 +53,82 @@ export default function Register() {
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string()
+    firstName: Yup.string()
+      .matches(/^[A-Za-z]+$/, "The first name must be alphabetic.")
       .test(
         "len",
-        "The username must be between 3 and 20 characters.",
+        "The first name must be between 2 and 30 characters.",
         (val) =>
-          val && val.toString().length >= 3 && val.toString().length <= 20,
+          val && val.toString().length >= 2 && val.toString().length <= 30,
       )
-      .required("This field is required!"),
+      .required("First name is required!"),
+    lastName: Yup.string()
+      .matches(/^[A-Za-z]+$/, "The last name must be alphabetic.")
+      .test(
+        "len",
+        "The last name must be between 2 and 30 characters.",
+        (val) =>
+          val && val.toString().length >= 2 && val.toString().length <= 30,
+      )
+      .required("Last name is required!"),
+    username: Yup.string()
+      .matches(/^[A-Za-z]+$/, "The username must be alphabetic.")
+      .test(
+        "len",
+        "The username must be between 6 and 24 characters.",
+        (val) =>
+          val && val.toString().length >= 6 && val.toString().length <= 24,
+      )
+      .required("Username is required!"),
     email: Yup.string()
       .email("This is not a valid email.")
-      .required("This field is required!"),
+      .required("Email is required!"),
     password: Yup.string()
       .test(
         "len",
-        "The password must be between 6 and 40 characters.",
+        "The password must be between 6 and 20 characters.",
         (val) =>
-          val && val.toString().length >= 6 && val.toString().length <= 40,
+          val && val.toString().length >= 6 && val.toString().length <= 20,
       )
-      .required("This field is required!"),
-    firstName: Yup.string()
       .test(
-        "len",
-        "The first name must be between 2 and 20 characters.",
-        (val) =>
-          val && val.toString().length >= 2 && val.toString().length <= 20,
+        "contains-number",
+        "The password must contain at least 1 number.",
+        (val) => {
+          // Check if the password contains at least one digit
+          return /\d/.test(val);
+        },
       )
-      .required("This field is required!"),
-    lastName: Yup.string()
-      .test(
-        "len",
-        "The last name must be between 2 and 20 characters.",
-        (val) =>
-          val && val.toString().length >= 2 && val.toString().length <= 20,
-      )
-      .required("This field is required!"),
+      .required("Password is required!"),
     phone: Yup.string()
       .test(
         "len",
         "The phone number must be 10 characters.",
         (val) => val && val.toString().length === 10,
       )
-      .required("This field is required!"),
-    address: Yup.string().required("This field is required!"),
-    identityDocument: Yup.string()
+      .test("is-numbers", "Phone number must only contain numbers.", (val) => {
+        // Check if the phone number contains only digits
+        return /^\d+$/.test(val);
+      })
+      .required("Phone number is required!"),
+    address: Yup.string()
       .test(
         "len",
-        "The identity document must be between 3 and 40 characters.",
+        "The address must be between 3 and 40 characters.",
         (val) =>
           val && val.toString().length >= 3 && val.toString().length <= 40,
       )
-      .required("This field is required!"),
+      .required("Address is required!"),
+    identityDocument: Yup.string()
+      .test(
+        "len",
+        "The identity document must be 12 characters.",
+        (val) => val && val.toString().length === 12,
+      )
+      .required("Identity document is required!"),
   });
 
   const handleRegister = async (formValue) => {
+    console.log(formValue);
     const {
       username,
       password,
@@ -131,11 +153,13 @@ export default function Register() {
           identityDocument,
         }),
       );
-
+      console.log("Register success");
+      console.log(message);
       // After successful registration
       setSuccessful(true);
       setOpenLoginDialog(true);
     } catch (error) {
+      console.log("Register failed:", error.message);
       // Handle any errors if registration fails
       setSuccessful(false);
       setOpenLoginDialog(false);
@@ -152,7 +176,7 @@ export default function Register() {
     <ThemeProvider theme={defaultTheme}>
       <Box
         sx={{
-          backgroundImage: `url(${background})`,
+          // backgroundImage: `url(${background})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -252,7 +276,7 @@ export default function Register() {
                           required
                           fullWidth
                           id="email"
-                          label="Email Address"
+                          label="Email"
                           name="email"
                           autoComplete="email"
                           value={formik.values.email}
@@ -348,11 +372,21 @@ export default function Register() {
                         />
                       </Grid>
                     </Grid>
+                    {message && (
+                      <Typography
+                        color={"error"}
+                        fontSize={12}
+                        fontStyle={"italic"}
+                        sx={{ mt: 1 }}
+                      >
+                        **{message}
+                      </Typography>
+                    )}
                     <Button
                       type="submit"
                       fullWidth
                       variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
+                      sx={{ mt: 2, mb: 2 }}
                       onClick={formik.handleSubmit}
                     >
                       Sign Up
@@ -376,10 +410,10 @@ export default function Register() {
         </Container>
       </Box>
 
-      <SignIn
-        open={openLoginDialog}
-        onClose={() => setOpenLoginDialog(false)}
-      />
+      {/*<SignIn*/}
+      {/*  open={openLoginDialog}*/}
+      {/*  onClose={() => setOpenLoginDialog(false)}*/}
+      {/*/>*/}
     </ThemeProvider>
   );
 }
