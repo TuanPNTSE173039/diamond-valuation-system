@@ -9,10 +9,10 @@ import ValuationRequestList from "./components/ManageAppointment/List.jsx";
 import RootLayout from "./components/RootLayout.jsx";
 import AppointmentForm from "./components/Appointment/Form.jsx";
 import RequestItem from "./components/ManageAppointment/Item.jsx";
-import AuthSignIn from "./components/Auth/SignIn.jsx";
 import AuthGuard from "./components/Auth/AuthGuard.jsx";
 import GuestGuard from "./components/Auth/GuestGuard.jsx";
 import Register from "./components/Auth/Register.jsx";
+import About from "./components/About.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +22,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: "about",
+        element: <About />,
       },
       {
         path: "appointment",
@@ -69,27 +73,6 @@ const router = createBrowserRouter([
             element: <RequestItem />,
           },
         ],
-      },
-    ],
-  },
-  {
-    path: "/auth",
-    children: [
-      {
-        path: "login",
-        element: (
-          <GuestGuard>
-            <AuthSignIn />
-          </GuestGuard>
-        ),
-      },
-      {
-        path: "register",
-        element: (
-          <GuestGuard>
-            <Register />
-          </GuestGuard>
-        ),
       },
     ],
   },
