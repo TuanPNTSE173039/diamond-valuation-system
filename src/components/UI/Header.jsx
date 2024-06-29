@@ -62,7 +62,7 @@ export default function Header() {
         navigate("/rules");
         break;
       case "HOME":
-        navigate("/home");
+        navigate("/");
         break;
       case "ABOUT":
         navigate("/about");
