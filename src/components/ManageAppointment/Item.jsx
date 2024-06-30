@@ -20,20 +20,18 @@ const RequestItem = () => {
 
   const { requestID } = useParams();
 
-  console.log(requestID);
-
   const { data: request, isLoading } = useQuery({
     queryKey: ["request", { requestId: requestID }],
     queryFn: () => getValuationRequestByID(requestID),
   });
-  console.log(requestID);
-  console.log(request);
+
   if (isLoading) {
     return <UICircularIndeterminate />;
   }
 
   const detailRows = request.valuationRequestDetails.map((item, index) => {
-    return {
+    // console.log(item.diamondValuationNote.id);
+    const row = {
       number: index + 1,
       service: request.service.name,
       size: item.size === 0 || item.size === null ? "N/A" : item.size,
@@ -42,10 +40,14 @@ const RequestItem = () => {
           ? "N/A"
           : formattedMoney(item.servicePrice),
       status: item.status,
+      ...(item.status !== "CANCEL" &&
+        item.status !== "PENDING" && { id: item.diamondValuationNote.id }),
     };
+    return row;
   });
-  // In your UITable component props
+
   const totalPriceFormat = formattedMoney(request.totalServicePrice);
+
   return (
     <div
       style={{
@@ -65,6 +67,7 @@ const RequestItem = () => {
         showTotalPrice={true}
         totalPrice={totalPriceFormat}
         requestStatus={request.status}
+        showViewButton={true}
       />
     </div>
   );
