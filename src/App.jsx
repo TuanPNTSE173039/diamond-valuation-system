@@ -13,6 +13,7 @@ import AuthGuard from "./components/Auth/AuthGuard.jsx";
 import GuestGuard from "./components/Auth/GuestGuard.jsx";
 import Register from "./components/Auth/Register.jsx";
 import About from "./components/About.jsx";
+import ProfilePage from "./components/Profile/Page.jsx";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             <Register />
           </GuestGuard>
         ),
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />,
       },
       {
         path: "check",
