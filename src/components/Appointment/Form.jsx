@@ -40,6 +40,7 @@ const AppointmentForm = () => {
     queryKey: ["customer"],
     queryFn: () => getCustomer(id),
   });
+  console.log(customer);
 
   // State initialization
   const [service, setService] = useState(""); // Service selection state

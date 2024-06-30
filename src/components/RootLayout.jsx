@@ -8,7 +8,13 @@ function RootLayout() {
     <div style={{ display: "flex", flexDirection: "column" }}>
       <Header />
 
-      <div style={{ paddingTop: "80px", backgroundColor: "#f5f5f5" }}>
+      <div
+        style={{
+          paddingTop: "80px",
+          backgroundColor: "#f5f5f5",
+          minHeight: "70vh",
+        }}
+      >
         <CustomSeparator />
         <Outlet />
       </div>

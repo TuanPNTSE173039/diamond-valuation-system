@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const DiamondCheckResultForm = ({
-  giaId,
+  certificateId,
   priceEstimate,
   estimateRange,
   cut_score,
@@ -34,7 +34,7 @@ const DiamondCheckResultForm = ({
           color: "#171a1f",
         }}
       >
-        GIA ID {giaId}
+        GIA ID {certificateId}
       </Typography>
       <Box
         variant="contained"
