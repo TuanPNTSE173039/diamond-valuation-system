@@ -103,4 +103,10 @@ export const DetailHeadCells = [
     disablePadding: false,
     label: "Status",
   },
+  {
+    id: "view",
+    numeric: false,
+    disablePadding: false,
+    label: "Action",
+  },
 ];

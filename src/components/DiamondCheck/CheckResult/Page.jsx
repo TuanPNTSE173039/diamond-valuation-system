@@ -58,10 +58,10 @@ const DiamondCheckResultPage = () => {
         <Box width="50%" marginLeft="70px">
           {diamondData && (
             <DiamondCheckResultForm
-              giaId={diamondData.certificateId}
+              certificateId={diamondData.certificateId}
               priceEstimate={`$${diamondData.fairPrice}`}
               estimateRange={`$${diamondData.minPrice} - $${diamondData.maxPrice}`}
-              cut_score="0.9"
+              cut_score={diamondData.cutScore}
               visual_carat="1.0"
               shape={diamondData.shape}
               carat={diamondData.caratWeight}
@@ -76,7 +76,22 @@ const DiamondCheckResultPage = () => {
         </Box>
       </Box>
       <Box marginTop="40px">
-        <DiamondDetails />
+        {diamondData && (
+          <DiamondDetails
+            certificateDate={diamondData.certificateDate}
+            certificateId={diamondData.certificateId}
+            shape={diamondData.shape}
+            carat={diamondData.caratWeight}
+            color={diamondData.color}
+            clarity={diamondData.clarity}
+            cut={diamondData.cut}
+            cut_score={diamondData.cutScore}
+            polish={diamondData.polish}
+            symmetry={diamondData.symmetry}
+            fluorescence={diamondData.fluorescence}
+            clarityCharacteristic={diamondData.clarityCharacteristic}
+          />
+        )}
       </Box>
     </Box>
   );

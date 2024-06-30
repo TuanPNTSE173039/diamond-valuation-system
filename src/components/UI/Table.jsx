@@ -7,18 +7,24 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import * as PropTypes from "prop-types";
 import Button from "@mui/material/Button";
+import * as PropTypes from "prop-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteValuationRequestByID } from "../../services/api.js";
+import {
+  deleteValuationRequestByID,
+  getDiamondValuationNoteByID,
+} from "../../services/api.js";
+import ItemDetailsDialog from "../ManageAppointment/ItemDetails.jsx";
+import { useNavigate } from "react-router-dom";
 
 DialogActions.propTypes = { children: PropTypes.node };
-export default function UITable({
+
+const UITable = ({
   heading,
   rows = [],
   headCells = [],
@@ -26,7 +32,8 @@ export default function UITable({
   showTotalPrice = false,
   totalPrice = 0,
   requestStatus,
-}) {
+  showViewButton = false,
+}) => {
   const formattedMoney = (money) => {
     if (money === "N/A" || money === 0) {
       return "N/A";
@@ -36,9 +43,12 @@ export default function UITable({
       currency: "USD",
     }).format(money);
   };
+
   const navigate = useNavigate();
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);
+  const [openViewDialog, setOpenViewDialog] = useState(false);
+  const [diamondDetails, setDiamondDetails] = useState(null);
 
   const handleClick = async (requestID) => {
     console.log(requestID);
@@ -58,22 +68,34 @@ export default function UITable({
 
   const handleDelete = (id) => {
     setSelectedRowId(id);
-    setOpenDialog(true);
+    setOpenDeleteDialog(true);
   };
 
   const handleConfirmDelete = () => {
     deleteMutation.mutate(selectedRowId);
-    setOpenDialog(false);
+    setOpenDeleteDialog(false);
   };
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
+  const handleCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
   };
 
-  const showTotal =
-    requestStatus !== "PENDING" &&
-    requestStatus !== "PROCESSING" &&
-    requestStatus !== "CANCEL";
+  const handleView = async (diamondID) => {
+    if (diamondID) {
+      const details = await getDiamondValuationNoteByID(diamondID);
+      console.log(details);
+      setDiamondDetails(details);
+      setOpenViewDialog(true);
+    }
+    // Optionally handle case where diamondID is null (if needed)
+  };
+
+  const handleCloseViewDialog = () => {
+    setOpenViewDialog(false);
+    setDiamondDetails(null);
+  };
+
+  const showTotal = requestStatus !== "PENDING" && requestStatus !== "CANCEL";
 
   return (
     <TableContainer
@@ -109,20 +131,34 @@ export default function UITable({
                 const cellValue = row[cell.id];
                 return (
                   <TableCell align="center" key={cell.id}>
-                    {cell.id === "delete"
-                      ? showDeleteButton &&
-                        row.status === "PENDING" && (
-                          <IconButton
-                            aria-label="delete"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDelete(row.id);
-                            }}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        )
-                      : cellValue}
+                    {cell.id === "delete" &&
+                      showDeleteButton &&
+                      row.status === "PENDING" && (
+                        <IconButton
+                          aria-label="delete"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(row.id);
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
+                    {cell.id === "view" &&
+                      showViewButton &&
+                      row.status !== "CANCEL" &&
+                      row.status !== "PENDING" && (
+                        <IconButton
+                          aria-label="view"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleView(row.id);
+                          }}
+                        >
+                          <VisibilityIcon />
+                        </IconButton>
+                      )}
+                    {cell.id !== "delete" && cell.id !== "view" && cellValue}
                   </TableCell>
                 );
               })}
@@ -141,12 +177,12 @@ export default function UITable({
           )}
         </TableBody>
       </Table>
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
+      <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
         <Typography variant="h6" align="center" sx={{ mt: 2, mb: 3 }}>
           Confirm Delete
         </Typography>
         <DialogActions sx={{ justifyContent: "center" }}>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button onClick={handleCloseDeleteDialog} color="primary">
             Cancel
           </Button>
           <Button onClick={handleConfirmDelete} color="error">
@@ -154,6 +190,20 @@ export default function UITable({
           </Button>
         </DialogActions>
       </Dialog>
+      <Dialog open={openViewDialog} onClose={handleCloseViewDialog}>
+        <ItemDetailsDialog
+          {...diamondDetails}
+          open={openViewDialog}
+          onClose={handleCloseViewDialog}
+        />
+        <DialogActions sx={{ justifyContent: "center" }}>
+          <Button onClick={handleCloseViewDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </TableContainer>
   );
-}
+};
+
+export default UITable;
