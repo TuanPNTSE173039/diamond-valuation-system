@@ -57,3 +57,14 @@ export const getDiamondValuationNoteByID = async (diamondID) => {
   const response = await http.get(`diamond-valuation-notes/${diamondID}`);
   return response.data;
 };
+
+//PROFILE
+export const updateCustomerInformation = async (customerID, body) => {
+  const response = await http.put(`customers/${customerID}`, body);
+  return response.data;
+};
+
+export const updateCustomerPassword = async (authID, body) => {
+  const response = await http.put(`auth/${authID}`, body);
+  return response.data;
+};
