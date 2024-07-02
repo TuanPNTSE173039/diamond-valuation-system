@@ -1,4 +1,3 @@
-// IMPORTS
 import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -18,7 +17,9 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   updateCustomerInformation,
   updateCustomerPassword,
-} from "../../services/api.js"; // Import the update API functions
+} from "../../services/api.js";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 const styles = {
   details: {
@@ -29,6 +30,11 @@ const styles = {
     padding: "1rem 2rem",
     borderTop: "1px solid #e1e1e1",
     color: "#899499",
+  },
+  errorText: {
+    color: "red",
+    fontSize: "0.75rem", // Smaller font size
+    fontStyle: "italic", // Italic font style
   },
 };
 
@@ -45,6 +51,17 @@ export default function ProfileCard(props) {
     authID: props.authID,
   });
 
+  const validationSchema = Yup.object({
+    firstName: Yup.string().required("First name is required"),
+    lastName: Yup.string().required("Last name is required"),
+    phone: Yup.string().required("Phone number is required"),
+    address: Yup.string().required("Address is required"),
+    identityDocument: Yup.string().required("Identity document is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+  });
+
   const [originalUser] = useState(user);
 
   const [passwords, setPasswords] = useState({
@@ -55,7 +72,10 @@ export default function ProfileCard(props) {
   const fullName = `${user.firstName} ${user.lastName}`;
 
   const changeField = (event) => {
-    setUser({ ...user, [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+    formik.setFieldValue(name, value); // Update Formik values
+    formik.setFieldTouched(name, true); // Mark field as touched
   };
 
   const changePasswordField = (event) => {
@@ -91,6 +111,7 @@ export default function ProfileCard(props) {
 
   const handleUpdate = async () => {
     const changedFields = getChangedFields();
+    console.log("Changed fields:", JSON.stringify(changedFields, null, 2));
     try {
       await updateCustomerInformation(user.customerID, changedFields);
       toast.success("Customer information updated successfully!");
@@ -115,12 +136,25 @@ export default function ProfileCard(props) {
   const changeButton = async (event) => {
     event.preventDefault();
     if (!edit.disabled) {
-      await handleUpdate();
+      await formik.handleSubmit();
     }
     edit.disabled = !edit.disabled;
     edit.isEdit = !edit.isEdit;
     update({ ...edit });
   };
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: props.firstName || "",
+      lastName: props.lastName || "",
+      phone: props.phone || "",
+      email: props.email || "",
+      address: props.address || "",
+      identityDocument: props.identityDocument || "",
+    },
+    validationSchema,
+    onSubmit: handleUpdate,
+  });
 
   return (
     <Card variant="outlined" sx={{ height: "730px", width: "96%" }}>
@@ -170,9 +204,12 @@ export default function ProfileCard(props) {
                 name="firstName"
                 value={user.firstName}
                 onChange={changeField}
+                onBlur={formik.handleBlur}
                 title="First Name"
                 dis={edit.disabled}
                 req={edit.required}
+                error={formik.touched.firstName && !!formik.errors.firstName}
+                helperText={formik.touched.firstName && formik.errors.firstName}
               />
             </Grid>
 
@@ -182,10 +219,16 @@ export default function ProfileCard(props) {
                 name="lastName"
                 value={user.lastName}
                 onChange={changeField}
+                onBlur={formik.handleBlur}
                 title="Last Name"
                 dis={edit.disabled}
                 req={edit.required}
+                error={formik.touched.lastName && !!formik.errors.lastName}
+                helperText={formik.touched.lastName && formik.errors.lastName}
               />
+              {formik.errors.lastName && formik.touched.lastName ? (
+                <div style={styles.errorText}>{formik.errors.lastName}</div>
+              ) : null}
             </Grid>
 
             <Grid item xs={6}>
@@ -194,9 +237,12 @@ export default function ProfileCard(props) {
                 name="phone"
                 value={user.phone}
                 onChange={changeField}
+                onBlur={formik.handleBlur}
                 title="Phone Number"
                 dis={edit.disabled}
                 req={edit.required}
+                error={formik.touched.phone && !!formik.errors.phone}
+                helperText={formik.touched.phone && formik.errors.phone}
               />
             </Grid>
 
@@ -207,9 +253,12 @@ export default function ProfileCard(props) {
                 name="address"
                 value={user.address}
                 onChange={changeField}
+                onBlur={formik.handleBlur}
                 title="Address"
                 dis={edit.disabled}
                 req={edit.required}
+                error={formik.touched.address && !!formik.errors.address}
+                helperText={formik.touched.address && formik.errors.address}
               />
             </Grid>
 
@@ -220,20 +269,32 @@ export default function ProfileCard(props) {
                 name="identityDocument"
                 value={user.identityDocument}
                 onChange={changeField}
+                onBlur={formik.handleBlur}
                 title="Identity Document"
                 dis={edit.disabled}
                 req={edit.required}
+                error={
+                  formik.touched.identityDocument &&
+                  !!formik.errors.identityDocument
+                }
+                helperText={
+                  formik.touched.identityDocument &&
+                  formik.errors.identityDocument
+                }
               />
             </Grid>
             <Grid item xs={6}>
               <CustomInput
-                id="newEmail"
-                name="newEmail"
+                id="email"
+                name="email"
                 value={user.email}
                 onChange={changeField}
+                onBlur={formik.handleBlur}
                 title="Email"
                 dis={edit.disabled}
                 req={edit.required}
+                error={formik.touched.email && !!formik.errors.email}
+                helperText={formik.touched.email && formik.errors.email}
               />
             </Grid>
 
