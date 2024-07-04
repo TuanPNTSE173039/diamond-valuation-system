@@ -71,7 +71,6 @@ const DiamondCheckInputForm = () => {
             style: {
               paddingLeft: 20,
               paddingTop: 8,
-              fontFamily: "'Inter-Regular', Helvetica",
               color: "black",
               fontSize: 16,
             },
@@ -92,12 +91,7 @@ const DiamondCheckInputForm = () => {
           ":hover": { backgroundColor: "#6366f2" },
         }}
       >
-        <Typography
-          fontFamily="'Inter-Regular', Helvetica"
-          color="white"
-          fontSize={16}
-          lineHeight="26px"
-        >
+        <Typography color="white" fontSize={16} lineHeight="26px">
           Run free check
         </Typography>
       </Button>
