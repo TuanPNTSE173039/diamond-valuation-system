@@ -1,11 +1,11 @@
+import React from "react";
 import { useParams } from "react-router-dom";
-import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { useQuery } from "@tanstack/react-query";
+import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { getValuationRequestByID } from "../../services/api.js";
 import { DetailHeadCells } from "../../utilities/Table.js";
 import UITable from "../UI/Table.jsx";
 import Drawer from "../UI/Drawer.jsx";
-import React from "react";
 
 const RequestItem = () => {
   const formattedMoney = (money) => {
@@ -24,13 +24,13 @@ const RequestItem = () => {
     queryKey: ["request", { requestId: requestID }],
     queryFn: () => getValuationRequestByID(requestID),
   });
+  console.log("Request:", request);
 
   if (isLoading) {
     return <UICircularIndeterminate />;
   }
 
   const detailRows = request.valuationRequestDetails.map((item, index) => {
-    // console.log(item.diamondValuationNote.id);
     const row = {
       number: index + 1,
       service: request.service.name,
@@ -68,6 +68,9 @@ const RequestItem = () => {
         totalPrice={totalPriceFormat}
         requestStatus={request.status}
         showViewButton={true}
+        showFeedbackRow={true}
+        requestID={requestID}
+        request={request}
       />
     </div>
   );

@@ -13,7 +13,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import * as PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   deleteValuationRequestByID,
@@ -21,6 +21,7 @@ import {
 } from "../../services/api.js";
 import ItemDetailsDialog from "../ManageAppointment/ItemDetails.jsx";
 import { useNavigate } from "react-router-dom";
+import FeedbackDialog from "../ManageAppointment/FeedbackDialog.jsx"; // Import FeedbackDialog
 
 DialogActions.propTypes = { children: PropTypes.node };
 
@@ -33,25 +34,19 @@ const UITable = ({
   totalPrice = 0,
   requestStatus,
   showViewButton = false,
+  showFeedbackRow = false,
+  requestID,
+  request,
 }) => {
-  const formattedMoney = (money) => {
-    if (money === "N/A" || money === 0) {
-      return "N/A";
-    }
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(money);
-  };
-
+  console.log(request);
   const navigate = useNavigate();
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);
   const [openViewDialog, setOpenViewDialog] = useState(false);
   const [diamondDetails, setDiamondDetails] = useState(null);
+  const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
 
   const handleClick = async (requestID) => {
-    console.log(requestID);
     navigate(`/appointments/${requestID}`);
   };
 
@@ -83,11 +78,9 @@ const UITable = ({
   const handleView = async (diamondID) => {
     if (diamondID) {
       const details = await getDiamondValuationNoteByID(diamondID);
-      console.log(details);
       setDiamondDetails(details);
       setOpenViewDialog(true);
     }
-    // Optionally handle case where diamondID is null (if needed)
   };
 
   const handleCloseViewDialog = () => {
@@ -96,6 +89,8 @@ const UITable = ({
   };
 
   const showTotal = requestStatus !== "PENDING" && requestStatus !== "CANCEL";
+  const showFeedback =
+    requestStatus === "FINISHED" || requestStatus === "CANCEL";
 
   return (
     <TableContainer
@@ -175,6 +170,24 @@ const UITable = ({
               </TableCell>
             </TableRow>
           )}
+
+          {showFeedback && showFeedbackRow && (
+            <TableRow>
+              <TableCell
+                colSpan={headCells.length}
+                align="center"
+                sx={{ fontWeight: "bold" }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setFeedbackDialogOpen(true)} // Open the feedback dialog
+                >
+                  Give Feedback
+                </Button>
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
@@ -202,6 +215,12 @@ const UITable = ({
           </Button>
         </DialogActions>
       </Dialog>
+      <FeedbackDialog
+        open={feedbackDialogOpen}
+        onClose={() => setFeedbackDialogOpen(false)}
+        requestID={requestID}
+        initialRequest={request}
+      />
     </TableContainer>
   );
 };

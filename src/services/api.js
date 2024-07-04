@@ -57,6 +57,10 @@ export const getDiamondValuationNoteByID = async (diamondID) => {
   const response = await http.get(`diamond-valuation-notes/${diamondID}`);
   return response.data;
 };
+export const updateValuationRequestFeedback = async (requestID, body) => {
+  const response = await http.put(`valuation-requests/${requestID}`, body);
+  return response.data;
+};
 
 //PROFILE
 export const updateCustomerInformation = async (customerID, body) => {
