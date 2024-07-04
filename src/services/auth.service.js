@@ -49,6 +49,11 @@ const logout = () => {
   localStorage.removeItem("auth");
 };
 
+export const updateCustomerPassword = async (authID, body) => {
+  const response = await http.put(`auth/${authID}`, body);
+  return response.data;
+};
+
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("auth"))?.userInformation;
 };

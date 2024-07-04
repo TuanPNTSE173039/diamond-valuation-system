@@ -71,6 +71,29 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   }
 });
 
+export const updatePassword = createAsyncThunk(
+  "auth/updatePassword",
+  async ({ authID, oldPassword, newPassword }, thunkAPI) => {
+    try {
+      const response = await AuthService.updateCustomerPassword(
+        authID,
+        oldPassword,
+        newPassword,
+      );
+      const message =
+        response?.data?.message || "Password updated successfully";
+      thunkAPI.dispatch(setMessage(message));
+
+      return response.data;
+    } catch (error) {
+      const message =
+        error?.response?.data?.message || error.message || error.toString();
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  },
+);
+
 const initialState = user
   ? { isLoggedIn: true, user }
   : { isLoggedIn: false, user: null };
@@ -99,6 +122,13 @@ const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.isLoggedIn = false;
         state.user = null;
+      })
+      .addCase(updatePassword.fulfilled, (state, action) => {
+        // Handle successful password update if needed
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.errorMessage = action.payload.message; // Assuming payload contains message
+        // Additional handling for password update failure
       });
   },
 });
