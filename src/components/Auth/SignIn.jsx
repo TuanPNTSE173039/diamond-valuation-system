@@ -5,8 +5,6 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { login } from "../../redux/authSlice";
 import { clearMessage, setMessage } from "../../redux/messageSlide";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
@@ -21,6 +19,7 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import UICircularIndeterminate from "../UI/CircularIndeterminate";
+import logo from "../../assets/images/logo (1).png";
 
 export default function SignIn({ open, onClose }) {
   const navigate = useNavigate();
@@ -86,9 +85,15 @@ export default function SignIn({ open, onClose }) {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <img
+              src={logo}
+              alt="logo"
+              style={{
+                width: "65px",
+                height: "50px",
+                objectFit: "cover",
+              }}
+            />
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
