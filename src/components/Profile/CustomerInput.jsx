@@ -17,11 +17,14 @@ export default function CustomInput(props) {
         name={props.name}
         value={props.value}
         onChange={props.onChange}
+        onBlur={props.onBlur}
         disabled={props.dis}
         required={props.req}
         type={props.type}
         InputProps={props.InputProps}
         select={props.select}
+        error={props.error}
+        helperText={props.helperText}
       >
         {props.content}
       </TextField>

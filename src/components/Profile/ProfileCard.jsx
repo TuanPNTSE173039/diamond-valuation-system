@@ -226,9 +226,6 @@ export default function ProfileCard(props) {
                 error={formik.touched.lastName && !!formik.errors.lastName}
                 helperText={formik.touched.lastName && formik.errors.lastName}
               />
-              {formik.errors.lastName && formik.touched.lastName ? (
-                <div style={styles.errorText}>{formik.errors.lastName}</div>
-              ) : null}
             </Grid>
 
             <Grid item xs={6}>
