@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -13,33 +11,24 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import logo from "../../assets/images/logo (1).png";
 
 import { register } from "../../redux/authSlice";
 import { clearMessage } from "../../redux/messageSlide";
-//import SignIn from "./SignIn.jsx";
-//import background from "../../assets/images/background.png";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const defaultTheme = createTheme();
 
 export default function Register() {
   const [successful, setSuccessful] = useState(false);
-  const [openLoginDialog, setOpenLoginDialog] = useState(false);
   const { message } = useSelector((state) => state.message);
-
-  //const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(clearMessage());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (successful && openLoginDialog) {
-  //     console.log(successful, openLoginDialog);
-  //     navigate("/", { replace: true });
-  //   }
-  // }, [successful, openLoginDialog, navigate]);
 
   const initialValues = {
     username: "",
@@ -94,7 +83,6 @@ export default function Register() {
         "contains-number",
         "The password must contain at least 1 number.",
         (val) => {
-          // Check if the password contains at least one digit
           return /\d/.test(val);
         },
       )
@@ -106,7 +94,6 @@ export default function Register() {
         (val) => val && val.toString().length === 10,
       )
       .test("is-numbers", "Phone number must only contain numbers.", (val) => {
-        // Check if the phone number contains only digits
         return /^\d+$/.test(val);
       })
       .required("Phone number is required!"),
@@ -128,7 +115,6 @@ export default function Register() {
   });
 
   const handleRegister = async (formValue) => {
-    console.log(formValue);
     const {
       username,
       password,
@@ -141,7 +127,7 @@ export default function Register() {
     } = formValue;
 
     try {
-      await dispatch(
+      const resultAction = await dispatch(
         register({
           username,
           password,
@@ -153,16 +139,20 @@ export default function Register() {
           identityDocument,
         }),
       );
-      console.log("Register success");
-      console.log(message);
-      // After successful registration
-      setSuccessful(true);
-      setOpenLoginDialog(true);
+
+      if (register.fulfilled.match(resultAction)) {
+        toast.success("Registration successful!");
+        setSuccessful(true);
+      } else {
+        toast.error(
+          resultAction.payload.message ||
+            "Registration failed. Please try again.",
+        );
+        setSuccessful(false);
+      }
     } catch (error) {
-      console.log("Register failed:", error.message);
-      // Handle any errors if registration fails
+      toast.error("Registration failed. Please try again.");
       setSuccessful(false);
-      setOpenLoginDialog(false);
     }
   };
 
@@ -174,9 +164,9 @@ export default function Register() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <ToastContainer />
       <Box
         sx={{
-          // backgroundImage: `url(${background})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -196,9 +186,15 @@ export default function Register() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <img
+              src={logo}
+              alt="logo"
+              style={{
+                width: "65px",
+                height: "50px",
+                objectFit: "cover",
+              }}
+            />
             <Typography component="h1" variant="h5">
               Sign up
             </Typography>
@@ -409,11 +405,6 @@ export default function Register() {
           </Box>
         </Container>
       </Box>
-
-      {/*<SignIn*/}
-      {/*  open={openLoginDialog}*/}
-      {/*  onClose={() => setOpenLoginDialog(false)}*/}
-      {/*/>*/}
     </ThemeProvider>
   );
 }
