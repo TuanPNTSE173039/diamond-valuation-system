@@ -72,3 +72,9 @@ export const updateCustomerPassword = async (authID, body) => {
   const response = await http.put(`auth/${authID}`, body);
   return response.data;
 };
+
+//POST
+export const getAllPosts = async () => {
+  const response = await http.get(`posts`);
+  return response.data;
+};
