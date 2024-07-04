@@ -78,3 +78,9 @@ export const getAllPosts = async () => {
   const response = await http.get(`posts`);
   return response.data;
 };
+
+//FORGOT PASSWORD
+export const forgotPassword = async (email) => {
+  const response = await http.post(`auth/forget-password`, { email });
+  return response.data;
+};
