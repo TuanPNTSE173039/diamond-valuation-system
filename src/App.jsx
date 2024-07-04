@@ -15,6 +15,7 @@ import Register from "./components/Auth/Register.jsx";
 import About from "./components/About.jsx";
 import ProfilePage from "./components/Profile/Page.jsx";
 import { PostPage } from "./components/Post.jsx";
+import ResetPassword from "./components/Auth/ResetPassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
             element: <RequestItem />,
           },
         ],
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
       },
     ],
   },
