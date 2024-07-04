@@ -61,34 +61,35 @@ const CalculateInputForm = ({ setParams }) => {
     <Box
       sx={{
         width: 410,
-        height: showMoreInputs ? 990 : 710,
         position: "relative",
         left: "110px",
-        backgroundColor: "white",
-        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
         borderRadius: "6px",
+        height: showMoreInputs ? 975 : 675,
       }}
     >
       <Box
         sx={{
           position: "absolute",
-          top: 5,
-          left: 10,
+          fontWeight: "bold",
+          color: "#171a1f",
+          fontSize: 22,
+          left: "10px",
         }}
       >
-        <Box sx={{ width: 400, height: 621, position: "relative" }}>
-          <Box
-            sx={{
-              position: "absolute",
-              fontFamily: "Epilogue-Bold, Helvetica",
-              fontWeight: "bold",
-              color: "#171a1f",
-              fontSize: 22,
-            }}
-          >
-            Calculator Input
-          </Box>
-          <Box position="absolute" top="54px" left="9px">
+        Calculator Input
+      </Box>
+      <Box
+        sx={{
+          position: "absolute",
+          top: 35,
+          left: 10,
+          backgroundColor: "white",
+          boxShadow: "1px 4px 6px rgba(0, 0, 0, 0.1)",
+          height: showMoreInputs ? 975 : 675,
+        }}
+      >
+        <Box sx={{ width: 400, height: 620, position: "relative" }}>
+          <Box position="absolute" top="15px" left="9px">
             <Box
               sx={{
                 fontFamily: "Inter-Regular, Helvetica",
@@ -124,7 +125,7 @@ const CalculateInputForm = ({ setParams }) => {
               </Grid>
             </Grid>
           </Box>
-          <Box position="absolute" top="138px" left="9px">
+          <Box position="absolute" top="95px" left="9px">
             <Box
               sx={{
                 color: "#9095a0",
@@ -243,7 +244,7 @@ const CalculateInputForm = ({ setParams }) => {
             <Box
               sx={{
                 position: "absolute",
-                top: 252,
+                top: 220,
                 left: 7,
                 fontSize: 14,
                 color: "#9095a0",
@@ -256,19 +257,11 @@ const CalculateInputForm = ({ setParams }) => {
               sx={{
                 position: "absolute",
                 width: 373,
-                height: 22,
-                top: 313,
+                top: 270,
                 left: 10,
               }}
             >
-              <Box
-                sx={{
-                  position: "relative",
-                  height: 22,
-                }}
-              >
-                <UISilder carat={carat} setCarat={setCarat} />
-              </Box>
+              <UISilder carat={carat} setCarat={setCarat} />
             </Box>
           </Box>
 
@@ -276,7 +269,7 @@ const CalculateInputForm = ({ setParams }) => {
             <Box
               sx={{
                 position: "absolute",
-                top: 348,
+                top: 310,
                 left: 7,
                 fontSize: 14,
                 color: "#9095a0",
@@ -293,7 +286,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: 90,
                 height: 33,
                 position: "absolute",
-                top: 418,
+                top: 385,
                 left: 293,
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -315,7 +308,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: 90,
                 height: 33,
                 position: "absolute",
-                top: 376,
+                top: 345,
                 left: 293,
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -337,7 +330,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: 90,
                 height: 33,
                 position: "absolute",
-                top: 418,
+                top: 385,
                 left: 198,
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -358,7 +351,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: 90,
                 height: 33,
                 position: "absolute",
-                top: 376,
+                top: 345,
                 left: 9,
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -380,7 +373,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: 90,
                 height: 33,
                 position: "absolute",
-                top: 418,
+                top: 385,
                 left: 104,
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -402,7 +395,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: 90,
                 height: 33,
                 position: "absolute",
-                top: 376,
+                top: 345,
                 left: 104,
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -424,7 +417,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: 89,
                 height: 33,
                 position: "absolute",
-                top: 418,
+                top: 385,
                 left: 10,
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -446,7 +439,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: "90px",
                 height: "33px",
                 position: "absolute",
-                top: "376px",
+                top: "345px",
                 left: "198px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -465,7 +458,7 @@ const CalculateInputForm = ({ setParams }) => {
             <Box
               sx={{
                 position: "absolute",
-                top: "462px",
+                top: "440px",
                 left: "7px",
                 fontSize: "14px",
                 color: "#9095a0",
@@ -483,7 +476,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: "90px",
                 height: "33px",
                 position: "absolute",
-                top: "531px",
+                top: "510px",
                 left: "293px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -505,7 +498,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: "90px",
                 height: "33px",
                 position: "absolute",
-                top: "490px",
+                top: "470px",
                 left: "293px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -527,7 +520,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: "90px",
                 height: "33px",
                 position: "absolute",
-                top: "531px",
+                top: "510px",
                 left: "198px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -549,7 +542,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: "90px",
                 height: "33px",
                 position: "absolute",
-                top: "531px",
+                top: "510px",
                 left: "9px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -571,7 +564,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: "90px",
                 height: "33px",
                 position: "absolute",
-                top: "490px",
+                top: "470px",
                 left: "9px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -592,7 +585,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: "90px",
                 height: "33px",
                 position: "absolute",
-                top: "531px",
+                top: "510px",
                 left: "104px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -614,7 +607,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: "90px",
                 height: "33px",
                 position: "absolute",
-                top: "490px",
+                top: "470px",
                 left: "104px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -636,7 +629,7 @@ const CalculateInputForm = ({ setParams }) => {
                 width: "89px",
                 height: "32px",
                 position: "absolute",
-                top: "490px",
+                top: "470px",
                 left: "199px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "6px",
@@ -658,7 +651,7 @@ const CalculateInputForm = ({ setParams }) => {
               width: "380px",
               height: "40px",
               position: "absolute",
-              top: showMoreInputs ? 880 : 600,
+              top: showMoreInputs ? 885 : 575,
               left: "6px",
               borderRadius: "4px",
               backgroundColor: "#3949AB",
@@ -687,7 +680,7 @@ const CalculateInputForm = ({ setParams }) => {
               width: "380px",
               height: "40px",
               position: "absolute",
-              top: showMoreInputs ? 930 : 650,
+              top: showMoreInputs ? 925 : 625,
               left: "6px",
               borderRadius: "4px",
               textAlign: "left",
@@ -698,7 +691,7 @@ const CalculateInputForm = ({ setParams }) => {
           </Button>
           {showMoreInputs && (
             <>
-              <Box position="absolute" top="580px" left="7px">
+              <Box position="absolute" top="560px" left="7px">
                 <Box
                   sx={{
                     fontSize: "14px",
@@ -715,6 +708,7 @@ const CalculateInputForm = ({ setParams }) => {
                     width: "90px",
                     height: "33px",
                     position: "absolute",
+                    top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -735,6 +729,7 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "33px",
                     position: "absolute",
                     left: "95px",
+                    top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -755,6 +750,7 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "33px",
                     position: "absolute",
                     left: "190px",
+                    top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -776,6 +772,7 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "32px",
                     position: "absolute",
                     left: "284px",
+                    top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -788,7 +785,7 @@ const CalculateInputForm = ({ setParams }) => {
                   EX.
                 </Button>
               </Box>
-              <Box position="absolute" top="650px" left="7px">
+              <Box position="absolute" top="640px" left="7px">
                 <Box
                   sx={{
                     fontSize: "14px",
@@ -805,6 +802,7 @@ const CalculateInputForm = ({ setParams }) => {
                     width: "90px",
                     height: "33px",
                     position: "absolute",
+                    top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -825,6 +823,7 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "33px",
                     position: "absolute",
                     left: "95px",
+                    top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -845,6 +844,7 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "33px",
                     position: "absolute",
                     left: "190px",
+                    top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -867,6 +867,7 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "32px",
                     position: "absolute",
                     left: "284px",
+                    top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -899,6 +900,7 @@ const CalculateInputForm = ({ setParams }) => {
                     width: "90px",
                     height: "33px",
                     position: "absolute",
+                    top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -919,6 +921,8 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "33px",
                     position: "absolute",
                     left: "95px",
+                    top: "30px",
+
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -940,6 +944,8 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "33px",
                     position: "absolute",
                     left: "190px",
+                    top: "30px",
+
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -961,6 +967,8 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "32px",
                     position: "absolute",
                     left: "284px",
+                    top: "30px",
+
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -974,7 +982,7 @@ const CalculateInputForm = ({ setParams }) => {
                   EX.
                 </Button>
               </Box>
-              <Box position="absolute" top="790px" left="7px">
+              <Box position="absolute" top="800px" left="7px">
                 <Box
                   sx={{
                     fontSize: "14px",
@@ -993,6 +1001,8 @@ const CalculateInputForm = ({ setParams }) => {
                     width: "71px",
                     height: "33px",
                     position: "absolute",
+                    top: "30px",
+
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -1014,6 +1024,8 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "33px",
                     position: "absolute",
                     left: "75px",
+                    top: "30px",
+
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -1033,6 +1045,8 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "33px",
                     position: "absolute",
                     left: "150px",
+                    top: "30px",
+
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -1052,6 +1066,8 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "32px",
                     position: "absolute",
                     left: "225px",
+                    top: "30px",
+
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
@@ -1071,6 +1087,8 @@ const CalculateInputForm = ({ setParams }) => {
                     height: "32px",
                     position: "absolute",
                     left: "300px",
+                    top: "30px",
+
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
