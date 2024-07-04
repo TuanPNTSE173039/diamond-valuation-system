@@ -13,9 +13,10 @@ import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import logo from "../../assets/images/logo.png";
 import SignIn from "../Auth/SignIn";
 import { logout } from "../../redux/authSlice";
+import Typography from "@mui/material/Typography";
+import logo from "../../assets/images/logo (1).png";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -116,7 +117,37 @@ export default function Header() {
         justifyItems: "center",
       }}
     >
-      <img src={logo} alt="logo" style={{ width: 70, height: 60, margin: 0 }} />
+      <Box
+        sx={{
+          height: 45,
+          width: 45,
+          bgcolor: "white",
+          borderRadius: "50%",
+          position: "relative",
+        }}
+      >
+        <img
+          src={logo}
+          alt="logo"
+          style={{
+            display: "block",
+            width: "auto",
+            height: "100%",
+            objectFit: "contain",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      </Box>
+      <Typography
+        noWrap
+        component="div"
+        sx={{ ml: 1, fontWeight: 800, fontSize: 14, color: "#3e6272" }}
+      >
+        H&T Diamond
+      </Typography>
 
       <Box sx={{ display: "flex", justifyContent: "center", flex: 1, gap: 3 }}>
         <Button
@@ -211,7 +242,7 @@ export default function Header() {
             fontSize: 16,
             borderRadius: 1,
             textTransform: "none",
-            px: 3,
+            px: 2,
             "&:hover": {
               backgroundColor: "#f0f0f0",
             },
@@ -266,19 +297,19 @@ export default function Header() {
           </>
         ) : (
           <>
-            <Button
-              sx={{
-                color: "#3e6282",
-                textTransform: "none",
-                fontSize: 17,
-                "&:hover": {
-                  color: "#000",
-                },
-              }}
-              onClick={() => handleMenuItemClick("Register")}
-            >
-              Register
-            </Button>
+            {/*<Button*/}
+            {/*  sx={{*/}
+            {/*    color: "#3e6282",*/}
+            {/*    textTransform: "none",*/}
+            {/*    fontSize: 17,*/}
+            {/*    "&:hover": {*/}
+            {/*      color: "#000",*/}
+            {/*    },*/}
+            {/*  }}*/}
+            {/*  onClick={() => handleMenuItemClick("Register")}*/}
+            {/*>*/}
+            {/*  Register*/}
+            {/*</Button>*/}
             <Button
               onClick={handleDialogOpen}
               sx={{
@@ -292,7 +323,7 @@ export default function Header() {
                 },
               }}
             >
-              LOG IN
+              SIGN IN
             </Button>
             <Dialog open={openDialog} onClose={handleDialogClose}>
               <DialogContent>
@@ -303,20 +334,16 @@ export default function Header() {
               open={showAppointmentDialog}
               onClose={() => setShowAppointmentDialog(false)}
             >
-              <DialogContent
-                sx={{
-                  textAlign: "center",
-                }}
-              >
+              <DialogContent sx={{ textAlign: "center" }}>
                 <div>
-                  <p>You need to log in to create an Appointment.</p>
+                  <p>You need to sign in to create an Appointment!</p>
                   <Button
                     onClick={() => {
                       setShowAppointmentDialog(false);
                       handleDialogOpen();
                     }}
                   >
-                    Log In
+                    Sign In
                   </Button>
                 </div>
               </DialogContent>

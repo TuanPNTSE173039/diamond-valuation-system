@@ -12,8 +12,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import DialogActions from "@mui/material/DialogActions";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 import {
   updateCustomerInformation,
   updateCustomerPassword,
@@ -268,7 +268,7 @@ export default function ProfileCard(props) {
 
   return (
     <Card variant="outlined" sx={{ height: "730px", width: "96%" }}>
-      <ToastContainer />
+      <ToastContainer containerId="profile" />
       {/* MAIN CONTENT CONTAINER */}
       <Grid
         container

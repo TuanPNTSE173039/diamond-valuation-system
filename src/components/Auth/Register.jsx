@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
@@ -14,14 +14,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import logo from "../../assets/images/logo (1).png";
 
 import { register } from "../../redux/authSlice";
-import { clearMessage } from "../../redux/messageSlide";
+import { clearMessage, setMessage } from "../../redux/messageSlide";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 
 const defaultTheme = createTheme();
 
 export default function Register() {
-  const [successful, setSuccessful] = useState(false);
   const { message } = useSelector((state) => state.message);
 
   const dispatch = useDispatch();
@@ -127,7 +126,7 @@ export default function Register() {
     } = formValue;
 
     try {
-      const resultAction = await dispatch(
+      const response = await dispatch(
         register({
           username,
           password,
@@ -140,19 +139,18 @@ export default function Register() {
         }),
       );
 
-      if (register.fulfilled.match(resultAction)) {
-        toast.success("Registration successful!");
-        setSuccessful(true);
+      if (response && response.data && response.data.message) {
+        const message = response.data.message;
+        dispatch(setMessage(message));
+        console.log(message);
+        toast.error(message);
       } else {
-        toast.error(
-          resultAction.payload.message ||
-            "Registration failed. Please try again.",
-        );
-        setSuccessful(false);
+        console.log("Register successfully!");
+        toast.success("Register successfully!");
       }
     } catch (error) {
+      console.error("Registration error:", error);
       toast.error("Registration failed. Please try again.");
-      setSuccessful(false);
     }
   };
 
@@ -164,7 +162,7 @@ export default function Register() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <ToastContainer />
+      <ToastContainer containerId="register" />
       <Box
         sx={{
           backgroundSize: "cover",
