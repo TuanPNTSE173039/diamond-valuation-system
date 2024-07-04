@@ -1,5 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import daniel from "../../assets/images/daniel.png";
+import rockher from "../../assets/images/rockher.png";
+import friendly from "../../assets/images/friendly.png";
+import allurez from "../../assets/images/allurez.png";
+import adiamor from "../../assets/images/adiamor.png";
+import dreamstone from "../../assets/images/dreamstone.png";
+import stonealgo from "../../assets/images/stonealgo.png";
+
 import diamond1 from "../../assets/images/diamond1.png";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { useState } from "react";
@@ -28,7 +35,7 @@ export const CalculateOutputForm = ({
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh", // This assumes you want to center it in the whole viewport. Adjust as needed.
+          height: "100vh",
         }}
       >
         <UICircularIndeterminate />
@@ -36,7 +43,6 @@ export const CalculateOutputForm = ({
     );
 
   if (diamondError || marketError) {
-    // Display error message if there's an error fetching data
     return (
       <Box sx={{ textAlign: "center" }}>
         <Typography variant="h6" color="error">
@@ -53,6 +59,16 @@ export const CalculateOutputForm = ({
 
   const [visibleCount, setVisibleCount] = useState(5);
 
+  const supplierImages = {
+    1: stonealgo,
+    2: rockher,
+    3: daniel,
+    4: friendly,
+    5: allurez,
+    6: adiamor,
+    7: dreamstone,
+  };
+
   return (
     <Box
       sx={{
@@ -65,7 +81,6 @@ export const CalculateOutputForm = ({
       <Box
         sx={{
           position: "absolute",
-          fontFamily: "Epilogue-Bold, Helvetica",
           fontWeight: "bold",
           color: "#171a1f",
           fontSize: 22,
@@ -78,7 +93,7 @@ export const CalculateOutputForm = ({
           position: "absolute",
           width: 740,
           height: 310,
-          top: 32,
+          top: 35,
           left: 3,
           boxShadow: "0px 0px 1px #171a1f12, 0px 0px 2px #171a1f1f",
           backgroundColor: "white",
@@ -126,7 +141,7 @@ export const CalculateOutputForm = ({
             sx={{
               position: "absolute",
               top: 146,
-              fontFamily: "Inter-Regular, Helvetica",
+
               fontSize: 12,
               lineHeight: "20px",
               color: "#9095a0",
@@ -145,7 +160,7 @@ export const CalculateOutputForm = ({
               backgroundColor: "#c8e6c9",
               borderRadius: 1,
               textTransform: "none",
-              fontFamily: "Inter-Regular, Helvetica",
+
               fontSize: 11,
               lineHeight: "18px",
               color: "#00c853",
@@ -171,7 +186,7 @@ export const CalculateOutputForm = ({
             sx={{
               position: "absolute",
               top: 24,
-              fontFamily: "Inter-Regular, Helvetica",
+
               color: "#9095a0",
               fontSize: 12,
               lineHeight: "20px",
@@ -183,7 +198,7 @@ export const CalculateOutputForm = ({
             sx={{
               position: "absolute",
               top: 53,
-              fontFamily: "Inter-Regular, Helvetica",
+
               color: "#171a1f",
               fontSize: 15,
               lineHeight: "24px",
@@ -211,7 +226,6 @@ export const CalculateOutputForm = ({
             sx={{
               position: "absolute",
               top: 24,
-              fontFamily: "Inter-Regular, Helvetica",
 
               color: "#9095a0",
               fontSize: 12,
@@ -224,7 +238,6 @@ export const CalculateOutputForm = ({
             sx={{
               position: "absolute",
               top: 52,
-              fontFamily: "Inter-Regular, Helvetica",
 
               fontSize: 16,
               lineHeight: "26px",
@@ -241,7 +254,7 @@ export const CalculateOutputForm = ({
             position: "absolute",
             top: 320,
             left: 5,
-            fontFamily: "Inter-Regular, Helvetica",
+
             color: "#9095a0",
             fontSize: 10,
           }}
@@ -271,11 +284,11 @@ export const CalculateOutputForm = ({
                   boxShadow: "0px 0px 1px #171a1f12, 0px 0px 2px #171a1f1f",
                   border: "1px solid black",
                   marginBottom: "10px",
-                  display: "flex", // Add this line
-                  flexDirection: "row", // Add this line
-                  justifyContent: "space-between", // Add this line
-                  alignItems: "center", // Add this line
-                  padding: "0px 10px", // Add this line
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "0px 10px",
                 }}
                 key={index}
               >
@@ -300,7 +313,6 @@ export const CalculateOutputForm = ({
                   <Typography
                     sx={{
                       top: 20,
-                      fontFamily: "Inter-Regular, Helvetica",
                       color: "#171a1f",
                       fontSize: 9,
                     }}
@@ -310,7 +322,6 @@ export const CalculateOutputForm = ({
                   <Typography
                     sx={{
                       left: 16,
-                      fontFamily: "Inter-Regular, Helvetica",
                       color: "#6a63ee",
                       fontSize: 14,
                     }}
@@ -328,7 +339,6 @@ export const CalculateOutputForm = ({
                     sx={{
                       top: 43,
                       left: 207,
-                      fontFamily: "Inter-Regular, Helvetica",
                       color: "#171a1f",
                       fontSize: 9,
                       lineHeight: "14px",
@@ -340,7 +350,6 @@ export const CalculateOutputForm = ({
                     sx={{
                       top: 23,
                       left: 208,
-                      fontFamily: "Inter-Regular, Helvetica",
                       color: "#171a1f",
                       fontSize: 14,
                       lineHeight: "20px",
@@ -360,7 +369,6 @@ export const CalculateOutputForm = ({
                   <Typography
                     sx={{
                       top: 21,
-                      fontFamily: "Inter-Regular, Helvetica",
                       color: "#171a1f",
                       fontSize: 9,
                       lineHeight: "14px",
@@ -371,7 +379,6 @@ export const CalculateOutputForm = ({
                   <Typography
                     sx={{
                       left: 7,
-                      fontFamily: "Inter-Regular, Helvetica",
                       color: "#171a1f",
                       fontSize: 14,
                       lineHeight: "22px",
@@ -391,7 +398,6 @@ export const CalculateOutputForm = ({
                   <Typography
                     sx={{
                       top: 18,
-                      fontFamily: "Inter-Regular, Helvetica",
                       color: "#171a1f",
                       fontSize: 9,
                       lineHeight: "14px",
@@ -403,7 +409,6 @@ export const CalculateOutputForm = ({
                   <Typography
                     sx={{
                       left: 11,
-                      fontFamily: "Inter-Regular, Helvetica",
                       color: "#171a1f",
                       fontSize: 14,
                       textAlign: "center",
@@ -420,26 +425,24 @@ export const CalculateOutputForm = ({
                     left: 446,
                   }}
                 >
-                  <img src={daniel} alt="Daniel" />
+                  <img
+                    src={supplierImages[diamond.supplierId]}
+                    alt="Supplier Logo"
+                    style={{ width: "100%", height: "100%" }}
+                  />
                 </Box>
                 <Typography
                   sx={{
                     top: 32,
                     left: 620,
-                    fontFamily: "Inter-Regular, Helvetica",
                     color: "#171a1f",
                     fontSize: 15,
                   }}
                 >
-                  {`$${diamond.price}`}
+                  {formattedMoney(diamond.price)}
                 </Typography>
               </Box>
             ))}
-          {/*{visibleCount < marketData.length && (*/}
-          {/*  <button onClick={() => setVisibleCount(marketData.length)}>*/}
-          {/*    Show More*/}
-          {/*  </button>*/}
-          {/*)}*/}
         </Box>
       </Box>
     </Box>
