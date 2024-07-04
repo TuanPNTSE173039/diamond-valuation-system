@@ -6,6 +6,8 @@ import { getValuationRequestByID } from "../../services/api.js";
 import { DetailHeadCells } from "../../utilities/Table.js";
 import UITable from "../UI/Table.jsx";
 import Drawer from "../UI/Drawer.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RequestItem = () => {
   const formattedMoney = (money) => {
@@ -49,29 +51,32 @@ const RequestItem = () => {
   const totalPriceFormat = formattedMoney(request.totalServicePrice);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        height: "calc(100vh - 350px)",
-        marginBottom: "50px",
-      }}
-    >
-      <div style={{ marginRight: "20px" }}>
-        <Drawer />
+    <div>
+      <ToastContainer />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          height: "calc(100vh - 350px)",
+          marginBottom: "50px",
+        }}
+      >
+        <div style={{ marginRight: "20px" }}>
+          <Drawer />
+        </div>
+        <UITable
+          heading="Detail"
+          headCells={DetailHeadCells}
+          rows={detailRows}
+          showTotalPrice={true}
+          totalPrice={totalPriceFormat}
+          requestStatus={request.status}
+          showViewButton={true}
+          showFeedbackRow={true}
+          requestID={requestID}
+          request={request}
+        />
       </div>
-      <UITable
-        heading="Detail"
-        headCells={DetailHeadCells}
-        rows={detailRows}
-        showTotalPrice={true}
-        totalPrice={totalPriceFormat}
-        requestStatus={request.status}
-        showViewButton={true}
-        showFeedbackRow={true}
-        requestID={requestID}
-        request={request}
-      />
     </div>
   );
 };
