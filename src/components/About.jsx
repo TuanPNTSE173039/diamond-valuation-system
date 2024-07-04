@@ -28,7 +28,7 @@ const About = () => {
               width: "550px",
             }}
           >
-            StoneAlgo began as a personal quest to find the right diamond at a
+            H&TDiamond began as a personal quest to find the right diamond at a
             fair price. Nowadays we&#39;re helping our users discover their
             perfect diamond at the lowest price from the top online jewelers.
             Every day we algorithmically search through millions of diamonds to
