@@ -125,7 +125,10 @@ const UITable = ({
               {headCells.map((cell) => {
                 const cellValue = row[cell.id];
                 return (
-                  <TableCell align="center" key={cell.id}>
+                  <TableCell
+                    align={cell.numeric ? "right" : "center"}
+                    key={cell.id}
+                  >
                     {cell.id === "delete" &&
                       showDeleteButton &&
                       row.status === "PENDING" && (
