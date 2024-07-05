@@ -39,7 +39,9 @@ export const getDiamondMarketData = async (params) => {
 //MANAGE
 
 export const getValuationRequestsByCustomerID = async (customerID) => {
-  const response = await http.get(`valuation-requests/customer/${customerID}`);
+  const response = await http.get(
+    `valuation-requests/customer/${customerID}?sortBy=creationDate&sortDir=desc`,
+  );
   return response.data;
 };
 
@@ -74,8 +76,13 @@ export const updateCustomerPassword = async (authID, body) => {
 };
 
 //POST
-export const getAllPosts = async () => {
+export const getAllBlogs = async () => {
   const response = await http.get(`posts`);
+  return response.data;
+};
+
+export const getBlogById = async (postId) => {
+  const response = await http.get(`posts/${postId}`);
   return response.data;
 };
 

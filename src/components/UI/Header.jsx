@@ -71,8 +71,8 @@ export default function Header() {
       case "PRICES":
         navigate("/prices");
         break;
-      case "POST":
-        navigate("/post");
+      case "BLOG":
+        navigate("/blog");
         break;
       case "Appointment":
         if (!currentUser) {
@@ -212,7 +212,7 @@ export default function Header() {
         </Menu>
 
         <Button
-          onClick={() => handleMenuItemClick("POST")}
+          onClick={() => handleMenuItemClick("BLOG")}
           sx={{
             color: "#3e6272",
             textTransform: "none",
@@ -222,7 +222,7 @@ export default function Header() {
             },
           }}
         >
-          POST
+          BLOG
         </Button>
       </Box>
       <Box

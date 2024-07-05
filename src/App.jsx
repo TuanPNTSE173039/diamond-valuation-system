@@ -14,8 +14,9 @@ import GuestGuard from "./components/Auth/GuestGuard.jsx";
 import Register from "./components/Auth/Register.jsx";
 import About from "./components/About.jsx";
 import ProfilePage from "./components/Profile/Page.jsx";
-import { PostPage } from "./components/Post.jsx";
+import BlogList from "./components/Blog/List.jsx";
 import ResetPassword from "./components/Auth/ResetPassword.jsx";
+import BlogDetail from "./components/Blog/Details.jsx";
 
 const router = createBrowserRouter([
   {
@@ -51,8 +52,21 @@ const router = createBrowserRouter([
         element: <ProfilePage />,
       },
       {
-        path: "post",
-        element: <PostPage />,
+        path: "blog",
+        element: <BlogList />,
+      },
+      {
+        path: "blog",
+        children: [
+          {
+            index: true,
+            element: <BlogList />,
+          },
+          {
+            path: ":blogID",
+            element: <BlogDetail />,
+          },
+        ],
       },
       {
         path: "check",
