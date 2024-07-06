@@ -21,9 +21,56 @@ import {
 } from "../../services/api.js";
 import ItemDetailsDialog from "../ManageAppointment/ItemDetails.jsx";
 import { useNavigate } from "react-router-dom";
-import FeedbackDialog from "../ManageAppointment/FeedbackDialog.jsx"; // Import FeedbackDialog
+import FeedbackDialog from "../ManageAppointment/FeedbackDialog.jsx";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import { convertStatus } from "../../utilities/Status.jsx";
+import { toast, ToastContainer } from "react-toastify";
 
 DialogActions.propTypes = { children: PropTypes.node };
+
+const DeleteReasonInput = ({ deleteReason, setDeleteReason }) => {
+  const initialValue = deleteReason === "Other" ? "" : deleteReason;
+  return (
+    <FormControl
+      fullWidth
+      margin="normal"
+      sx={{ ml: 2, mr: 2, width: "400px" }}
+    >
+      <InputLabel id="delete-reason-label">Reason</InputLabel>
+      {deleteReason === "Other" ? (
+        <TextField
+          fullWidth
+          margin="normal"
+          value={initialValue}
+          onChange={(e) => setDeleteReason(e.target.value)}
+        />
+      ) : (
+        <Select
+          labelId="delete-reason-label"
+          id="delete-reason"
+          value={initialValue}
+          onChange={(e) => setDeleteReason(e.target.value)}
+          label="Reason"
+        >
+          <MenuItem value="I want to change service">
+            I want to change service
+          </MenuItem>
+          <MenuItem value="I want to change amount of diamond">
+            I want to change amount of diamond
+          </MenuItem>
+          <MenuItem value="I want to change information">
+            I want to change information
+          </MenuItem>
+          <MenuItem value="Other">Other</MenuItem>
+        </Select>
+      )}
+    </FormControl>
+  );
+};
 
 const UITable = ({
   heading,
@@ -38,41 +85,47 @@ const UITable = ({
   requestID,
   request,
 }) => {
-  console.log(request);
   const navigate = useNavigate();
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);
   const [openViewDialog, setOpenViewDialog] = useState(false);
   const [diamondDetails, setDiamondDetails] = useState(null);
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
+  const [deleteReason, setDeleteReason] = useState("");
 
   const handleClick = async (requestID) => {
     navigate(`/appointments/${requestID}`);
+    console.log("Request ID:", requestID);
   };
 
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
     mutationKey: "deleteValuationRequest",
-    mutationFn: deleteValuationRequestByID,
+    mutationFn: () => deleteValuationRequestByID(selectedRowId),
     onSuccess: () => {
-      // On success, refetch the data
       queryClient.invalidateQueries(["requests"]);
+      toast.success("Request deleted successfully!");
     },
   });
 
-  const handleDelete = (id) => {
-    setSelectedRowId(id);
+  const handleDelete = (requestID) => {
+    setSelectedRowId(requestID);
     setOpenDeleteDialog(true);
+    console.log("Selected row ID:", requestID);
   };
 
   const handleConfirmDelete = () => {
+    const reason = deleteReason;
+    console.log("Delete reason:", reason);
     deleteMutation.mutate(selectedRowId);
     setOpenDeleteDialog(false);
+    setDeleteReason("");
   };
 
   const handleCloseDeleteDialog = () => {
     setOpenDeleteDialog(false);
+    setDeleteReason("");
   };
 
   const handleView = async (diamondID) => {
@@ -97,6 +150,7 @@ const UITable = ({
       component={Paper}
       sx={{ maxHeight: 440, marginRight: "30px" }}
     >
+      <ToastContainer />
       <Typography
         variant="h5"
         id="tableTitle"
@@ -136,7 +190,8 @@ const UITable = ({
                           aria-label="delete"
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleDelete(row.id);
+                            handleDelete(row.number);
+                            console.log("Row number:", row.number);
                           }}
                         >
                           <DeleteIcon />
@@ -156,7 +211,9 @@ const UITable = ({
                           <VisibilityIcon />
                         </IconButton>
                       )}
-                    {cell.id !== "delete" && cell.id !== "view" && cellValue}
+                    {cell.id === "status"
+                      ? convertStatus(row[cell.id])
+                      : cellValue}
                   </TableCell>
                 );
               })}
@@ -184,7 +241,7 @@ const UITable = ({
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => setFeedbackDialogOpen(true)} // Open the feedback dialog
+                  onClick={() => setFeedbackDialogOpen(true)}
                 >
                   Give Feedback
                 </Button>
@@ -194,9 +251,17 @@ const UITable = ({
         </TableBody>
       </Table>
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <Typography variant="h6" align="center" sx={{ mt: 2, mb: 3 }}>
+        <Typography
+          variant="h6"
+          align="center"
+          sx={{ mt: 1, mb: 2, width: "400px" }}
+        >
           Confirm Delete
         </Typography>
+        <DeleteReasonInput
+          deleteReason={deleteReason}
+          setDeleteReason={setDeleteReason}
+        />
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button onClick={handleCloseDeleteDialog} color="primary">
             Cancel

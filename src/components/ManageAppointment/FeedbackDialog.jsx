@@ -10,7 +10,7 @@ import { updateValuationRequestFeedback } from "../../services/api.js";
 import { toast } from "react-toastify";
 
 const FeedbackDialog = ({ open, onClose, requestID, initialRequest }) => {
-  console.log("Initial Request:", initialRequest);
+  //console.log("Initial Request:", initialRequest);
   const [feedback, setFeedback] = useState(initialRequest?.feedback || "");
   const [isFeedbackSent, setIsFeedbackSent] = useState(false);
   const feedbackInputRef = useRef(null);
