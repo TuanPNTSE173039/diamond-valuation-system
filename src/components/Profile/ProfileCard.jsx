@@ -1,17 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { DialogTitle, Grid } from "@mui/material";
+import { DialogTitle, Grid, IconButton } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
-import CustomInput from "./CustomerInput.jsx";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import TextField from "@mui/material/TextField";
-import DialogActions from "@mui/material/DialogActions";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import {
@@ -22,6 +16,15 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { setMessage } from "../../redux/messageSlide.js";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../services/firebase.js";
+import EditIcon from "@mui/icons-material/Edit";
+import Button from "@mui/material/Button";
+import DialogActions from "@mui/material/DialogActions";
+import TextField from "@mui/material/TextField";
+import DialogContent from "@mui/material/DialogContent";
+import Dialog from "@mui/material/Dialog";
+import CustomInput from "./CustomerInput.jsx";
 
 const styles = {
   details: {
@@ -33,16 +36,10 @@ const styles = {
     borderTop: "1px solid #e1e1e1",
     color: "#899499",
   },
-  errorText: {
-    color: "red",
-    fontSize: "0.75rem", // Smaller font size
-    fontStyle: "italic", // Italic font style
-  },
 };
 
 export default function ProfileCard(props) {
   const dispatch = useDispatch();
-  // const { message } = useSelector((state) => state.message);
   const [user, setUser] = useState({
     firstName: props.firstName,
     lastName: props.lastName,
@@ -54,6 +51,7 @@ export default function ProfileCard(props) {
     customerID: props.customerID,
     authID: props.authID,
   });
+  const [avatarChanged, setAvatarChanged] = useState(false);
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -157,10 +155,11 @@ export default function ProfileCard(props) {
     setUser({ ...user, [name]: value });
     formik.setFieldValue(name, value);
     formik.setFieldTouched(name, true);
-  };
 
-  const changePasswordField = (event) => {
-    setPasswords({ ...passwords, [event.target.name]: event.target.value });
+    // Check if avatar image is changed
+    if (name === "avatar") {
+      setAvatarChanged(true);
+    }
   };
 
   const [open, setOpen] = useState(false);
@@ -192,10 +191,13 @@ export default function ProfileCard(props) {
 
   const handleUpdate = async () => {
     const changedFields = getChangedFields();
-    console.log("Changed fields:", JSON.stringify(changedFields, null, 2));
     try {
-      await updateCustomerInformation(user.customerID, changedFields);
-      toast.success("Customer information updated successfully!");
+      if (avatarChanged) {
+        await handleUploadAvatarImage();
+      } else {
+        await updateCustomerInformation(user.customerID, changedFields);
+        toast.success("Customer information updated successfully!");
+      }
     } catch (error) {
       toast.error("Failed to update customer information.");
       console.error("Failed to update customer information", error);
@@ -233,7 +235,6 @@ export default function ProfileCard(props) {
     }
   };
 
-  // EDIT -> UPDATE
   const changeButton = async (event) => {
     event.preventDefault();
     if (!edit.disabled) {
@@ -246,12 +247,12 @@ export default function ProfileCard(props) {
 
   const formik = useFormik({
     initialValues: {
-      firstName: props.firstName || "",
-      lastName: props.lastName || "",
-      phone: props.phone || "",
-      email: props.email || "",
-      address: props.address || "",
-      identityDocument: props.identityDocument || "",
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phone: user.phone,
+      email: user.email,
+      address: user.address,
+      identityDocument: user.identityDocument,
       oldPassword: "",
       newPassword: "",
     },
@@ -262,30 +263,104 @@ export default function ProfileCard(props) {
   });
 
   const handlePasswordChange = (event) => {
-    formik.handleChange(event); // Đảm bảo formik cập nhật giá trị
+    formik.handleChange(event);
     setPasswords({ ...passwords, [event.target.name]: event.target.value });
   };
 
+  // Avatar image handling
+  const [avatarImage, setAvatarImage] = useState(null);
+  const [isFileDialogOpen, setIsFileDialogOpen] = useState(false);
+  const fileInputRef = useRef(null);
+
+  const openFileDialog = () => {
+    console.log("Attempting to open file dialog"); // Debugging log
+    if (!isFileDialogOpen && fileInputRef.current) {
+      console.log("File dialog is not open, opening now"); // Debugging log
+      setIsFileDialogOpen(true); // Mark dialog as open
+      fileInputRef.current.click(); // Trigger file dialog
+    } else {
+      console.log("File dialog is already open, not opening again"); // Debugging log
+    }
+  };
+
+  const handleSelectAvatarImage = (e) => {
+    if (e.target.files[0]) {
+      setAvatarImage(e.target.files[0]);
+      setAvatarChanged(true);
+    }
+    setIsFileDialogOpen(false); // Close file dialog after selection
+  };
+
+  const handleUploadAvatarImage = async () => {
+    if (!avatarImage) return;
+
+    const storageRef = ref(
+      storage,
+      `account/${user.authID}/${avatarImage.name}`,
+    );
+    const uploadTask = uploadBytesResumable(storageRef, avatarImage);
+
+    try {
+      await uploadTask;
+      const downloadURL = await getDownloadURL(storageRef);
+
+      const updateResponse = await updateCustomerInformation(user.customerID, {
+        avatar: downloadURL,
+      });
+      console.log("Update response:", updateResponse.data);
+      toast.success("Avatar updated successfully");
+    } catch (error) {
+      console.error("Error uploading avatar or updating database:", error);
+      toast.error("Failed to upload avatar or update database");
+    }
+  };
+
   return (
-    <Card variant="outlined" sx={{ height: "730px", width: "96%" }}>
+    <Card variant="outlined" sx={{ height: "730px", width: "100%" }}>
       <ToastContainer containerId="profile" />
-      {/* MAIN CONTENT CONTAINER */}
       <Grid
         container
         direction="column"
         justifyContent="center"
         alignItems="center"
       >
-        {/* CARD HEADER START */}
         <Grid item sx={{ p: "1.5rem 0rem", textAlign: "center" }}>
-          {/* PROFILE PHOTO */}
           <Badge
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           >
             <Avatar
               sx={{ width: 100, height: 100, mb: 1.5 }}
-              src={props.avatar}
+              src={
+                avatarImage ? URL.createObjectURL(avatarImage) : props.avatar
+              }
+            />
+            {!edit.isEdit && ( // Conditionally render only when not in edit mode
+              <>
+                <label htmlFor="icon-button-file">
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation(); // Stop event propagation
+                      console.log("IconButton clicked"); // Debugging log
+                      openFileDialog();
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </label>
+              </>
+            )}
+            <input
+              ref={fileInputRef}
+              accept="image/*"
+              style={{ display: "none" }}
+              id="icon-button-file"
+              type="file"
+              onChange={handleSelectAvatarImage}
             />
           </Badge>
           <Typography variant="h6">{fullName}</Typography>
@@ -461,9 +536,8 @@ export default function ProfileCard(props) {
 
           <Grid
             container
-            justifyContent={{ xs: "center", md: "flex-end" }}
+            justifyContent="center" // Center the content
             item
-            xs={6}
           >
             <Button
               sx={{ p: "1rem 2rem", my: 2, height: "3rem" }}
