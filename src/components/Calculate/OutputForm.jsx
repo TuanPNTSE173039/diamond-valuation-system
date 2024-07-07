@@ -74,7 +74,7 @@ export const CalculateOutputForm = ({
       sx={{
         position: "relative",
         width: 743,
-        left: 160,
+        left: 120,
         height: 850,
       }}
     >

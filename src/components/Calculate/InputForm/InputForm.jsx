@@ -62,7 +62,7 @@ const CalculateInputForm = ({ setParams }) => {
       sx={{
         width: 410,
         position: "relative",
-        left: "110px",
+        left: "80px",
         borderRadius: "6px",
         height: showMoreInputs ? 975 : 675,
       }}
