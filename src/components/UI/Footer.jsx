@@ -2,7 +2,7 @@ import { Box, IconButton, Typography } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -14,13 +14,13 @@ export default function Footer() {
         justifyContent: "space-between",
         padding: "20px 60px",
         backgroundColor: "#e0e0e0",
+        height: "150px",
       }}
     >
       <Box sx={{ flex: "1 1 100%", maxWidth: "35%" }}>
         <Typography
           variant="body1"
           sx={{
-            fontFamily: "Inter-Regular, Helvetica",
             fontSize: 16,
             color: "#9095a0",
             lineHeight: "26px",
@@ -62,11 +62,11 @@ export default function Footer() {
           </IconButton>
         </Box>
       </Box>
-      <Box sx={{ flex: "1 1 auto", maxWidth: "50%" }}>
+      <Box sx={{ flex: "1 1 auto", maxWidth: "50%" }}></Box>
+      <Box sx={{ flex: "1 1 auto", maxWidth: "25%" }}>
         <Typography
           variant="body1"
           sx={{
-            fontFamily: "Inter-Regular, Helvetica",
             fontSize: 15,
             color: "#3e6272",
             lineHeight: "24px",
@@ -78,89 +78,40 @@ export default function Footer() {
         <Typography
           variant="body1"
           sx={{
-            fontFamily: "Inter-Regular, Helvetica",
             fontSize: 16,
             color: "#9095a0",
             lineHeight: "26px",
             mb: 1,
           }}
         >
-            <Link to="/calculate" style={{ textDecoration: 'none', color: '#9095a0' }}>
-                Price Calculator
-            </Link>
+          <Link
+            to="/calculate"
+            style={{ textDecoration: "none", color: "#9095a0" }}
+          >
+            Price Calculator
+          </Link>
         </Typography>
         <Typography
           variant="body1"
           sx={{
-            fontFamily: "Inter-Regular, Helvetica",
             fontSize: 16,
             color: "#9095a0",
             lineHeight: "26px",
             mb: 1,
           }}
         >
-            <Link to="/check" style={{ textDecoration: 'none', color: '#9095a0' }}>
-                Price &amp; Quality Check
-            </Link>
-
+          <Link
+            to="/check"
+            style={{ textDecoration: "none", color: "#9095a0" }}
+          >
+            Price &amp; Quality Check
+          </Link>
         </Typography>
       </Box>
       <Box sx={{ flex: "1 1 auto", maxWidth: "25%" }}>
         <Typography
           variant="body1"
           sx={{
-            fontFamily: "Inter-Regular, Helvetica",
-            fontSize: 15,
-            color: "#3e6272",
-            lineHeight: "24px",
-            mb: 1,
-          }}
-        >
-          PRICES
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: "Inter-Regular, Helvetica",
-            fontSize: 16,
-            color: "#9095a0",
-            lineHeight: "26px",
-            mb: 1,
-          }}
-        >
-          Diamond Prices
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: "Inter-Regular, Helvetica",
-            fontSize: 16,
-            color: "#9095a0",
-            lineHeight: "26px",
-            mb: 1,
-          }}
-        >
-          1 Carat Prices
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: "Inter-Regular, Helvetica",
-            fontSize: 16,
-            color: "#9095a0",
-            lineHeight: "26px",
-            mb: 1,
-          }}
-        >
-          2 Carat Prices
-        </Typography>
-
-      </Box>
-      <Box sx={{ flex: "1 1 auto", maxWidth: "25%" }}>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: "Inter-Regular, Helvetica",
             fontSize: 15,
             color: "#3e6272",
             lineHeight: "24px",
@@ -172,23 +123,22 @@ export default function Footer() {
         <Typography
           variant="body1"
           sx={{
-            fontFamily: "Inter-Regular, Helvetica",
             fontSize: 16,
             color: "#9095a0",
             lineHeight: "26px",
             mb: 1,
           }}
         >
+          <Link to="/blog" style={{ textDecoration: "none", color: "#9095a0" }}>
             Blog
+          </Link>
         </Typography>
-
       </Box>
 
       <Box sx={{ flex: "1 1 auto", maxWidth: "25%" }}>
         <Typography
           variant="body1"
           sx={{
-            fontFamily: "Inter-Regular, Helvetica",
             fontSize: 15,
             color: "#3e6272",
             lineHeight: "24px",
@@ -200,28 +150,35 @@ export default function Footer() {
         <Typography
           variant="body1"
           sx={{
-            fontFamily: "Inter-Regular, Helvetica",
             fontSize: 16,
             color: "#9095a0",
             lineHeight: "26px",
             mb: 1,
           }}
         >
-          About
+          <Link
+            to="/about"
+            style={{ textDecoration: "none", color: "#9095a0" }}
+          >
+            About
+          </Link>
         </Typography>
         <Typography
           variant="body1"
           sx={{
-            fontFamily: "Inter-Regular, Helvetica",
             fontSize: 16,
             color: "#9095a0",
             lineHeight: "26px",
           }}
         >
-          Rules
+          <Link
+            to="/rules"
+            style={{ textDecoration: "none", color: "#9095a0" }}
+          >
+            Rules
+          </Link>
         </Typography>
       </Box>
-
     </Box>
   );
 }
