@@ -9,7 +9,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { setMessage } from "../../redux/messageSlide.js";
-import { setSignInDialogOpen } from "../../redux/authSlice";
+//import { setSignInDialogOpen } from "../../redux/authSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
@@ -73,7 +73,7 @@ const ResetPassword = () => {
         dispatch(setMessage(data?.message || "Password reset successful."));
         setOpen(false);
         navigate("/");
-        dispatch(setSignInDialogOpen(true)); // Open sign-in dialog
+        // dispatch(setSignInDialogOpen(true)); // Open sign-in dialog
         toast.success(data?.message || "Password reset successful.");
       } catch (error) {
         console.error("Error resetting password:", error.message);
