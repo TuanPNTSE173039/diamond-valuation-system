@@ -62,7 +62,7 @@ const ValuationRequestList = () => {
       style={{
         display: "flex",
         flexDirection: "row",
-        height: "calc(100vh - 350px)",
+        height: "calc(100vh - 320px)",
         marginBottom: "50px",
       }}
     >

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import diamond from "../../assets/images/diamond_poster.png";
+import diamond from "../../assets/images/poster.jpg";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -136,10 +136,9 @@ const AppointmentForm = () => {
         src={diamond}
         alt="Diamond"
         sx={{
+          width: "100%",
           position: "absolute",
-          width: "681px",
           height: "550px",
-          left: "685px",
         }}
       />
       <Box
@@ -147,7 +146,7 @@ const AppointmentForm = () => {
           position: "absolute",
           width: "460px",
           height: "500px",
-          left: "210px",
+          left: "150px",
           bgcolor: "#d8c0989e",
           p: 3,
           display: "flex",
