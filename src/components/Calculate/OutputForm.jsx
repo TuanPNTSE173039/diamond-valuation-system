@@ -1,12 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import daniel from "../../assets/images/daniel.png";
-import rockher from "../../assets/images/rockher.png";
-import friendly from "../../assets/images/friendly.png";
-import allurez from "../../assets/images/allurez.png";
-import adiamor from "../../assets/images/adiamor.png";
-import dreamstone from "../../assets/images/dreamstone.png";
-import stonealgo from "../../assets/images/stonealgo.png";
-
 import diamond1 from "../../assets/images/diamond1.png";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { useState } from "react";
@@ -28,28 +20,35 @@ export const CalculateOutputForm = ({
       currency: "USD",
     }).format(money);
   };
+
   if (isDiamondLoading || isMarketLoading)
     return (
       <Box
         sx={{
+          width: 723,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
+          left: 120,
         }}
       >
         <UICircularIndeterminate />
       </Box>
     );
 
-  if (diamondError || marketError) {
-    return (
-      <Box sx={{ textAlign: "center" }}>
-        <Typography variant="h6" color="error">
-          Error: Unable to fetch data.
-        </Typography>
-      </Box>
-    );
+  // Nếu diamondData không tồn tại hoặc có lỗi, trả về giá trị mặc định
+  if (!diamondData || diamondError) {
+    diamondData = {
+      fairPrice: "N/A",
+      pricePerCarat: "N/A",
+      minPrice: "N/A",
+      maxPrice: "N/A",
+      shape: "ROUND",
+      caratWeight: "1",
+      color: "G",
+      clarity: "VS1",
+    };
   }
 
   const fairPriceFormat = formattedMoney(diamondData.fairPrice);
@@ -60,13 +59,13 @@ export const CalculateOutputForm = ({
   const [visibleCount, setVisibleCount] = useState(5);
 
   const supplierImages = {
-    1: stonealgo,
-    2: rockher,
-    3: daniel,
-    4: friendly,
-    5: allurez,
-    6: adiamor,
-    7: dreamstone,
+    1: "stonealgo",
+    2: "rockher",
+    3: "daniel",
+    4: "friendly",
+    5: "allurez",
+    6: "adiamor",
+    7: "dreamstone",
   };
 
   return (
@@ -74,7 +73,7 @@ export const CalculateOutputForm = ({
       sx={{
         position: "relative",
         width: 743,
-        left: 160,
+        left: 120,
         height: 850,
       }}
     >

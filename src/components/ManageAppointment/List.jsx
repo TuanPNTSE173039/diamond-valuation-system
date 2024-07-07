@@ -7,6 +7,7 @@ import { getValuationRequestsByCustomerID } from "../../services/api.js";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 // Utility function to format date and time
 const formatDateTime = (dateTimeString) => {
@@ -22,7 +23,7 @@ const formatDateTime = (dateTimeString) => {
 
 const ValuationRequestList = () => {
   const { id } = useSelector((state) => state.auth.user);
-  console.log(id);
+  //console.log(id);
   const { data: requests, isFetching: isRequestFetching } = useQuery({
     queryKey: ["requests"],
     queryFn: () => getValuationRequestsByCustomerID(id),
@@ -47,7 +48,6 @@ const ValuationRequestList = () => {
   // Map data to the format expected by UITable
   const requestRows = requests?.content.map((row, index) => {
     return {
-      //id: row.id,
       number: row.id,
       status: row.status,
       creationDate: formatDateTime(row.creationDate),
@@ -56,14 +56,13 @@ const ValuationRequestList = () => {
       service: row.serviceName,
     };
   });
-  console.log(requestRows);
 
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "row",
-        height: "calc(100vh - 350px)",
+        height: "calc(100vh - 320px)",
         marginBottom: "50px",
       }}
     >
@@ -76,6 +75,7 @@ const ValuationRequestList = () => {
         headCells={RequestHeadCells}
         showDeleteButton={true}
       />
+      <ToastContainer />
     </div>
   );
 };

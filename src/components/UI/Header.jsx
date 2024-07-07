@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -7,7 +7,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
@@ -17,6 +16,9 @@ import SignIn from "../Auth/SignIn";
 import { logout } from "../../redux/authSlice";
 import Typography from "@mui/material/Typography";
 import logo from "../../assets/images/logo (1).png";
+import { getDownloadURL, ref } from "firebase/storage";
+import { storage } from "../../services/firebase.js";
+import Avatar from "@mui/material/Avatar";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,10 +26,41 @@ export default function Header() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [showAppointmentDialog, setShowAppointmentDialog] = useState(false);
+  const [avatarURL, setAvatarURL] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { user: currentUser } = useSelector((state) => state.auth);
+  console.log("currentUser", currentUser);
+
+  const getAvatarDownloadURL = async () => {
+    // Check if currentUser.avatar exists and is a valid URL
+    if (currentUser && currentUser.avatar) {
+      // Assuming currentUser.avatar is a direct URL
+      return currentUser.avatar;
+    } else {
+      // Fallback to fetching from Firebase Storage if no direct URL is available
+      const storageRef = ref(storage, `account/${currentUser.account.id}/`);
+      try {
+        const url = await getDownloadURL(storageRef);
+        return url;
+      } catch (error) {
+        console.error("Error getting avatar download URL:", error);
+        return ""; // Return an empty string or handle error as needed
+      }
+    }
+  };
+
+  useEffect(() => {
+    const fetchAvatarURL = async () => {
+      if (currentUser) {
+        const url = await getAvatarDownloadURL(currentUser.account.id);
+        setAvatarURL(url);
+      }
+    };
+
+    fetchAvatarURL();
+  }, [currentUser]);
 
   const handleDialogOpen = () => {
     setOpenDialog(true);
@@ -71,8 +104,8 @@ export default function Header() {
       case "PRICES":
         navigate("/prices");
         break;
-      case "POST":
-        navigate("/post");
+      case "BLOG":
+        navigate("/blog");
         break;
       case "Appointment":
         if (!currentUser) {
@@ -212,7 +245,7 @@ export default function Header() {
         </Menu>
 
         <Button
-          onClick={() => handleMenuItemClick("POST")}
+          onClick={() => handleMenuItemClick("BLOG")}
           sx={{
             color: "#3e6272",
             textTransform: "none",
@@ -222,7 +255,7 @@ export default function Header() {
             },
           }}
         >
-          POST
+          BLOG
         </Button>
       </Box>
       <Box
@@ -259,7 +292,7 @@ export default function Header() {
               onClick={handleProfileClick}
               sx={{
                 color: "#3e6272",
-                minWidth: 50,
+                borderRadius: 5,
                 "&:hover": {
                   backgroundColor: "#f0f0f0",
                 },
@@ -268,7 +301,10 @@ export default function Header() {
                 },
               }}
             >
-              <AccountCircleOutlinedIcon sx={{ fontSize: 30 }} />
+              <Avatar
+                alt={currentUser ? currentUser.authID : ""}
+                src={avatarURL ? avatarURL : ""}
+              />
             </Button>
             <Menu
               anchorEl={profileEl}
@@ -297,19 +333,6 @@ export default function Header() {
           </>
         ) : (
           <>
-            {/*<Button*/}
-            {/*  sx={{*/}
-            {/*    color: "#3e6282",*/}
-            {/*    textTransform: "none",*/}
-            {/*    fontSize: 17,*/}
-            {/*    "&:hover": {*/}
-            {/*      color: "#000",*/}
-            {/*    },*/}
-            {/*  }}*/}
-            {/*  onClick={() => handleMenuItemClick("Register")}*/}
-            {/*>*/}
-            {/*  Register*/}
-            {/*</Button>*/}
             <Button
               onClick={handleDialogOpen}
               sx={{

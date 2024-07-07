@@ -49,8 +49,8 @@ export default function ProfilePage() {
     customerID: customer?.id || "",
     authID: customer?.account?.id || "",
   };
-  console.log(mainUser);
-  console.log(mainUser.customerID);
+  //console.log(mainUser);
+  //console.log(mainUser.customerID);
 
   return (
     <ThemeProvider theme={theme}>
@@ -63,17 +63,15 @@ export default function ProfilePage() {
           </Grid>
 
           {/* CONTENT */}
-          <Grid item xs={10} sx={{ marginTop: "80px" }}>
+          <Grid item xs={9.5} overflow="hidden" sx={{ marginBottom: "40px" }}>
             {/* BACKGROUND */}
             <Grid container direction="column" sx={{ marginLeft: "65px" }}>
               {/* COMPONENTS */}
               <Grid
                 container
                 direction={{ xs: "column", md: "row" }}
-                spacing={3}
                 sx={{
                   position: "relative",
-                  top: "-10vh",
                   px: { xs: 2, md: 7 },
                 }}
               >

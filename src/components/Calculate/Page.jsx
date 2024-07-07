@@ -4,6 +4,8 @@ import { Box, Container } from "@mui/material";
 import { getDiamondData, getDiamondMarketData } from "../../services/api";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CalculatePage() {
   const [params, setParams] = useState({
@@ -37,15 +39,20 @@ function CalculatePage() {
     queryFn: () => getDiamondMarketData(params),
   });
 
+  if (diamondError) {
+    toast.error("The diamond corresponding to the fields could not be found.");
+  }
+
   return (
     <Container
       style={{
         display: "flex",
         justifyContent: "space-between",
-        margin: "50px 0px",
+        margin: "30px 0px",
         position: "relative",
       }}
     >
+      <ToastContainer containerId="calculation" />
       <Box style={{ marginRight: "0px" }}>
         <CalculateInputForm setParams={setParams} />
       </Box>

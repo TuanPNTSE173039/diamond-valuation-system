@@ -10,24 +10,22 @@ import { updateValuationRequestFeedback } from "../../services/api.js";
 import { toast } from "react-toastify";
 
 const FeedbackDialog = ({ open, onClose, requestID, initialRequest }) => {
-  console.log("Initial Request:", initialRequest);
+  //console.log("Initial Request:", initialRequest);
   const [feedback, setFeedback] = useState(initialRequest?.feedback || "");
+  const [isFeedbackSent, setIsFeedbackSent] = useState(false);
   const feedbackInputRef = useRef(null);
-  //const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationKey: ["updateFeedback", requestID],
     mutationFn: (newFeedback) => {
       const updatedRequest = { ...initialRequest, feedback: newFeedback };
-      return updateValuationRequestFeedback(requestID, updatedRequest); // Ensure mutationFn returns a promise
+      return updateValuationRequestFeedback(requestID, updatedRequest);
     },
     onSuccess: () => {
-      //queryClient.invalidateQueries(["request", { requestId: requestID }]);
       onClose();
-      toast.success("Feedback sent successfully!", {
-        //position: toast.POSITION.TOP_RIGHT,
-      });
-      console.log("Feedback sent successfully!"); // This line logs the message to the console
+      toast.success("Feedback sent successfully!");
+      console.log("Feedback sent successfully!");
+      setIsFeedbackSent(true);
     },
     onError: (error) => {
       console.error("Error updating feedback:", error);
@@ -55,15 +53,20 @@ const FeedbackDialog = ({ open, onClose, requestID, initialRequest }) => {
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}
           sx={{ width: "400px" }}
+          multiline
+          rows={3}
+          disabled={isFeedbackSent}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
-          Cancel
+          {isFeedbackSent ? "Close" : "Cancel"}
         </Button>
-        <Button onClick={handleSubmit} color="primary">
-          Send
-        </Button>
+        {!isFeedbackSent && (
+          <Button onClick={handleSubmit} color="primary">
+            Send
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

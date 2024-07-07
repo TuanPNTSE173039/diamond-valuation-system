@@ -19,6 +19,13 @@ const RequestItem = () => {
       currency: "USD",
     }).format(money);
   };
+  const formattedDiamondSize = (size) => {
+    if (size === "N/A" || size === undefined || size === null) {
+      return "N/A";
+    }
+
+    return `${size} mm`;
+  };
 
   const { requestID } = useParams();
 
@@ -36,7 +43,10 @@ const RequestItem = () => {
     const row = {
       number: index + 1,
       service: request.service.name,
-      size: item.size === 0 || item.size === null ? "N/A" : item.size,
+      size:
+        item.size === 0 || item.size === null
+          ? "N/A"
+          : formattedDiamondSize(item.size),
       servicePrice:
         item.servicePrice === "0.0" || item.servicePrice === null
           ? "N/A"
@@ -57,7 +67,7 @@ const RequestItem = () => {
         style={{
           display: "flex",
           flexDirection: "row",
-          height: "calc(100vh - 350px)",
+          height: "calc(100vh - 320px)",
           marginBottom: "50px",
         }}
       >
