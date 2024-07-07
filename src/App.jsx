@@ -17,6 +17,7 @@ import ProfilePage from "./components/Profile/Page.jsx";
 import BlogList from "./components/Blog/List.jsx";
 import ResetPassword from "./components/Auth/ResetPassword.jsx";
 import BlogDetail from "./components/Blog/Details.jsx";
+import RulePage from "./components/Rule/Rule.jsx";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "rules",
+        element: <RulePage />,
+      },
+      {
         path: "check",
         children: [
           {
@@ -85,7 +90,6 @@ const router = createBrowserRouter([
         path: "calculate",
         element: <CalculatePage />,
       },
-
       {
         path: "appointments",
         children: [
