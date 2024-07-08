@@ -95,15 +95,16 @@ export default function Header() {
       case "Rules":
         navigate("/rules");
         break;
+      case "Price":
+        navigate("/price");
+        break;
       case "HOME":
         navigate("/");
         break;
       case "ABOUT":
         navigate("/about");
         break;
-      case "PRICES":
-        navigate("/prices");
-        break;
+
       case "BLOG":
         navigate("/blog");
         break;
@@ -235,6 +236,12 @@ export default function Header() {
             onClick={() => handleMenuItemClick("Diamond Calculate")}
           >
             Diamond Calculate
+          </MenuItem>
+          <MenuItem
+            selected={selectedItem === "Price"}
+            onClick={() => handleMenuItemClick("Price")}
+          >
+            Service Price
           </MenuItem>
           <MenuItem
             selected={selectedItem === "Rules"}

@@ -91,3 +91,14 @@ export const forgotPassword = async (email) => {
   const response = await http.post(`auth/forget-password`, { email });
   return response.data;
 };
+
+//PRICE
+export const getAllServices = async () => {
+  const response = await http.get(`services`);
+  return response.data;
+};
+
+export const getServiceByID = async (serviceID) => {
+  const response = await http.get(`services/${serviceID}/service-price-lists`);
+  return response.data;
+};

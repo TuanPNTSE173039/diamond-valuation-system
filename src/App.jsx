@@ -18,6 +18,7 @@ import BlogList from "./components/Blog/List.jsx";
 import ResetPassword from "./components/Auth/ResetPassword.jsx";
 import BlogDetail from "./components/Blog/Details.jsx";
 import RulePage from "./components/Rule/Rule.jsx";
+import Price from "./components/Price/Price.jsx";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: "rules",
         element: <RulePage />,
+      },
+      {
+        path: "price",
+        element: <Price />,
       },
       {
         path: "check",
