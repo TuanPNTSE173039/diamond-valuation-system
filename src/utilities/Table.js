@@ -110,3 +110,51 @@ export const DetailHeadCells = [
     label: "Action",
   },
 ];
+
+export const PriceListHeadCells = [
+  {
+    id: "number",
+    numeric: false,
+    disablePadding: false,
+    label: "Number",
+  },
+  {
+    id: "service",
+    numeric: false,
+    disablePadding: true,
+    label: "Service",
+  },
+  {
+    id: "description",
+    numeric: true,
+    disablePadding: true,
+    label: "Description",
+  },
+  {
+    id: "period",
+    numeric: true,
+    disablePadding: true,
+    label: "Period (hours)",
+  },
+];
+
+export const ServiceDetailHeadCells = [
+  {
+    id: "number",
+    numeric: false,
+    disablePadding: false,
+    label: "Number",
+  },
+  {
+    id: "size",
+    numeric: false,
+    disablePadding: true,
+    label: "Size (mm)",
+  },
+  {
+    id: "price",
+    numeric: true,
+    disablePadding: true,
+    label: "Price",
+  },
+];
