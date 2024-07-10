@@ -19,7 +19,6 @@ import {
   deleteValuationRequestByID,
   getDiamondValuationNoteByID,
 } from "../../services/api.js";
-import ItemDetailsDialog from "../ManageAppointment/ItemDetails.jsx";
 import { useNavigate } from "react-router-dom";
 import FeedbackDialog from "../ManageAppointment/FeedbackDialog.jsx";
 import TextField from "@mui/material/TextField";
@@ -29,6 +28,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { convertStatus } from "../../utilities/Status.jsx";
 import { toast, ToastContainer } from "react-toastify";
+import RecordScreenResult from "../ManageAppointment/Result.jsx";
 
 DialogActions.propTypes = { children: PropTypes.node };
 
@@ -271,12 +271,13 @@ const UITable = ({
           </Button>
         </DialogActions>
       </Dialog>
-      <Dialog open={openViewDialog} onClose={handleCloseViewDialog}>
-        <ItemDetailsDialog
-          {...diamondDetails}
-          open={openViewDialog}
-          onClose={handleCloseViewDialog}
-        />
+      <Dialog
+        open={openViewDialog}
+        onClose={handleCloseViewDialog}
+        //sx={{ width: "1000px" }}
+        fullWidth
+      >
+        <RecordScreenResult requestId={requestID} />
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button onClick={handleCloseViewDialog} color="primary">
             Close

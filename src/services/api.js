@@ -102,3 +102,9 @@ export const getServiceByID = async (serviceID) => {
   const response = await http.get(`services/${serviceID}/service-price-lists`);
   return response.data;
 };
+
+//RECORD
+export const getValuationRequest = async (id) => {
+  const response = await http.get(`valuation-requests/${id}`);
+  return response.data;
+};
