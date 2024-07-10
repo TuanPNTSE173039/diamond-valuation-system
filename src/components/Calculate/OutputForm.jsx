@@ -2,6 +2,13 @@ import { Box, Typography } from "@mui/material";
 import diamond1 from "../../assets/images/diamond1.png";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { useState } from "react";
+import stonealgo from "../../assets/images/stonealgo.png";
+import rockher from "../../assets/images/rockher.png";
+import daniel from "../../assets/images/daniel.png";
+import friendly from "../../assets/images/friendly.png";
+import allurez from "../../assets/images/allurez.png";
+import adiamor from "../../assets/images/adiamor.png";
+import dreamstone from "../../assets/images/dreamstone.png";
 
 export const CalculateOutputForm = ({
   diamondData,
@@ -59,13 +66,13 @@ export const CalculateOutputForm = ({
   const [visibleCount, setVisibleCount] = useState(5);
 
   const supplierImages = {
-    1: "stonealgo",
-    2: "rockher",
-    3: "daniel",
-    4: "friendly",
-    5: "allurez",
-    6: "adiamor",
-    7: "dreamstone",
+    1: stonealgo,
+    2: rockher,
+    3: daniel,
+    4: friendly,
+    5: allurez,
+    6: adiamor,
+    7: dreamstone,
   };
 
   return (
