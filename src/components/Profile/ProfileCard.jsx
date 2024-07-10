@@ -196,9 +196,11 @@ export default function ProfileCard(props) {
         await handleUploadAvatarImage();
       } else {
         await updateCustomerInformation(user.customerID, changedFields);
+        toast.dismiss();
         toast.success("Customer information updated successfully!");
       }
     } catch (error) {
+      toast.dismiss();
       toast.error("Failed to update customer information.");
       console.error("Failed to update customer information", error);
     }
@@ -227,8 +229,10 @@ export default function ProfileCard(props) {
       dispatch(setMessage(message));
 
       if (error?.response?.data?.message === "Incorrect old password") {
+        toast.dismiss();
         toast.error("Incorrect old password");
       } else {
+        toast.dismiss();
         toast.error(message);
         console.error("Failed to update password", error);
       }
@@ -317,7 +321,7 @@ export default function ProfileCard(props) {
 
   return (
     <Card variant="outlined" sx={{ height: "730px", width: "100%" }}>
-      <ToastContainer containerId="profile" />
+      <ToastContainer />
       <Grid
         container
         direction="column"

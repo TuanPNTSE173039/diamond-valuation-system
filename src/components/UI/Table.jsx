@@ -274,8 +274,8 @@ const UITable = ({
       <Dialog
         open={openViewDialog}
         onClose={handleCloseViewDialog}
-        //sx={{ width: "1000px" }}
         fullWidth
+        sx={{ "& .MuiDialog-paper": { width: "1000px", maxWidth: "1000px" } }}
       >
         <RecordScreenResult requestId={requestID} />
         <DialogActions sx={{ justifyContent: "center" }}>
