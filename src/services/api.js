@@ -108,3 +108,8 @@ export const getValuationRequest = async (id) => {
   const response = await http.get(`valuation-requests/${id}`);
   return response.data;
 };
+
+export const getValuationRequestDetails = async (id) => {
+  const response = await http.get(`valuation-request-details/${id}`);
+  return response.data;
+};

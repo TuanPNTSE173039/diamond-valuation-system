@@ -19,6 +19,7 @@ import ResetPassword from "./components/Auth/ResetPassword.jsx";
 import BlogDetail from "./components/Blog/Details.jsx";
 import RulePage from "./components/Rule/Rule.jsx";
 import Price from "./components/Price/Price.jsx";
+import RecordScreenResult from "./components/DiamondCheck/CheckResult/ResultRecord.jsx";
 
 const router = createBrowserRouter([
   {
@@ -86,8 +87,12 @@ const router = createBrowserRouter([
             element: <DiamondCheckInputPage />,
           },
           {
-            path: ":certificateID",
+            path: "certificate/:certificateID",
             element: <DiamondCheckResultPage />,
+          },
+          {
+            path: "valuation/:valuationCode",
+            element: <RecordScreenResult />,
           },
         ],
       },
