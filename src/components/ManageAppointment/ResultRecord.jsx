@@ -28,6 +28,7 @@ const RecordScreenResult = ({ requestId }) => {
 
   // PDF render
   const options = {
+    // default is `save`
     filename: "ahi.pdf",
     method: "open",
     resolution: Resolution.HIGH,
@@ -122,7 +123,6 @@ const RecordScreenResult = ({ requestId }) => {
             </p>
             <div className="flex-grow rounded-2xl rounded-t-none bg-white p-12 shadow-xl shadow-black/10">
               <div className="">
-                {/*<div className="my-4 h-px bg-gray-300" />*/}
                 <div>
                   <p className="mb-1 p-0">
                     <b>Diamond Attribute</b>
@@ -246,115 +246,25 @@ const RecordScreenResult = ({ requestId }) => {
                   </div>
                 </div>
                 <div className="my-4 h-px bg-gray-300" />
-                <div className="flex flex-row gap-10">
-                  <div className="w-1/2">
-                    <p className="mb-1 p-0">
-                      <b>Market Valuation</b>
-                    </p>
-                    <table className="w-full table-auto border-collapse border border-slate-400">
-                      <thead>
-                        <tr>
-                          <th className="border border-slate-300">Item</th>
-                          <th className="border border-slate-300">Value</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="border border-slate-300">Source 1</td>
-                          <td className="border border-slate-300">
-                            {formattedMoney(
-                              item.diamondValuationNote.sourceOne,
-                            )}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="border border-slate-300">Source 2</td>
-                          <td className="border border-slate-300">
-                            {formattedMoney(
-                              item.diamondValuationNote.sourceTwo,
-                            )}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="border border-slate-300">Source 3</td>
-                          <td className="border border-slate-300">
-                            {formattedMoney(
-                              item.diamondValuationNote.sourceThree,
-                            )}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="w-1/2">
-                    <p className="mb-1 p-0">
-                      <b>Loan</b>
-                    </p>
-                    <table className="w-full table-auto border-collapse border border-slate-400">
-                      <thead>
-                        <tr>
-                          <th className="border border-slate-300">Item</th>
-                          <th className="border border-slate-300">Value</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="border border-slate-300">Bottom</td>
-                          <td className="border border-slate-300">
-                            {formattedMoney(item.diamondValuationNote.bottom)}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="border border-slate-300">Top</td>
-                          <td className="border border-slate-300">
-                            {formattedMoney(item.diamondValuationNote.top)}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="border border-slate-300">
-                            Expected Amount
-                          </td>
-                          <td className="border border-slate-300">
-                            {formattedMoney(
-                              item.diamondValuationNote.expectedAmount,
-                            )}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div className="my-4 h-px bg-gray-300" />
-                <div>
-                  <p className="mb-1 p-0">
-                    <b>Valuation Details</b>
-                  </p>
-                  <table className="w-full table-auto border-collapse border border-slate-400">
-                    <thead>
-                      <tr>
-                        <th className="border border-slate-300">Valuer</th>
-                        <th className="border border-slate-300">Date</th>
-                        <th className="border border-slate-300">Note</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="border border-slate-300">
-                          {item.diamondValuationNote.valuer}
-                        </td>
-                        <td className="border border-slate-300">
-                          {new Date(
-                            item.diamondValuationNote.valuationDate,
-                          ).toLocaleDateString("en-US")}
-                        </td>
-                        <td className="border border-slate-300">
-                          {item.diamondValuationNote.valuationNote}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
               </div>
+              <div className="rounded-md bg-slate-100 py-2">
+                <table className="w-full">
+                  <tbody>
+                    <tr className="font-bold text-slate-700">
+                      <td className="py-4">
+                        Estimated Retail Replacement Value
+                      </td>
+                      <td className="py-4">
+                        {formattedMoney(item.valuationPrice)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <hr className="my-6" />
+              This is some additional content to to inform you that Acme Inc. is
+              a fake company and this is a fake receipt. This is just a demo to
+              show you how you can create a beautiful receipt with Onedoc.{" "}
             </div>
           </main>
         ))}

@@ -28,7 +28,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { convertStatus } from "../../utilities/Status.jsx";
 import { toast, ToastContainer } from "react-toastify";
-import RecordScreenResult from "../ManageAppointment/Result.jsx";
+import RecordScreenResult from "../ManageAppointment/ResultRecord.jsx";
 
 DialogActions.propTypes = { children: PropTypes.node };
 
