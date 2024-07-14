@@ -44,7 +44,7 @@ export default function ProfileCard(props) {
     firstName: props.firstName,
     lastName: props.lastName,
     phone: props.phone,
-    email: props.email,
+    newEmail: props.email,
     address: props.address,
     identityDocument: props.identityDocument,
     username: props.username,
@@ -81,8 +81,8 @@ export default function ProfileCard(props) {
           val && val.toString().length >= 6 && val.toString().length <= 24,
       )
       .required("Username is required!"),
-    email: Yup.string()
-      .email("This is not a valid email.")
+    newEmail: Yup.string()
+      .email("This is not a valid email.") //@gmail.com
       .required("Email is required!"),
     phone: Yup.string()
       .test(
@@ -254,7 +254,7 @@ export default function ProfileCard(props) {
       firstName: user.firstName,
       lastName: user.lastName,
       phone: user.phone,
-      email: user.email,
+      newEmail: user.email,
       address: user.address,
       identityDocument: user.identityDocument,
       oldPassword: "",
@@ -471,16 +471,16 @@ export default function ProfileCard(props) {
             </Grid>
             <Grid item xs={6}>
               <CustomInput
-                id="email"
-                name="email"
-                value={user.email}
+                id="newEmail"
+                name="newEmail"
+                value={user.newEmail}
                 onChange={changeField}
                 onBlur={formik.handleBlur}
                 title="Email"
                 dis={edit.disabled}
                 req={edit.required}
-                error={formik.touched.email && !!formik.errors.email}
-                helperText={formik.touched.email && formik.errors.email}
+                error={formik.touched.newEmail && !!formik.errors.newEmail}
+                helperText={formik.touched.newEmail && formik.errors.newEmail}
               />
             </Grid>
 
