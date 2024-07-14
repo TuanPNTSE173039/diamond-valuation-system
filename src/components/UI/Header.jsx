@@ -19,6 +19,7 @@ import logo from "../../assets/images/logo (1).png";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../services/firebase.js";
 import Avatar from "@mui/material/Avatar";
+import { toast } from "react-toastify";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -126,6 +127,7 @@ export default function Header() {
         break;
       case "Logout":
         dispatch(logout());
+        toast.success("Logout successful!");
         navigate("/");
         break;
       default:
