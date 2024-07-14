@@ -18,7 +18,9 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import UICircularIndeterminate from "../UI/CircularIndeterminate";
 import logo from "../../assets/images/logo (1).png";
-import ForgotPasswordDialog from "./ForgotPassword.jsx"; // Import the new dialog component
+import ForgotPasswordDialog from "./ForgotPassword.jsx";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignIn({ open, onClose }) {
   const navigate = useNavigate();
@@ -61,6 +63,7 @@ export default function SignIn({ open, onClose }) {
     try {
       await dispatch(login({ usernameOrEmail, password })).unwrap();
       setLoading(false);
+      toast.success("Login successful!");
       navigate("/", { replace: true });
       if (typeof onClose === "function") {
         onClose(); // Safeguard: Close the dialog on successful login only if onClose is defined
