@@ -113,3 +113,9 @@ export const getValuationRequestDetails = async (id) => {
   const response = await http.get(`valuation-request-details/${id}`);
   return response.data;
 };
+
+//HOMEPAGE
+export const getSupplier = async () => {
+  const response = await http.get(`suppliers`);
+  return response.data;
+};
