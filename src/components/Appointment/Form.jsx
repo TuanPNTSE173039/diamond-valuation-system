@@ -1,72 +1,100 @@
 import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import diamond from "../../assets/images/poster.jpg";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
   DialogTitle,
   FormControl,
   FormLabel,
   MenuItem,
   Select,
+  TextField,
+  Typography,
 } from "@mui/material";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import diamond from "../../assets/images/poster.jpg";
+import UICircularIndeterminate from "../UI/CircularIndeterminate";
 import {
   addValuationRequest,
   getCustomer,
   getServices,
 } from "../../services/api.js";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useNavigate } from "react-router-dom";
-import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
-import { useSelector } from "react-redux";
 
 const AppointmentForm = () => {
   const { id } = useSelector((state) => state.auth.user);
-  // Query for services
+
   const { data: services, isLoading: isServiceLoading } = useQuery({
     queryKey: ["services"],
     queryFn: getServices,
   });
 
-  // Query for customer
   const { data: customer, isLoading: isCustomerLoading } = useQuery({
     queryKey: ["customer"],
     queryFn: () => getCustomer(id),
   });
-  console.log(customer);
 
-  // State initialization
-  const [service, setService] = useState(""); // Service selection state
-  const [diamondQuantity, setDiamondQuantity] = useState(0); // Quantity state
+  const [service, setService] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [valuationRequestId, setValuationRequestId] = useState(null);
   const [open, setOpen] = useState(false);
 
-  // Hooks
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  // Effect to set initial service
   useEffect(() => {
     if (services && services.length > 0) {
       setService(services[0].name);
     }
   }, [services]);
 
-  // Mutation for adding valuation request
+  const validationSchema = Yup.object({
+    diamondQuantity: Yup.number()
+      .required("Quantity is required")
+      .min(1, "Quantity must be larger than 0"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      diamondQuantity: 0,
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      const body = {
+        diamondAmount: values.diamondQuantity,
+        service: {
+          id: services.find((s) => s.name === service).id,
+        },
+        customerID: customer.id,
+        staffID: 0,
+      };
+      mutate(body);
+
+      const now = new Date();
+      const options = {
+        hour: "numeric",
+        minute: "numeric",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      const appointmentTime = `${now.toLocaleTimeString(undefined, options)}`;
+      setAppointmentTime(appointmentTime);
+    },
+  });
+
   const { mutate } = useMutation({
     mutationFn: (body) => {
-      return addValuationRequest(body); // Call the addValuationRequest function with the body
+      return addValuationRequest(body);
     },
     onSuccess: (data) => {
-      console.log("Mutation successful");
       setValuationRequestId(data.data.id);
       toast.success("Appointment created successfully");
       setOpen(true);
@@ -79,34 +107,6 @@ const AppointmentForm = () => {
 
   const handleServiceChange = (event) => {
     setService(event.target.value);
-  };
-  const handleDiamondQuantityChange = (event) => {
-    setDiamondQuantity(event.target.value);
-  };
-
-  const handleSubmit = () => {
-    const body = {
-      diamondAmount: diamondQuantity,
-      service: {
-        id: services.find((s) => s.name === service).id,
-      },
-      customerID: customer.id,
-      staffID: 0,
-    };
-    console.log(body);
-    mutate(body);
-
-    const now = new Date();
-    const options = {
-      hour: "numeric",
-      minute: "numeric",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    const appointmentTime = `${now.toLocaleTimeString(undefined, options)}`;
-
-    setAppointmentTime(appointmentTime);
   };
 
   const handleUpdate = () => {
@@ -167,7 +167,7 @@ const AppointmentForm = () => {
           Appointments
         </Typography>
 
-        <form>
+        <form onSubmit={formik.handleSubmit}>
           <FormControl
             sx={{
               width: "380px",
@@ -249,8 +249,8 @@ const AppointmentForm = () => {
                 backgroundColor: "white",
                 fontFamily: "'Your Font Family', sans-serif",
               }}
-              value={service} // Use the state variable as the value
-              onChange={handleServiceChange} // Update the state when a service is selected
+              value={service}
+              onChange={handleServiceChange}
             >
               <MenuItem value="" disabled>
                 Choose service
@@ -272,8 +272,17 @@ const AppointmentForm = () => {
               variant="outlined"
               required
               placeholder="Input quantity"
-              value={diamondQuantity || ""}
-              onChange={handleDiamondQuantityChange}
+              name="diamondQuantity"
+              value={formik.values.diamondQuantity}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.diamondQuantity &&
+                Boolean(formik.errors.diamondQuantity)
+              }
+              helperText={
+                formik.touched.diamondQuantity && formik.errors.diamondQuantity
+              }
               InputProps={{
                 sx: {
                   height: "40px",
@@ -287,7 +296,7 @@ const AppointmentForm = () => {
           </FormControl>
 
           <Button
-            onClick={handleSubmit}
+            type="submit"
             variant="contained"
             color="primary"
             fullWidth
@@ -312,86 +321,25 @@ const AppointmentForm = () => {
                 style={{ fontSize: 70 }}
               />
             </Box>
-            <Typography
-              align="center"
-              style={{
-                fontWeight: "bold",
-                color: "green",
-                fontSize: 20,
-              }}
-            >
-              {"Successful Appointment"}
-            </Typography>
           </DialogTitle>
-          <DialogContent>
-            <Box id="alert-dialog-description">
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                align="center"
-                marginBottom="10px"
-              >
-                <Typography> Appointment details:</Typography>
-                <Typography style={{ fontWeight: "bold", color: "#AE9A7F" }}>
-                  Code: #{valuationRequestId}
-                </Typography>
-              </Box>
-              <Box display="flex" justifyContent="space-between">
-                <Box display="flex" flexDirection="column">
-                  <span style={{ marginBottom: "10px", color: "#999999" }}>
-                    Customer Name:
-                  </span>
-                  <span style={{ marginBottom: "10px", color: "#999999" }}>
-                    Phone:
-                  </span>
-                  <span style={{ marginBottom: "10px", color: "#999999" }}>
-                    Appointment Time:
-                  </span>
-                  <span style={{ marginBottom: "10px", color: "#999999" }}>
-                    Service:
-                  </span>
-                  <span style={{ marginBottom: "10px", color: "#999999" }}>
-                    Diamond Quantity:
-                  </span>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="flex-start"
-                  ml={2}
-                >
-                  <span style={{ marginBottom: "10px" }}>
-                    {customer.lastName + " " + customer.firstName}
-                  </span>
-                  <span style={{ marginBottom: "10px" }}>{customer.phone}</span>
-                  <Typography
-                    style={{ fontWeight: "bold", marginBottom: "10px" }}
-                  >
-                    {appointmentTime}
-                  </Typography>
-                  <span style={{ marginBottom: "10px" }}>{service}</span>
-                  <span style={{ marginBottom: "10px" }}>
-                    {diamondQuantity}
-                  </span>
-                </Box>
-              </Box>
-            </Box>
+          <DialogContent dividers>
+            <Typography variant="h6" align="center">
+              The appointment was successfully created at {appointmentTime}.
+            </Typography>
+            <Typography variant="body1" align="center">
+              Your appointment ID is {valuationRequestId}.
+            </Typography>
           </DialogContent>
           <DialogActions>
-            <Box display="flex" justifyContent="center" width="100%">
-              <Button
-                onClick={() => {
-                  setOpen(false);
-                  setService(""); // Reset the service state
-                  setDiamondQuantity(0);
-                }}
-                color="primary"
-                autoFocus
-              >
-                Close
-              </Button>
-            </Box>
+            <Button
+              onClick={() => {
+                setOpen(false);
+              }}
+              color="primary"
+              autoFocus
+            >
+              OK
+            </Button>
           </DialogActions>
         </Dialog>
       </Box>
