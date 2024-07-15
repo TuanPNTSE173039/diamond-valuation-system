@@ -77,7 +77,7 @@ export const updateCustomerPassword = async (authID, body) => {
 
 //POST
 export const getAllBlogs = async () => {
-  const response = await http.get(`posts`);
+  const response = await http.get(`posts?status=PUBLISHED`);
   return response.data;
 };
 
