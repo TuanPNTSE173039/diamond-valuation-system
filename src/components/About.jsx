@@ -7,7 +7,7 @@ import about_4 from "../assets/images/about_4.png";
 
 const About = () => {
   return (
-    <Box sx={{ width: "100%", maxWidth: "1252px", margin: "5px 90px 50px" }}>
+    <Box sx={{ width: "100%", maxWidth: "1252px", margin: "5px auto 50px" }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Typography
@@ -25,7 +25,6 @@ const About = () => {
           <Typography
             sx={{
               color: "#4f6484",
-              width: "550px",
             }}
           >
             H&TDiamond began as a personal quest to find the right diamond at a
@@ -46,7 +45,7 @@ const About = () => {
           <Box
             component="img"
             sx={{
-              width: "550px",
+              width: "100%",
               height: "300px",
             }}
             alt="Image"
@@ -60,7 +59,7 @@ const About = () => {
           <Box
             component="img"
             sx={{
-              width: "550px",
+              width: "100%",
               height: "300px",
             }}
             alt="Image"
@@ -84,7 +83,6 @@ const About = () => {
           <Typography
             sx={{
               color: "#4f6484",
-              width: "550px",
             }}
           >
             We cherish our customers like family. Our dedicated team follows a
@@ -122,7 +120,6 @@ const About = () => {
           <Typography
             sx={{
               color: "#4f6484",
-              width: "550px",
             }}
           >
             Explore enchanting natural ethically-sourced GIA certified diamonds
@@ -141,7 +138,7 @@ const About = () => {
           <Box
             component="img"
             sx={{
-              width: "550px",
+              width: "100%",
               height: "300px",
             }}
             alt="Image"
@@ -155,7 +152,7 @@ const About = () => {
           <Box
             component="img"
             sx={{
-              width: "550px",
+              width: "100%",
               height: "300px",
             }}
             alt="Image"
@@ -178,7 +175,6 @@ const About = () => {
           <Typography
             sx={{
               color: "#4f6484",
-              width: "550px",
             }}
           >
             Throughout the years, our commitment to customers and the joy we

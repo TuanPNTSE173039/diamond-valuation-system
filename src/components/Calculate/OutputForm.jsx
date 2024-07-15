@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import diamond1 from "../../assets/images/diamond1.png";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { useState } from "react";
 import stonealgo from "../../assets/images/stonealgo.png";
@@ -306,7 +305,7 @@ export const CalculateOutputForm = ({
                     left: 7,
                   }}
                 >
-                  <img src={diamond1} alt="diamond" />
+                  <img src={diamond.diamondImage} alt="diamond" />
                 </Box>
 
                 <Box

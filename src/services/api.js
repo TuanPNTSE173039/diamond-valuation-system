@@ -77,7 +77,7 @@ export const updateCustomerPassword = async (authID, body) => {
 
 //POST
 export const getAllBlogs = async () => {
-  const response = await http.get(`posts`);
+  const response = await http.get(`posts?status=PUBLISHED`);
   return response.data;
 };
 
@@ -111,5 +111,11 @@ export const getValuationRequest = async (id) => {
 
 export const getValuationRequestDetails = async (id) => {
   const response = await http.get(`valuation-request-details/${id}`);
+  return response.data;
+};
+
+//HOMEPAGE
+export const getSupplier = async () => {
+  const response = await http.get(`suppliers`);
   return response.data;
 };

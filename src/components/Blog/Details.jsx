@@ -6,7 +6,6 @@ import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 
 const BlogDetail = () => {
   const { blogID } = useParams();
-  console.log(blogID);
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -15,9 +14,10 @@ const BlogDetail = () => {
       try {
         const data = await getBlogById(blogID);
         setBlog(data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching blog:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -29,7 +29,11 @@ const BlogDetail = () => {
   }
 
   if (!blog) {
-    return <Typography variant="h5">blog not found</Typography>;
+    return (
+      <Typography variant="h5" sx={{ textAlign: "center", marginTop: "20px" }}>
+        Blog not found
+      </Typography>
+    );
   }
 
   return (
@@ -41,7 +45,8 @@ const BlogDetail = () => {
         gap: "20px",
         alignItems: "center",
         justifyContent: "center",
-        width: "80",
+        maxWidth: "800px", // Ensure the container does not exceed the max width
+        padding: "0 16px", // Add padding for better spacing
       }}
     >
       <Typography variant="h3" component="h1" gutterBottom>
@@ -50,14 +55,17 @@ const BlogDetail = () => {
       <Box
         component="img"
         sx={{
-          width: 500,
-          height: 260,
+          width: "100%", // Make the image responsive
+          maxWidth: 500, // Limit the max width of the image
+          height: "auto",
           flexShrink: 0,
         }}
         alt="Thumbnail"
         src={blog.thumbnail}
       />
-      <Typography variant="body1">{blog.content}</Typography>
+      <Typography variant="body1" sx={{ textAlign: "justify" }}>
+        {blog.content}
+      </Typography>
     </Container>
   );
 };

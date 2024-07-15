@@ -10,9 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 function CalculatePage() {
   const [params, setParams] = useState({
     diamondOrigin: "NATURAL",
-    caratWeight: "1",
-    color: "G",
-    clarity: "VS1",
+    caratWeight: "0.3",
+    color: "K",
+    clarity: "SI1",
     cut: "EXCELLENT",
     polish: "EXCELLENT",
     symmetry: "EXCELLENT",
