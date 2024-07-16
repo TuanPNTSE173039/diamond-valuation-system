@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -19,8 +19,9 @@ import Typography from "@mui/material/Typography";
 import UICircularIndeterminate from "../UI/CircularIndeterminate";
 import logo from "../../assets/images/logo (1).png";
 import ForgotPasswordDialog from "./ForgotPassword.jsx";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { GoogleLogin } from '@react-oauth/google';
+import { toast } from 'react-toastify';
+import { jwtDecode } from "jwt-decode";
 
 export default function SignIn({ open, onClose }) {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function SignIn({ open, onClose }) {
   useEffect(() => {
     if (forgotPasswordOpen) {
       console.log(
-        "Forgot Password dialog is open, now closing Sign In dialog...",
+          "Forgot Password dialog is open, now closing Sign In dialog...",
       );
       if (typeof onClose === "function") {
         // onClose(); // Close the Sign In dialog
@@ -63,7 +64,6 @@ export default function SignIn({ open, onClose }) {
     try {
       await dispatch(login({ usernameOrEmail, password })).unwrap();
       setLoading(false);
-      toast.success("Login successful!");
       navigate("/", { replace: true });
       if (typeof onClose === "function") {
         onClose(); // Safeguard: Close the dialog on successful login only if onClose is defined
@@ -93,130 +93,186 @@ export default function SignIn({ open, onClose }) {
     setForgotPasswordOpen(true); // Open the Forgot Password dialog
     console.log("Forgot Password dialog state set to open");
   };
+  const handleGoogleLoginSuccess = async (credentialResponse) => {
+    try {
+      const token = credentialResponse.credential;
+      const decoded = jwtDecode(token);
+      const response = await fetch('http://localhost:8080/api/v1/auth/google-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        // Handle success: save token, navigate, show message, etc.
+        console.log('Login successful:', data);
+
+        // Extract username and password from the response
+        const { username, password } = data.userInformation.account;
+
+        // Call handleLogin with extracted username and password
+        await handleLogin({ usernameOrEmail: username, password });
+
+        toast.success("Login successful");
+        navigate('/');
+      } else {
+        // Handle error: show message, navigate, etc.
+        if (response.status === 404 || response.status === 401 || response.status === 403 || response.status === 500 ) {
+          // Email not found, navigate to register page
+          navigate("/register", {
+            state: {
+              email: decoded.email
+            }
+          });
+          onClose();
+        } else {
+          dispatch(setMessage(data.message || 'Login failed'));
+          toast.error("Login failed");
+        }
+      }
+    } catch (error) {
+      console.error('Error during Google login:', error);
+      dispatch(setMessage('Login failed'));
+      toast.error("Login failed");
+    }
+  };
+
 
   return (
-    <>
-      <Dialog open={open} onClose={onClose}>
-        <DialogContent>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-              sx={{
-                margin: "10px 0px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <img
-                src={logo}
-                alt="logo"
-                style={{
-                  width: "65px",
-                  height: "50px",
-                  objectFit: "cover",
-                }}
-              />
-              <Typography component="h1" variant="h5">
-                Sign in
-              </Typography>
+      <>
+        <Dialog open={open} onClose={onClose}>
+          <DialogContent>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
               <Box
-                component="form"
-                onSubmit={formik.handleSubmit}
-                noValidate
-                sx={{ mt: 1 }}
+                  sx={{
+                    margin: "10px 0px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
               >
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  id="usernameOrEmail"
-                  type="text"
-                  name="usernameOrEmail"
-                  label="Username or Email"
-                  value={formik.values.usernameOrEmail}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.usernameOrEmail &&
-                    Boolean(formik.errors.usernameOrEmail)
-                  }
-                  helperText={
-                    formik.touched.usernameOrEmail &&
-                    formik.errors.usernameOrEmail
-                  }
+                <img
+                    src={logo}
+                    alt="logo"
+                    style={{
+                      width: "65px",
+                      height: "50px",
+                      objectFit: "cover",
+                    }}
                 />
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  id="password"
-                  name="password"
-                  type="password"
-                  label="Password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.password && Boolean(formik.errors.password)
-                  }
-                  helperText={formik.touched.password && formik.errors.password}
-                />
-                <Grid
-                  container
-                  alignItems="center"
-                  justifyContent="space-between"
+                <Typography component="h1" variant="h5">
+                  Sign in
+                </Typography>
+                <Box
+                    component="form"
+                    onSubmit={formik.handleSubmit}
+                    noValidate
+                    sx={{ mt: 1 }}
                 >
-                  <Grid item>
-                    {message && (
-                      <Typography
-                        color="error"
-                        fontStyle="italic"
-                        fontSize="13px"
-                        sx={{ ml: 2 }}
+                  <TextField
+                      margin="normal"
+                      fullWidth
+                      id="usernameOrEmail"
+                      type="text"
+                      name="usernameOrEmail"
+                      label="Username or Email"
+                      value={formik.values.usernameOrEmail}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={
+                          formik.touched.usernameOrEmail &&
+                          Boolean(formik.errors.usernameOrEmail)
+                      }
+                      helperText={
+                          formik.touched.usernameOrEmail &&
+                          formik.errors.usernameOrEmail
+                      }
+                  />
+                  <TextField
+                      margin="normal"
+                      fullWidth
+                      id="password"
+                      name="password"
+                      type="password"
+                      label="Password"
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={
+                          formik.touched.password && Boolean(formik.errors.password)
+                      }
+                      helperText={formik.touched.password && formik.errors.password}
+                  />
+                  <Grid
+                      container
+                      alignItems="center"
+                      justifyContent="space-between"
+                  >
+                    <Grid item>
+                      {message && (
+                          <Typography
+                              color="error"
+                              fontStyle="italic"
+                              fontSize="13px"
+                              sx={{ ml: 2 }}
+                          >
+                            **{message}
+                          </Typography>
+                      )}
+                    </Grid>
+                  </Grid>
+                  <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 2, mb: 2 }}
+                  >
+                    {loading && <UICircularIndeterminate color={"secondary"} />}
+                    Sign In
+                  </Button>
+                  <Grid container>
+                    <Grid item xs>
+                      <Link
+                          href="#"
+                          variant="body2"
+                          onClick={handleForgotPasswordClick}
                       >
-                        **{message}
-                      </Typography>
-                    )}
+                        Forgot password?
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link href="/register" variant="body2">
+                        {"Don't have an account? Sign Up"}
+                      </Link>
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 2, mb: 2 }}
-                >
-                  {loading && <UICircularIndeterminate color={"secondary"} />}
-                  Sign In
-                </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link
-                      href="#"
-                      variant="body2"
-                      onClick={handleForgotPasswordClick}
-                    >
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="/register" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
-                </Grid>
+                  <Box sx={{ mt: 2 }}>
+                    <GoogleLogin
+                        onSuccess={handleGoogleLoginSuccess}
+                        onError={() => {
+                          console.log('Login Failed');
+                        }}
+                        style={{ width: '100%' }}
+                    />
+                  </Box>
+                </Box>
               </Box>
-            </Box>
-          </Container>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose} color="primary">
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <ForgotPasswordDialog
-        open={forgotPasswordOpen}
-        onClose={() => setForgotPasswordOpen(false)}
-      />
-    </>
+            </Container>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={onClose} color="primary" size="small">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <ForgotPasswordDialog
+            open={forgotPasswordOpen}
+            onClose={() => setForgotPasswordOpen(false)}
+        />
+      </>
   );
 }

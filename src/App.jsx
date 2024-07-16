@@ -1,4 +1,3 @@
-// App.jsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import CalculatePage from "./components/Calculate/Page.jsx";
@@ -19,6 +18,7 @@ import BlogDetail from "./components/Blog/Details.jsx";
 import RulePage from "./components/Rule/Rule.jsx";
 import Price from "./components/Price/Price.jsx";
 import RecordScreenResult from "./components/DiamondCheck/CheckResult/ResultRecord.jsx";
+import VerifyAccount from "./components/Auth/VerifyAccount.jsx";
 
 const router = createBrowserRouter([
   {
@@ -117,6 +117,10 @@ const router = createBrowserRouter([
         element: <ResetPassword />,
       },
     ],
+  },
+  {
+    path: "/verify-account",
+    element: <VerifyAccount />,
   },
 ]);
 
