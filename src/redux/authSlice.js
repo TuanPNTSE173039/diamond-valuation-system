@@ -46,9 +46,14 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ usernameOrEmail, password }, thunkAPI) => {
+  async ({ usernameOrEmail, password, user }, thunkAPI) => {
     try {
-      const data = await AuthService.login(usernameOrEmail, password);
+      let data;
+      if (user) {
+        data = user; // Assume user is provided directly for Google login
+      } else {
+        data = await AuthService.login(usernameOrEmail, password);
+      }
       return { user: data.userInformation };
     } catch (error) {
       const message =
