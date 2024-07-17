@@ -9,6 +9,20 @@ import {
   Typography,
 } from "@mui/material";
 
+// Function to wrap "H&TDIAMOND" with a span for styling
+const highlightHTDiamond = (text) => {
+  const parts = text.split(/(H&TDIAMOND)/g);
+  return parts.map((part, index) =>
+    part === "H&TDIAMOND" ? (
+      <span key={index} style={{ color: "#1e88e5" }}>
+        H&TDIAMOND
+      </span>
+    ) : (
+      part
+    ),
+  );
+};
+
 const rules = [
   {
     title: "1. GENERAL RULES",
@@ -71,12 +85,24 @@ const RulePage = () => {
   return (
     <Container>
       <Box mt={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          GENERAL RULES FOR INSPECTION SERVICES
+        <Typography
+          variant="h4"
+          component="h1"
+          fontWeight="bold"
+          textAlign="center"
+          gutterBottom
+        >
+          GENERAL RULES FOR INSPECTION SERVICES -{" "}
+          <span style={{ color: "blue" }}>H&TDIAMOND</span>
         </Typography>
         {rules.map((section, index) => (
           <Box key={index} mb={4}>
-            <Typography variant="h6" component="h2" gutterBottom>
+            <Typography
+              variant="h6"
+              component="h2"
+              fontWeight="bold"
+              gutterBottom
+            >
               {section.title}
             </Typography>
             <List>
@@ -93,7 +119,7 @@ const RulePage = () => {
                           : 2,
                   }}
                 >
-                  <ListItemText primary={item} />
+                  <ListItemText primary={highlightHTDiamond(item)} />
                 </ListItem>
               ))}
             </List>
