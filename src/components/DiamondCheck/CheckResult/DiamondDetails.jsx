@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import proportionsPic from "../../../assets/images/proportions.png";
 import clarityPic from "../../../assets/images/clarity.png";
 
@@ -15,6 +15,7 @@ const DiamondDetails = ({
   polish,
   symmetry,
   fluorescence,
+  clarityCharacteristic,
 }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -24,9 +25,11 @@ const DiamondDetails = ({
 
     return `${day}-${month}-${year}`;
   };
+
   const formattedDate = formatDate(certificateDate);
+
   return (
-    <Box>
+    <Box sx={{ marginRight: "50px" }}>
       <Box
         sx={{
           display: "flex",
@@ -44,47 +47,32 @@ const DiamondDetails = ({
           Diamond Details
         </Typography>
       </Box>
-      <Box
-        position="relative"
-        display="flex"
-        fullWidth
-        height="700px"
-        bgcolor="#fefeff"
-        borderRadius="4px"
-        marginRight={4}
-        p={2}
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          backgroundColor: "white",
+        }}
       >
-        <Box
-          position="relative" // Adjusted to relative to contain absolute children
-          width="50%" // Set width to 50% for half of the container
-          mr={2} // Margin right for spacing between left and right sections
-        >
-          <Box
-            position="absolute"
-            left={0}
-            top={0}
-            width="550px"
-            height="35px"
-            bgcolor="#3c5474"
-            borderRadius="8px"
-            border="1px solid"
-            p={1}
-          >
-            <Typography
-              position="absolute"
-              top="8px"
-              left="10px"
-              fontWeight="bold"
-              color="#ffffff"
-              fontSize="14px"
+        <Grid item xs={12} md={6}>
+          <Box>
+            <Box
+              sx={{
+                bgcolor: "#3c5474",
+                borderRadius: "8px",
+                border: "1px solid",
+                p: 1,
+              }}
             >
-              CERTIFICATE REPORT DETAILS
-            </Typography>
+              <Typography fontWeight="bold" color="#ffffff" fontSize="14px">
+                CERTIFICATE REPORT DETAILS
+              </Typography>
+            </Box>
             <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              marginTop="35px"
+              marginTop="15px"
             >
               <Typography color="#9095a0" fontSize="16px">
                 Certificate Date
@@ -120,32 +108,25 @@ const DiamondDetails = ({
               </Typography>
             </Box>
           </Box>
-          <Box
-            position="absolute"
-            top="180px"
-            left="0"
-            width="550px"
-            height="35px"
-            bgcolor="#3c5474"
-            borderRadius="5px"
-            border="1px solid"
-            p={1}
-          >
-            <Typography
-              position="absolute"
-              top="8px"
-              left="10px"
-              fontWeight="bold"
-              color="#ffffff"
-              fontSize="14px"
+          <Box>
+            <Box
+              sx={{
+                bgcolor: "#3c5474",
+                borderRadius: "8px",
+                border: "1px solid",
+                p: 1,
+                mt: 2,
+              }}
             >
-              GRADING RESULTS
-            </Typography>
+              <Typography fontWeight="bold" color="#ffffff" fontSize="14px">
+                GRADING RESULTS
+              </Typography>
+            </Box>
             <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              marginTop="35px"
+              marginTop="15px"
             >
               <Typography color="#9095a0" fontSize="16px">
                 Carat Weight
@@ -180,7 +161,6 @@ const DiamondDetails = ({
                 {clarity}
               </Typography>
             </Box>
-
             <Box
               display="flex"
               justifyContent="space-between"
@@ -194,7 +174,6 @@ const DiamondDetails = ({
                 {cut}
               </Typography>
             </Box>
-
             <Box
               display="flex"
               justifyContent="space-between"
@@ -209,35 +188,28 @@ const DiamondDetails = ({
               </Typography>
             </Box>
           </Box>
-          <Box
-            position="absolute"
-            top="420px"
-            left="0"
-            width="550px"
-            height="35px"
-            bgcolor="#3c5474"
-            borderRadius="8px"
-            border="1px solid"
-            p={1}
-          >
-            <Typography
-              position="absolute"
-              top="7px"
-              left="10px"
-              fontWeight="bold"
-              color="#ffffff"
-              fontSize="14px"
+          <Box>
+            <Box
+              sx={{
+                bgcolor: "#3c5474",
+                borderRadius: "8px",
+                border: "1px solid",
+                p: 1,
+                mt: 2,
+              }}
             >
-              ADDITIONAL GRADING INFORMATION
-            </Typography>
+              <Typography fontWeight="bold" color="#ffffff" fontSize="14px">
+                ADDITIONAL GRADING INFORMATION
+              </Typography>
+            </Box>
             <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              marginTop="35px"
+              marginTop="15px"
             >
               <Typography color="#9095a0" fontSize="16px">
-                Polish{" "}
+                Polish
               </Typography>
               <Typography color="#171a1f" fontSize="16px">
                 {polish}
@@ -250,7 +222,7 @@ const DiamondDetails = ({
               marginTop="10px"
             >
               <Typography color="#9095a0" fontSize="16px">
-                Symmetry{" "}
+                Symmetry
               </Typography>
               <Typography color="#171a1f" fontSize="16px">
                 {symmetry}
@@ -263,7 +235,7 @@ const DiamondDetails = ({
               marginTop="10px"
             >
               <Typography color="#9095a0" fontSize="16px">
-                Fluorescence{" "}
+                Fluorescence
               </Typography>
               <Typography color="#171a1f" fontSize="16px">
                 {fluorescence}
@@ -276,7 +248,7 @@ const DiamondDetails = ({
               marginTop="10px"
             >
               <Typography color="#9095a0" fontSize="16px">
-                Clarity Characteristics{" "}
+                Clarity Characteristics
               </Typography>
               <Typography color="#171a1f" fontSize="16px">
                 Crystal, Feather, Needle, Pinpoint
@@ -289,24 +261,23 @@ const DiamondDetails = ({
               marginTop="10px"
             >
               <Typography color="#9095a0" fontSize="16px">
-                Comments{" "}
+                Comments
               </Typography>
               <Typography color="#171a1f" fontSize="16px">
                 Clouds are not shown.
               </Typography>
             </Box>
           </Box>
-        </Box>
-        <Box
-          position="relative" // Adjusted to relative to contain absolute children
-          width="50%" // Set width to 50% for half of the container
-        >
+        </Grid>
+        <Grid item xs={12} md={6}>
           <Box
-            bgcolor="#3c5474"
-            borderRadius="8px"
-            border="1px solid"
-            p={1}
-            mb={2}
+            sx={{
+              bgcolor: "#3c5474",
+              borderRadius: "8px",
+              border: "1px solid",
+              p: 1,
+              mb: 2,
+            }}
           >
             <Typography fontWeight="bold" color="#ffffff" fontSize="14px">
               PROPORTIONS
@@ -317,18 +288,39 @@ const DiamondDetails = ({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              mb: 2,
             }}
           >
-            <img src={proportionsPic} alt="Proportions" />
+            <img
+              src={proportionsPic}
+              alt="Proportions"
+              style={{ height: "250px" }}
+            />
           </Box>
-          <Box bgcolor="#3c5474" borderRadius="8px" border="1px solid" p={1}>
+          <Box
+            sx={{
+              bgcolor: "#3c5474",
+              borderRadius: "8px",
+              border: "1px solid",
+              p: 1,
+              mb: 2,
+            }}
+          >
             <Typography fontWeight="bold" color="#ffffff" fontSize="14px">
               CLARITY CHARACTERISTICS
             </Typography>
           </Box>
-          <img src={clarityPic} alt={"Clarity"} />
-        </Box>
-      </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img src={clarityPic} alt="Clarity" style={{ height: "220px" }} />
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
