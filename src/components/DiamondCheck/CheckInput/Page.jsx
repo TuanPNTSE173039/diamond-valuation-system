@@ -6,7 +6,7 @@ const DiamondCheckInputPage = () => {
     <Box
       style={{
         display: "flex",
-        justifyContent: "space-between",
+        //justifyContent: "space-between",
         alignItems: "center",
         marginBottom: "100px",
         height: "calc(100vh - 320px)",
