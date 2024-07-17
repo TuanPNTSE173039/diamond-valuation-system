@@ -146,16 +146,13 @@ const UITable = ({
     requestStatus === "FINISHED" || requestStatus === "CANCEL";
 
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ maxHeight: 440, marginRight: "30px" }}
-    >
+    <TableContainer component={Paper} sx={{ marginRight: "30px" }}>
       <ToastContainer />
       <Typography
         variant="h5"
         id="tableTitle"
         component="div"
-        sx={{ marginLeft: "30px", marginTop: "10px", fontWeight: "bold" }}
+        sx={{ marginTop: "10px", marginLeft: "20px", fontWeight: "bold" }}
       >
         {heading}
       </Typography>

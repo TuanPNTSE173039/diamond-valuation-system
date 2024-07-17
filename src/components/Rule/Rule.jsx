@@ -1,4 +1,3 @@
-// src/components/RulePage.jsx
 import React from "react";
 import {
   Box,
@@ -9,6 +8,20 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+
+// Function to wrap "H&TDIAMOND" with a span for styling
+const highlightHTDiamond = (text) => {
+  const parts = text.split(/(H&TDIAMOND)/g);
+  return parts.map((part, index) =>
+    part === "H&TDIAMOND" ? (
+      <span key={index} style={{ color: "#1e88e5" }}>
+        H&TDIAMOND
+      </span>
+    ) : (
+      part
+    ),
+  );
+};
 
 const rules = [
   {
@@ -72,18 +85,41 @@ const RulePage = () => {
   return (
     <Container>
       <Box mt={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          GENERAL RULES FOR INSPECTION SERVICES
+        <Typography
+          variant="h4"
+          component="h1"
+          fontWeight="bold"
+          textAlign="center"
+          gutterBottom
+        >
+          GENERAL RULES FOR INSPECTION SERVICES -{" "}
+          <span style={{ color: "blue" }}>H&TDIAMOND</span>
         </Typography>
         {rules.map((section, index) => (
           <Box key={index} mb={4}>
-            <Typography variant="h6" component="h2" gutterBottom>
+            <Typography
+              variant="h6"
+              component="h2"
+              fontWeight="bold"
+              gutterBottom
+            >
               {section.title}
             </Typography>
             <List>
               {section.items.map((item, idx) => (
-                <ListItem key={idx}>
-                  <ListItemText primary={item} />
+                <ListItem
+                  key={idx}
+                  sx={{
+                    pl: item.startsWith("•")
+                      ? 6
+                      : item.match(/^\d+\.\d+/)
+                        ? 4
+                        : item.match(/^\(\d+\)/)
+                          ? 8
+                          : 2,
+                  }}
+                >
+                  <ListItemText primary={highlightHTDiamond(item)} />
                 </ListItem>
               ))}
             </List>

@@ -18,8 +18,8 @@ export default function UISilder({ carat, setCarat }) {
   const handleBlur = () => {
     if (carat < 0.1) {
       setCarat(0.1);
-    } else if (carat > 5) {
-      setCarat(5);
+    } else if (carat > 50) {
+      setCarat(50);
     }
   };
   return (
@@ -30,11 +30,11 @@ export default function UISilder({ carat, setCarat }) {
             value={carat}
             onChange={handleSliderChange}
             aria-label="Always visible"
-            defaultValue={1}
+            defaultValue={5}
             getAriaValueText={valuetext}
-            step={0.01}
+            step={0.1}
             valueLabelDisplay="on"
-            max={5}
+            max={50}
           />
         </Grid>
         <Grid item xs={4}>
@@ -43,9 +43,9 @@ export default function UISilder({ carat, setCarat }) {
             value={carat}
             onChange={handleInputChange}
             onBlur={handleBlur}
-            step={0.01}
+            step={0.1}
             min={0.1}
-            max={5}
+            max={50}
             style={{
               width: "70px",
               paddingLeft: "10px",

@@ -124,7 +124,6 @@ const AppointmentForm = () => {
         position: "relative",
         width: "100%",
         height: "550px",
-        bgcolor: "#717171",
         marginTop: "20px",
         marginBottom: "30px",
         display: "flex",
@@ -148,7 +147,7 @@ const AppointmentForm = () => {
           width: "460px",
           height: "500px",
           left: "150px",
-          bgcolor: "#d8c0989e",
+          backgroundColor: "rgba(240, 240, 240, 0.8)",
           p: 3,
           display: "flex",
           alignItems: "center",
@@ -206,39 +205,39 @@ const AppointmentForm = () => {
               >
                 <Typography
                   variant="body1"
-                  sx={{ color: "white", margin: "2px" }}
+                  sx={{ color: "black", margin: "2px" }}
                 >
                   Name: {customer.lastName + " " + customer.firstName}
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{ color: "white", margin: "2px" }}
+                  sx={{ color: "black", margin: "2px" }}
                 >
                   Identity Card: {customer.identityDocument}
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{ color: "white", margin: "2px" }}
+                  sx={{ color: "black", margin: "2px" }}
                 >
                   Phone: {customer.phone}
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{ color: "white", margin: "2px" }}
+                  sx={{ color: "black", margin: "2px" }}
                 >
                   Address: {customer.address}
                 </Typography>
               </Box>
               <ArrowForwardIosIcon
                 onClick={handleUpdate}
-                sx={{ color: "white", marginTop: "-15px" }}
+                sx={{ color: "black", marginTop: "-15px" }}
                 cursor="pointer"
               />
             </Box>
           </FormControl>
 
           <FormControl sx={{ width: "380px", ml: "15px" }}>
-            <FormLabel sx={{ color: "white", margin: "2px" }}>
+            <FormLabel sx={{ color: "black", margin: "2px" }}>
               Service*
             </FormLabel>
             <Select
@@ -265,7 +264,7 @@ const AppointmentForm = () => {
           </FormControl>
 
           <FormControl sx={{ width: "380px", ml: "15px" }}>
-            <FormLabel sx={{ color: "white", margin: "2px" }}>
+            <FormLabel sx={{ color: "black", margin: "2px" }}>
               Quantity*
             </FormLabel>
             <TextField

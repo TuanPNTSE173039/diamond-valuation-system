@@ -66,34 +66,46 @@ export default function Poster() {
               diamonds online in order to find the one that best fits your
               needs.
             </Typography>
-            <Typography>
+            <Button
+              sx={{
+                position: "absolute",
+                marginLeft: "40px",
+                marginTop: "15px",
+                color: "white",
+                borderRadius: "8px",
+                width: "150px",
+                border: "1px solid white",
+              }}
+            >
               <Link
                 to="/about"
                 style={{
                   textDecoration: "none",
-                  color: "#9095a0",
+                  //color: "#9095a0",
                   cursor: "pointer",
                 }}
               >
-                More About Us
+                MORE ABOUT US
               </Link>
-            </Typography>
+            </Button>
+            <Button
+              onClick={handleCreateAppointment}
+              sx={{
+                position: "absolute",
+                marginLeft: "210px",
+                marginTop: "15px",
+                color: "white",
+                borderRadius: "8px",
+                width: "200px",
+                border: "1px solid white",
+              }}
+            >
+              NEW APPOINTMENT{" "}
+              <ArrowForwardIosIcon
+                sx={{ fontSize: "13px", marginLeft: "5px" }}
+              />
+            </Button>
           </Box>
-          <Button
-            onClick={handleCreateAppointment}
-            sx={{
-              position: "absolute",
-              marginLeft: "130px",
-              marginTop: "290px",
-              color: "white",
-              borderRadius: "8px",
-              width: "200px",
-              border: "1px solid white",
-            }}
-          >
-            NEW APPOINTMENT{" "}
-            <ArrowForwardIosIcon sx={{ fontSize: "13px", marginLeft: "5px" }} />
-          </Button>
         </Box>
 
         <Box

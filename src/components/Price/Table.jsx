@@ -44,7 +44,9 @@ export default function PriceTable({
         }}
       >
         <Table
-          sx={{ width: 900, marginLeft: "250px", marginY: "20px" }}
+          sx={{
+            marginY: "20px",
+          }}
           aria-label="customized table"
         >
           <TableHead>

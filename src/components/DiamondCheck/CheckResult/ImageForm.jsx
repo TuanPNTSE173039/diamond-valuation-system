@@ -13,10 +13,9 @@ const ImageGallery = ({ images }) => {
       <ImageList
         sx={{
           width: { xs: "100%", md: 150 },
-          height: { xs: "auto", md: 500 },
+          height: { xs: "auto", md: "450px" },
           display: "flex",
           flexDirection: { xs: "row", md: "column" },
-
           gap: 10,
         }}
         cols={1}
@@ -53,13 +52,13 @@ const ImageGallery = ({ images }) => {
           </ImageListItem>
         ))}
       </ImageList>
-      <Box sx={{ ml: { xs: 0, md: 2 }, mt: { xs: 2, md: 0 } }}>
+      <Box sx={{ ml: { xs: 0, md: 2 } }}>
         <img
           src={selectedImage.img}
           alt={selectedImage.title}
           style={{
             width: "600px",
-            height: "500px",
+            height: "450px",
             borderRadius: "6px",
             objectFit: "cover",
           }}

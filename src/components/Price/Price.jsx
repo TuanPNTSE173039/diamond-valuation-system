@@ -5,6 +5,7 @@ import { PriceListHeadCells } from "../../utilities/Table.js";
 import { useEffect, useRef } from "react";
 import ServiceDetailsTable from "./ServiceDetailTable.jsx";
 import { useLocation } from "react-router-dom";
+import Box from "@mui/material/Box";
 
 const Price = () => {
   const location = useLocation();
@@ -50,7 +51,15 @@ const Price = () => {
   });
 
   return (
-    <>
+    <Box
+      sx={{
+        paddingX: "50px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyItems: "center",
+      }}
+    >
       <PriceTable
         rows={serviceRows}
         headCells={PriceListHeadCells}
@@ -66,7 +75,7 @@ const Price = () => {
           <ServiceDetailsTable serviceID={service.id} />
         </div>
       ))}
-    </>
+    </Box>
   );
 };
 

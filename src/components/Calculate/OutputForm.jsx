@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { useState } from "react";
 import stonealgo from "../../assets/images/stonealgo.png";
@@ -8,6 +8,9 @@ import friendly from "../../assets/images/friendly.png";
 import allurez from "../../assets/images/allurez.png";
 import adiamor from "../../assets/images/adiamor.png";
 import dreamstone from "../../assets/images/dreamstone.png";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { getSupplierByID } from "../../services/api.js";
+import { useQuery } from "@tanstack/react-query";
 
 export const CalculateOutputForm = ({
   diamondData,
@@ -15,7 +18,6 @@ export const CalculateOutputForm = ({
   diamondError,
   marketData,
   isMarketLoading,
-  marketError,
 }) => {
   const formattedMoney = (money) => {
     if (money === "N/A" || money === 0) {
@@ -26,22 +28,6 @@ export const CalculateOutputForm = ({
       currency: "USD",
     }).format(money);
   };
-
-  if (isDiamondLoading || isMarketLoading)
-    return (
-      <Box
-        sx={{
-          width: 723,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          left: 120,
-        }}
-      >
-        <UICircularIndeterminate />
-      </Box>
-    );
 
   // Nếu diamondData không tồn tại hoặc có lỗi, trả về giá trị mặc định
   if (!diamondData || diamondError) {
@@ -74,12 +60,34 @@ export const CalculateOutputForm = ({
     7: dreamstone,
   };
 
+  const { data: supplier, isLoading: isSupplierLoading } = useQuery({
+    queryKey: ["supplierByID"],
+    queryFn: () => getSupplierByID(marketData[0].supplierId),
+  });
+  console.log(supplier);
+
+  if (isDiamondLoading || isMarketLoading || isSupplierLoading)
+    return (
+      <Box
+        sx={{
+          width: 723,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          left: 120,
+        }}
+      >
+        <UICircularIndeterminate />
+      </Box>
+    );
+
   return (
     <Box
       sx={{
         position: "relative",
         width: 743,
-        left: 120,
+        left: 80,
         height: 850,
       }}
     >
@@ -313,6 +321,7 @@ export const CalculateOutputForm = ({
                     width: 60,
                     top: 23,
                     left: 107,
+                    textAlign: "center",
                   }}
                 >
                   <Typography
@@ -338,6 +347,7 @@ export const CalculateOutputForm = ({
                   sx={{
                     top: 43,
                     left: 207,
+                    textAlign: "center",
                   }}
                 >
                   <Typography
@@ -369,6 +379,7 @@ export const CalculateOutputForm = ({
                     height: 35,
                     top: 23,
                     left: 275,
+                    textAlign: "center",
                   }}
                 >
                   <Typography
@@ -398,6 +409,7 @@ export const CalculateOutputForm = ({
                     height: 32,
                     top: 25,
                     left: 352,
+                    textAlign: "center",
                   }}
                 >
                   <Typography
@@ -446,6 +458,9 @@ export const CalculateOutputForm = ({
                 >
                   {formattedMoney(diamond.price)}
                 </Typography>
+                <IconButton onClick={() => window.open(diamond.link, "_blank")}>
+                  <ArrowForwardIosIcon />
+                </IconButton>
               </Box>
             ))}
         </Box>

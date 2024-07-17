@@ -65,9 +65,7 @@ const ServiceDetailsTable = ({ serviceID }) => {
         headCells={ServiceDetailHeadCells}
         title={title}
       />
-      <Typography
-        sx={{ marginLeft: "250px", marginBottom: "30px", fontStyle: "italic" }}
-      >
+      <Typography sx={{ marginBottom: "30px", fontStyle: "italic" }}>
         **For diamonds &lt; 4,00 mm, valuating applies with a fee of{" "}
         {priceUnder4mm} per diamond.
       </Typography>

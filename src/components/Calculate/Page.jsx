@@ -1,6 +1,6 @@
 import CalculateInputForm from "./InputForm/InputForm.jsx";
 import CalculateOutputForm from "./OutputForm.jsx";
-import { Box, Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { getDiamondData, getDiamondMarketData } from "../../services/api";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -28,7 +28,6 @@ function CalculatePage() {
     queryKey: ["diamondData", params],
     queryFn: () => getDiamondData(params),
   });
-  //console.log(diamondData);
 
   const {
     data: marketData,
@@ -45,27 +44,24 @@ function CalculatePage() {
 
   return (
     <Container
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        margin: "30px 0px",
-        position: "relative",
-      }}
+      style={{ marginTop: "30px", marginBottom: "40px", position: "relative" }}
     >
       <ToastContainer containerId="calculation" />
-      <Box style={{ marginRight: "0px" }}>
-        <CalculateInputForm setParams={setParams} />
-      </Box>
-      <Box>
-        <CalculateOutputForm
-          diamondData={diamondData}
-          isDiamondLoading={isDiamondLoading}
-          diamondError={diamondError}
-          marketData={marketData}
-          isMarketLoading={isMarketLoading}
-          marketError={marketError}
-        />
-      </Box>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={4}>
+          <CalculateInputForm setParams={setParams} />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <CalculateOutputForm
+            diamondData={diamondData}
+            isDiamondLoading={isDiamondLoading}
+            diamondError={diamondError}
+            marketData={marketData}
+            isMarketLoading={isMarketLoading}
+            marketError={marketError}
+          />
+        </Grid>
+      </Grid>
     </Container>
   );
 }

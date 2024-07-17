@@ -64,6 +64,7 @@ export default function SignIn({ open, onClose }) {
     try {
       await dispatch(login({ usernameOrEmail, password })).unwrap();
       setLoading(false);
+      toast.success("Login successful");
       navigate("/", { replace: true });
       if (typeof onClose === "function") {
         onClose(); // Safeguard: Close the dialog on successful login only if onClose is defined
