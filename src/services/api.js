@@ -35,6 +35,11 @@ export const getDiamondMarketData = async (params) => {
   return response.data;
 };
 
+export const getSupplierByID = async (supplierID) => {
+  const response = await http.get(`suppliers/${supplierID}`);
+  return response.data;
+};
+
 //MANAGE_APPOINTMENT
 export const getValuationRequestsByCustomerID = async (customerID) => {
   const response = await http.get(
