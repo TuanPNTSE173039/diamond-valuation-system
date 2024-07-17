@@ -61,6 +61,7 @@ function HomePage() {
             fontWeight: "bold",
             color: "#003565",
             margin: "20px 50px",
+            textAlign: "center",
           }}
         >
           Our Services
