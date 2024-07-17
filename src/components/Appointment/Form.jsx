@@ -111,7 +111,7 @@ const AppointmentForm = () => {
   };
 
   const handleUpdate = () => {
-    navigate("/update");
+    navigate("/profile");
   };
 
   if (isServiceLoading || isCustomerLoading) {
@@ -124,7 +124,6 @@ const AppointmentForm = () => {
         position: "relative",
         width: "100%",
         height: "550px",
-        bgcolor: "#717171",
         marginTop: "20px",
         marginBottom: "30px",
         display: "flex",
@@ -148,7 +147,7 @@ const AppointmentForm = () => {
           width: "460px",
           height: "500px",
           left: "150px",
-          bgcolor: "#d8c0989e",
+          backgroundColor: "rgba(240, 240, 240, 0.8)",
           p: 3,
           display: "flex",
           alignItems: "center",
@@ -206,39 +205,39 @@ const AppointmentForm = () => {
               >
                 <Typography
                   variant="body1"
-                  sx={{ color: "white", margin: "2px" }}
+                  sx={{ color: "black", margin: "2px" }}
                 >
                   Name: {customer.lastName + " " + customer.firstName}
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{ color: "white", margin: "2px" }}
+                  sx={{ color: "black", margin: "2px" }}
                 >
                   Identity Card: {customer.identityDocument}
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{ color: "white", margin: "2px" }}
+                  sx={{ color: "black", margin: "2px" }}
                 >
                   Phone: {customer.phone}
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{ color: "white", margin: "2px" }}
+                  sx={{ color: "black", margin: "2px" }}
                 >
                   Address: {customer.address}
                 </Typography>
               </Box>
               <ArrowForwardIosIcon
                 onClick={handleUpdate}
-                sx={{ color: "white", marginTop: "-15px" }}
+                sx={{ color: "black", marginTop: "-15px" }}
                 cursor="pointer"
               />
             </Box>
           </FormControl>
 
           <FormControl sx={{ width: "380px", ml: "15px" }}>
-            <FormLabel sx={{ color: "white", margin: "2px" }}>
+            <FormLabel sx={{ color: "black", margin: "2px" }}>
               Service*
             </FormLabel>
             <Select
@@ -265,7 +264,7 @@ const AppointmentForm = () => {
           </FormControl>
 
           <FormControl sx={{ width: "380px", ml: "15px" }}>
-            <FormLabel sx={{ color: "white", margin: "2px" }}>
+            <FormLabel sx={{ color: "black", margin: "2px" }}>
               Quantity*
             </FormLabel>
             <TextField
@@ -318,90 +317,26 @@ const AppointmentForm = () => {
           <DialogTitle id="alert-dialog-title">
             <Box display="flex" justifyContent="center" alignItems="center">
               <CheckCircleOutlineIcon
-                color="success"
-                style={{ fontSize: 70 }}
+                sx={{ fontSize: "40px", mr: 1, color: "#31B057" }}
               />
+              <Typography variant="h5">Appointment Confirmed</Typography>
             </Box>
-            <Typography
-              align="center"
-              style={{
-                fontWeight: "bold",
-                color: "green",
-                fontSize: 20,
-              }}
-            >
-              {"Successful Appointment"}
-            </Typography>
           </DialogTitle>
           <DialogContent>
-            <Box id="alert-dialog-description">
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                align="center"
-                marginBottom="10px"
-              >
-                <Typography> Appointment details:</Typography>
-                <Typography style={{ fontWeight: "bold", color: "#AE9A7F" }}>
-                  Code: #{valuationRequestId}
-                </Typography>
-              </Box>
-              <Box display="flex" justifyContent="space-between">
-                <Box display="flex" flexDirection="column">
-                  <span style={{ marginBottom: "10px", color: "#999999" }}>
-                    Customer Name:
-                  </span>
-                  <span style={{ marginBottom: "10px", color: "#999999" }}>
-                    Phone:
-                  </span>
-                  <span style={{ marginBottom: "10px", color: "#999999" }}>
-                    Appointment Time:
-                  </span>
-                  <span style={{ marginBottom: "10px", color: "#999999" }}>
-                    Service:
-                  </span>
-                  <span style={{ marginBottom: "10px", color: "#999999" }}>
-                    Diamond Quantity:
-                  </span>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="flex-start"
-                  ml={2}
-                >
-                  <span style={{ marginBottom: "10px" }}>
-                    {customer.lastName + " " + customer.firstName}
-                  </span>
-                  <span style={{ marginBottom: "10px" }}>{customer.phone}</span>
-                  <Typography
-                    style={{ fontWeight: "bold", marginBottom: "10px" }}
-                  >
-                    {appointmentTime}
-                  </Typography>
-                  <span style={{ marginBottom: "10px" }}>{service}</span>
-                  <span style={{ marginBottom: "10px" }}>
-                    {diamondQuantity}
-                  </span>
-                </Box>
-              </Box>
-            </Box>
+            <Typography>
+              Your appointment is confirmed at {appointmentTime}. We look
+              forward to serving you!
+            </Typography>
+            <Typography>Total Diamonds: {diamondQuantity}</Typography>
+            <Typography>Service: {service}</Typography>
+            <Typography>
+              Customer: {customer.lastName + " " + customer.firstName}
+            </Typography>
           </DialogContent>
           <DialogActions>
-            <Box display="flex" justifyContent="center" width="100%">
-              <Button
-                onClick={() => {
-                  setOpen(false);
-                  setService(services[0].name);
-                  setDiamondQuantity(0);
-                }}
-                color="primary"
-                autoFocus
-              >
-                Close
-              </Button>
-            </Box>
+            <Button onClick={() => setOpen(false)} color="primary" autoFocus>
+              OK
+            </Button>
           </DialogActions>
         </Dialog>
       </Box>
