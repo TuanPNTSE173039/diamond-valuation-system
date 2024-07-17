@@ -12,7 +12,7 @@ import ShapeButton from "./Button/Shape.jsx";
 const CalculateInputForm = ({ setParams }) => {
   const [diamondOrigin, setDiamondOrigin] = useState({ NATURAL: "clicked" });
   const [shape, setShape] = useState({ ROUND: "clicked" });
-  const [carat, setCarat] = useState(1);
+  const [carat, setCarat] = useState(5);
   const [color, setColor] = useState({ I: "clicked" });
   const [clarity, setClarity] = useState({ VS2: "clicked" });
   const [cut, setCut] = useState({ EXCELLENT: "clicked" });
@@ -62,7 +62,6 @@ const CalculateInputForm = ({ setParams }) => {
       sx={{
         width: 410,
         position: "relative",
-        left: "80px",
         borderRadius: "6px",
         height: showMoreInputs ? 1000 : 675,
       }}
@@ -658,6 +657,7 @@ const CalculateInputForm = ({ setParams }) => {
               "&:hover": {
                 backgroundColor: "#3f51b5",
               },
+              cursor: "pointer",
             }}
           >
             <Typography
