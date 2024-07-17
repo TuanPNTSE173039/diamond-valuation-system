@@ -78,7 +78,6 @@ function HomePage() {
               sx={{
                 backgroundColor: "white",
                 height: "200px",
-                width: "400px",
                 padding: "20px",
                 cursor: "pointer",
                 marginLeft: "20px",
