@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -21,6 +21,8 @@ import { storage } from "../../services/firebase.js";
 import Avatar from "@mui/material/Avatar";
 import { toast } from "react-toastify";
 import NotificationMenu from "../Notification/Menu.jsx";
+import { useQuery } from "@tanstack/react-query";
+import { getCustomer } from "../../services/api.js";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -53,16 +55,12 @@ export default function Header() {
     }
   };
 
-  useEffect(() => {
-    const fetchAvatarURL = async () => {
-      if (currentUser) {
-        const url = await getAvatarDownloadURL(currentUser.account.id);
-        setAvatarURL(url);
-      }
-    };
+  const { data: customer } = useQuery({
+    queryKey: ["customer"],
+    queryFn: () => getCustomer(currentUser.id),
+  });
 
-    fetchAvatarURL();
-  }, [currentUser]);
+  console.log("customer", customer);
 
   const handleDialogOpen = () => {
     setOpenDialog(true);
@@ -312,10 +310,11 @@ export default function Header() {
                 },
               }}
             >
-              <Avatar
-                alt={currentUser ? currentUser.authID : ""}
-                src={avatarURL ? avatarURL : ""}
-              />
+              {/*<Avatar*/}
+              {/*  alt={currentUser ? currentUser.authID : ""}*/}
+              {/*  src={avatarURL ? avatarURL : ""}*/}
+              {/*/>*/}
+              <Avatar alt="avatar" src={customer?.avatar} />
             </Button>
             <Menu
               anchorEl={profileEl}
