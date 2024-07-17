@@ -20,6 +20,7 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../services/firebase.js";
 import Avatar from "@mui/material/Avatar";
 import { toast } from "react-toastify";
+import NotificationMenu from "../Notification/Menu.jsx";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -297,6 +298,7 @@ export default function Header() {
         </Button>
         {currentUser ? (
           <>
+            <NotificationMenu />
             <Button
               onClick={handleProfileClick}
               sx={{
