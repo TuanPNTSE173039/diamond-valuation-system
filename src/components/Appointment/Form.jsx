@@ -111,7 +111,7 @@ const AppointmentForm = () => {
   };
 
   const handleUpdate = () => {
-    navigate("/update");
+    navigate("/profile");
   };
 
   if (isServiceLoading || isCustomerLoading) {
