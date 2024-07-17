@@ -9,20 +9,75 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import checkImage from "../../../assets/images/check.jpg"; // Import your image
+import checkImage from "../../../assets/images/check.jpg";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  getDiamondCheckByCertificateId,
+  getValuationRequestDetails,
+} from "../../../services/api.js";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
+import { string } from "yup";
 
 const DiamondCheckInputForm = () => {
-  const [inputValue, setInputValue] = useState("");
   const [checkType, setCheckType] = useState("certificateId");
   const navigate = useNavigate();
 
-  const handleCheck = async () => {
-    if (checkType === "certificateId") {
-      navigate(`/check/certificate/${inputValue}`);
-    } else if (checkType === "valuationCode") {
-      navigate(`/check/valuation/${inputValue}`);
+  const initialValues = {
+    inputValue: "",
+    checkType: "certificateId",
+  };
+
+  const validationSchema = Yup.object({
+    inputValue: Yup.string().when("checkType", {
+      is: "certificateId", // Condition: when `checkType` is "certificateId"
+      then: () =>
+        string()
+          .matches(/^[0-9]+$/, "Certificate ID must be numeric")
+          .length(10, "Certificate ID must be 10 characters."),
+      otherwise: () =>
+        string().matches(/^[0-9]+$/, "Valuation Code must be numeric"),
+    }),
+  });
+
+  const handleCheck = async (values) => {
+    try {
+      let response;
+      if (checkType === "certificateId") {
+        response = await getDiamondCheckByCertificateId(values.inputValue);
+        if (!response.data) {
+          throw new Error("Certificate ID not found!");
+        }
+        navigate(`/check/certificate/${values.inputValue}`);
+      } else if (checkType === "valuationCode") {
+        response = await getValuationRequestDetails(values.inputValue);
+        if (!response.data) {
+          throw new Error("Valuation Code not found!");
+        }
+        navigate(`/check/valuation/${values.inputValue}`);
+      }
+    } catch (error) {
+      console.error("Error during form submission:", error); // Log the error
+      if (error.response && error.response.status === 404) {
+        toast.error("Certificate ID or Valuation Code not found!");
+      } else {
+        toast.error(error.message || "An unexpected error occurred.");
+      }
     }
   };
+  const CustomErrorMessage = ({ children }) => (
+    <div
+      style={{
+        color: "red",
+        fontSize: "0.75rem",
+        paddingLeft: "20px",
+        marginTop: "12px",
+      }}
+    >
+      {children}
+    </div>
+  );
 
   return (
     <Box
@@ -33,15 +88,16 @@ const DiamondCheckInputForm = () => {
       mt={3}
       height="calc(100vh - 243px)"
     >
+      <ToastContainer />
       <Box
-        width="100vw" // Set the width to 100vw for full viewport width
+        width="100vw"
         height="calc(100vh - 245px)"
         sx={{
           backgroundImage: `url(${checkImage})`,
-          backgroundSize: "cover", // Ensure the image covers the full area
-          backgroundPosition: "center", // Keep the image centered
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          position: "relative", // Required for the left property to work
+          position: "relative",
         }}
       >
         <Box
@@ -57,7 +113,7 @@ const DiamondCheckInputForm = () => {
               fontFamily="'Epilogue-Bold', Helvetica"
               fontWeight="bold"
               color="#171a1f"
-              fontSize={{ xs: 30, sm: 40, md: 50 }} // Responsive font size
+              fontSize={{ xs: 30, sm: 40, md: 50 }}
             >
               Check any diamond's
             </Typography>
@@ -68,7 +124,7 @@ const DiamondCheckInputForm = () => {
               fontFamily="'Epilogue-Bold', Helvetica"
               fontWeight="bold"
               color="#171a1f"
-              fontSize={{ xs: 25, sm: 35, md: 45 }} // Responsive font size
+              fontSize={{ xs: 25, sm: 35, md: 45 }}
             >
               price &amp; quality
             </Typography>
@@ -79,79 +135,98 @@ const DiamondCheckInputForm = () => {
             top={10}
             fontFamily="'Inter-Regular', Helvetica"
             color="#171a1f"
-            fontSize={{ xs: 14, sm: 16, md: 17 }} // Responsive font size
+            fontSize={{ xs: 14, sm: 16, md: 17 }}
           >
             Transact with confidence -- get fair price, cut score, visual carat
             and more for free
           </Typography>
 
-          <RadioGroup
-            row
-            value={checkType}
-            onChange={(e) => setCheckType(e.target.value)}
-            sx={{ position: "relative", top: 20 }}
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleCheck}
           >
-            <FormControlLabel
-              value="certificateId"
-              control={<Radio />}
-              label="Check by Certificate ID"
-            />
-            <FormControlLabel
-              value="valuationCode"
-              control={<Radio />}
-              label="Check by Valuation Code"
-            />
-          </RadioGroup>
+            {({ values, handleChange, handleSubmit, isValid }) => (
+              <Form onSubmit={handleSubmit}>
+                <RadioGroup
+                  row
+                  value={checkType}
+                  onChange={(e) => {
+                    setCheckType(e.target.value);
+                    handleChange(e); // Update Formik value
+                  }}
+                  sx={{ position: "relative", top: 20 }}
+                >
+                  <FormControlLabel
+                    value="certificateId"
+                    control={<Radio />}
+                    label="Check by Certificate ID"
+                  />
+                  <FormControlLabel
+                    value="valuationCode"
+                    control={<Radio />}
+                    label="Check by Valuation Code"
+                  />
+                </RadioGroup>
 
-          <Box
-            position="relative"
-            width="100%"
-            height={50}
-            top={30}
-            left={0}
-            bgcolor="white"
-            borderRadius={1}
-            border="1px solid #9095a0"
-          >
-            <TextField
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              variant="standard"
-              placeholder={
-                checkType === "certificateId"
-                  ? "Enter Certificate ID"
-                  : "Enter Valuation Code"
-              }
-              fullWidth
-              InputProps={{
-                disableUnderline: true,
-                style: {
-                  paddingLeft: 20,
-                  paddingTop: 8,
-                  color: "black",
-                  fontSize: 16,
-                },
-              }}
-            />
-          </Box>
-          <Button
-            onClick={handleCheck}
-            sx={{
-              position: "relative",
-              width: 151,
-              height: 50,
-              top: 50,
-              left: "calc(50% - 75.5px)", // Center the button horizontally
-              backgroundColor: "#6366f2",
-              borderRadius: 1,
-              textTransform: "none",
-              ":hover": { backgroundColor: "#6366f2" },
-            }}
-          >
-            <Typography color="white" fontSize={16} lineHeight="26px">
-              Run free check
-            </Typography>
-          </Button>
+                <Box
+                  position="relative"
+                  width="100%"
+                  height={50}
+                  top={30}
+                  left={0}
+                  bgcolor="white"
+                  borderRadius={1}
+                  border="1px solid #9095a0"
+                >
+                  <Field
+                    as={TextField}
+                    name="inputValue"
+                    variant="standard"
+                    placeholder={
+                      checkType === "certificateId"
+                        ? "Enter Certificate ID"
+                        : "Enter Valuation Code"
+                    }
+                    fullWidth
+                    InputProps={{
+                      disableUnderline: true,
+                      style: {
+                        paddingLeft: 20,
+                        paddingTop: 8,
+                        color: "black",
+                        fontSize: 16,
+                      },
+                    }}
+                  />
+                  <ErrorMessage
+                    name="inputValue"
+                    component={CustomErrorMessage}
+                  />
+                </Box>
+
+                <Button
+                  type="submit"
+                  disabled={!isValid}
+                  sx={{
+                    position: "relative",
+                    width: 151,
+                    height: 50,
+                    top: 50,
+                    left: "calc(50% - 75.5px)",
+                    backgroundColor: "#6366f2",
+                    borderRadius: 1,
+                    textTransform: "none",
+                    ":hover": { backgroundColor: "#6366f2" },
+                  }}
+                >
+                  <Typography color="white" fontSize={16} lineHeight="26px">
+                    Run free check
+                  </Typography>
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </Box>
       </Box>
     </Box>
