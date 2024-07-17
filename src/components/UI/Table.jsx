@@ -152,7 +152,7 @@ const UITable = ({
         variant="h5"
         id="tableTitle"
         component="div"
-        sx={{ marginTop: "10px", fontWeight: "bold" }}
+        sx={{ marginTop: "10px", marginLeft: "20px", fontWeight: "bold" }}
       >
         {heading}
       </Typography>
