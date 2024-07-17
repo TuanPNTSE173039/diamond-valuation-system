@@ -317,26 +317,90 @@ const AppointmentForm = () => {
           <DialogTitle id="alert-dialog-title">
             <Box display="flex" justifyContent="center" alignItems="center">
               <CheckCircleOutlineIcon
-                sx={{ fontSize: "40px", mr: 1, color: "#31B057" }}
+                color="success"
+                style={{ fontSize: 70 }}
               />
-              <Typography variant="h5">Appointment Confirmed</Typography>
             </Box>
+            <Typography
+              align="center"
+              style={{
+                fontWeight: "bold",
+                color: "green",
+                fontSize: 20,
+              }}
+            >
+              {"Successful Appointment"}
+            </Typography>
           </DialogTitle>
           <DialogContent>
-            <Typography>
-              Your appointment is confirmed at {appointmentTime}. We look
-              forward to serving you!
-            </Typography>
-            <Typography>Total Diamonds: {diamondQuantity}</Typography>
-            <Typography>Service: {service}</Typography>
-            <Typography>
-              Customer: {customer.lastName + " " + customer.firstName}
-            </Typography>
+            <Box id="alert-dialog-description">
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                align="center"
+                marginBottom="10px"
+              >
+                <Typography> Appointment details:</Typography>
+                <Typography style={{ fontWeight: "bold", color: "#AE9A7F" }}>
+                  Code: #{valuationRequestId}
+                </Typography>
+              </Box>
+              <Box display="flex" justifyContent="space-between">
+                <Box display="flex" flexDirection="column">
+                  <span style={{ marginBottom: "10px", color: "#999999" }}>
+                    Customer Name:
+                  </span>
+                  <span style={{ marginBottom: "10px", color: "#999999" }}>
+                    Phone:
+                  </span>
+                  <span style={{ marginBottom: "10px", color: "#999999" }}>
+                    Appointment Time:
+                  </span>
+                  <span style={{ marginBottom: "10px", color: "#999999" }}>
+                    Service:
+                  </span>
+                  <span style={{ marginBottom: "10px", color: "#999999" }}>
+                    Diamond Quantity:
+                  </span>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="flex-start"
+                  ml={2}
+                >
+                  <span style={{ marginBottom: "10px" }}>
+                    {customer.lastName + " " + customer.firstName}
+                  </span>
+                  <span style={{ marginBottom: "10px" }}>{customer.phone}</span>
+                  <Typography
+                    style={{ fontWeight: "bold", marginBottom: "10px" }}
+                  >
+                    {appointmentTime}
+                  </Typography>
+                  <span style={{ marginBottom: "10px" }}>{service}</span>
+                  <span style={{ marginBottom: "10px" }}>
+                    {diamondQuantity}
+                  </span>
+                </Box>
+              </Box>
+            </Box>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpen(false)} color="primary" autoFocus>
-              OK
-            </Button>
+            <Box display="flex" justifyContent="center" width="100%">
+              <Button
+                onClick={() => {
+                  setOpen(false);
+                  setService(services[0].name);
+                  setDiamondQuantity(0);
+                }}
+                color="primary"
+                autoFocus
+              >
+                Close
+              </Button>
+            </Box>
           </DialogActions>
         </Dialog>
       </Box>
