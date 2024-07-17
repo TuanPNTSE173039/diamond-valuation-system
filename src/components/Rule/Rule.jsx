@@ -1,4 +1,3 @@
-// src/components/RulePage.jsx
 import React from "react";
 import {
   Box,
@@ -82,7 +81,18 @@ const RulePage = () => {
             </Typography>
             <List>
               {section.items.map((item, idx) => (
-                <ListItem key={idx}>
+                <ListItem
+                  key={idx}
+                  sx={{
+                    pl: item.startsWith("•")
+                      ? 6
+                      : item.match(/^\d+\.\d+/)
+                        ? 4
+                        : item.match(/^\(\d+\)/)
+                          ? 8
+                          : 2,
+                  }}
+                >
                   <ListItemText primary={item} />
                 </ListItem>
               ))}
