@@ -5,9 +5,9 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 const DiamondCheckResultForm = ({
   certificateId,
   priceEstimate,
-  estimateRange,
+  minPrice,
+  maxPrice,
   cut_score,
-  visual_carat,
   shape,
   carat,
   color,
@@ -15,12 +15,24 @@ const DiamondCheckResultForm = ({
   fluorescence,
   symmetry,
   polish,
-  lab,
 }) => {
   const navigate = useNavigate();
   const handleCheck = () => {
     navigate("/check");
   };
+
+  const formattedMoney = (money) => {
+    if (money === "N/A" || money === 0) {
+      return "N/A";
+    }
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(money);
+  };
+
+  const priceEstimateFormat = formattedMoney(priceEstimate);
+  const estimateRange = `${formattedMoney(minPrice)} - ${formattedMoney(maxPrice)}`;
 
   return (
     <Box position="relative">
@@ -28,8 +40,7 @@ const DiamondCheckResultForm = ({
         sx={{
           position: "absolute",
           top: "7px",
-
-          fontSize: "16px",
+          fontSize: "18px",
           fontWeight: "bold",
           color: "#171a1f",
         }}
@@ -43,8 +54,8 @@ const DiamondCheckResultForm = ({
           position: "absolute",
           width: 106,
           height: 22,
-          top: 7,
-          left: 155,
+          top: 8,
+          left: 180,
           backgroundColor: "#d9fcda",
           borderRadius: 1,
           border: "1px solid #00c853",
@@ -69,8 +80,7 @@ const DiamondCheckResultForm = ({
           position: "absolute",
           top: "45px",
           left: "23px",
-
-          fontSize: "16px",
+          fontSize: "17px",
           fontWeight: "bold",
           color: "#171a1f",
         }}
@@ -80,10 +90,9 @@ const DiamondCheckResultForm = ({
       <Typography
         sx={{
           position: "absolute",
-          top: "47px",
+          top: "48px",
           left: "120px",
-
-          fontSize: "14px",
+          fontSize: "15px",
           color: "#171a1f",
           fontWeight: 550,
         }}
@@ -93,20 +102,20 @@ const DiamondCheckResultForm = ({
       <Typography
         sx={{
           position: "absolute",
-          top: "47px",
+          top: "48px",
           left: "260px",
-          fontSize: "14px",
+          fontSize: "15px",
           color: "#6a65d2",
           fontWeight: 540,
         }}
       >
-        {priceEstimate}
+        {priceEstimateFormat}
       </Typography>
       <FiberManualRecordIcon
         sx={{
           position: "absolute",
-          top: "73px",
-          left: "10px",
+          top: "75px",
+          left: "11px",
           fontSize: "10px",
           color: "#bcc1ca",
         }}
@@ -116,8 +125,7 @@ const DiamondCheckResultForm = ({
           position: "absolute",
           top: "70px",
           left: "25px",
-
-          fontSize: "13px",
+          fontSize: "14px",
           color: "#171a1f",
           fontWeight: 550,
         }}
@@ -127,10 +135,9 @@ const DiamondCheckResultForm = ({
       <Typography
         sx={{
           position: "absolute",
-          top: "70px",
+          top: "71px",
           left: "135px",
-
-          fontSize: "13px",
+          fontSize: "14px",
           color: "#6a65d2",
           fontWeight: 540,
         }}
@@ -141,8 +148,7 @@ const DiamondCheckResultForm = ({
         sx={{
           position: "absolute",
           top: "100px",
-
-          fontSize: "12px",
+          fontSize: "13px",
           color: "#bcc1ca",
         }}
       >
@@ -152,7 +158,7 @@ const DiamondCheckResultForm = ({
       <Box
         sx={{
           position: "absolute",
-          top: "153px",
+          top: "145px",
           width: "457px",
           height: "63px",
           backgroundColor: "#fffffe",
@@ -167,7 +173,7 @@ const DiamondCheckResultForm = ({
         <Box textAlign="center">
           <Typography
             sx={{
-              fontSize: "12px",
+              fontSize: "14px",
               fontWeight: "bold",
               color: "#bcc1ca",
             }}
@@ -181,13 +187,13 @@ const DiamondCheckResultForm = ({
               fontWeight: 500,
             }}
           >
-            {priceEstimate}
+            {priceEstimateFormat}
           </Typography>
         </Box>
         <Box textAlign="center">
           <Typography
             sx={{
-              fontSize: "12px",
+              fontSize: "14px",
               fontWeight: "bold",
               color: "#bcc1ca",
             }}
@@ -200,26 +206,7 @@ const DiamondCheckResultForm = ({
               color: "#5f56e7",
             }}
           >
-            {cut_score}
-          </Typography>
-        </Box>
-        <Box textAlign="center">
-          <Typography
-            sx={{
-              fontSize: "12px",
-              fontWeight: "bold",
-              color: "#bcc1ca",
-            }}
-          >
-            Visual Carat
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "14px",
-              color: "#675fe8",
-            }}
-          >
-            {visual_carat}
+            {Number(cut_score).toFixed(1)}
           </Typography>
         </Box>
       </Box>
@@ -228,7 +215,7 @@ const DiamondCheckResultForm = ({
         sx={{
           borderRadius: "4px",
           position: "absolute",
-          top: "230px",
+          top: "225px",
           width: "459px",
           height: "155px",
           backgroundColor: "white",
@@ -250,7 +237,7 @@ const DiamondCheckResultForm = ({
           <Box>
             <Typography
               sx={{
-                fontSize: "12px",
+                fontSize: "13px",
                 textAlign: "center",
                 color: "#bcc1ca",
                 fontWeight: "bold",
@@ -260,7 +247,7 @@ const DiamondCheckResultForm = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: "13px",
+                fontSize: "14px",
                 textAlign: "center",
                 color: "#171a1f",
               }}
@@ -271,7 +258,7 @@ const DiamondCheckResultForm = ({
           <Box>
             <Typography
               sx={{
-                fontSize: "12px",
+                fontSize: "13px",
                 textAlign: "center",
                 color: "#bcc1ca",
                 fontWeight: "bold",
@@ -281,7 +268,7 @@ const DiamondCheckResultForm = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: "13px",
+                fontSize: "14px",
                 textAlign: "center",
                 color: "#171a1f",
               }}
@@ -292,7 +279,7 @@ const DiamondCheckResultForm = ({
           <Box>
             <Typography
               sx={{
-                fontSize: "12px",
+                fontSize: "13px",
                 textAlign: "center",
                 color: "#bcc1ca",
                 fontWeight: "bold",
@@ -302,7 +289,7 @@ const DiamondCheckResultForm = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: "13px",
+                fontSize: "14px",
                 textAlign: "center",
                 color: "#171a1f",
               }}
@@ -313,7 +300,7 @@ const DiamondCheckResultForm = ({
           <Box>
             <Typography
               sx={{
-                fontSize: "12px",
+                fontSize: "13px",
                 color: "#bcc1ca",
                 textAlign: "center",
                 fontWeight: "bold",
@@ -323,7 +310,7 @@ const DiamondCheckResultForm = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: "13px",
+                fontSize: "14px",
                 color: "#171a1f",
                 textAlign: "center",
               }}
@@ -332,11 +319,17 @@ const DiamondCheckResultForm = ({
             </Typography>
           </Box>
         </Box>
-        <Box display="flex" justifyContent="space-between" paddingBottom="10px">
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          paddingBottom="10px"
+          marginLeft="30px"
+          marginRight="30px"
+        >
           <Box>
             <Typography
               sx={{
-                fontSize: "12px",
+                fontSize: "13px",
                 textAlign: "center",
                 color: "#bcc1ca",
                 fontWeight: "bold",
@@ -346,7 +339,7 @@ const DiamondCheckResultForm = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: "13px",
+                fontSize: "14px",
                 textAlign: "center",
                 color: "#171a1f",
               }}
@@ -358,7 +351,7 @@ const DiamondCheckResultForm = ({
             <Typography
               sx={{
                 textAlign: "center",
-                fontSize: "12px",
+                fontSize: "13px",
                 color: "#bcc1ca",
                 fontWeight: "bold",
               }}
@@ -367,7 +360,7 @@ const DiamondCheckResultForm = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: "13px",
+                fontSize: "14px",
                 textAlign: "center",
                 color: "#171a1f",
               }}
@@ -378,7 +371,7 @@ const DiamondCheckResultForm = ({
           <Box>
             <Typography
               sx={{
-                fontSize: "12px",
+                fontSize: "13px",
                 textAlign: "center",
                 color: "#bcc1ca",
                 fontWeight: "bold",
@@ -388,33 +381,12 @@ const DiamondCheckResultForm = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: "13px",
+                fontSize: "14px",
                 color: "#171a1f",
                 textAlign: "center",
               }}
             >
               {polish}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography
-              sx={{
-                fontSize: "12px",
-                color: "#bcc1ca",
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              Cert. Lab
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "13px",
-                textAlign: "center",
-                color: "#171a1f",
-              }}
-            >
-              {lab}
             </Typography>
           </Box>
         </Box>
