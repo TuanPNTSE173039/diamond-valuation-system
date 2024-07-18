@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import logo from "../../assets/images/logo (1).png";
 
 import { register } from "../../redux/authSlice";
-import { clearMessage, setMessage } from "../../redux/messageSlide";
+import { clearMessage } from "../../redux/messageSlide";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -141,19 +141,23 @@ export default function Register() {
         }),
       ).unwrap();
 
-      if (response.message) {
-        const message = response.message;
-        dispatch(setMessage(message));
-        console.log(message);
-        toast.error(message);
-      } else {
-        console.log("Register successfully!");
-        toast.success(
-          "Register successfully! Please check your email to verify!",
-        );
-      }
+      console.log("Response:", response);
+
+      toast.success(
+        "Register successfully! Please check your email to verify!",
+      );
     } catch (error) {
-      console.error("Registration error:", error);
+      handleError(error);
+    }
+  };
+
+  const handleError = (error) => {
+    console.log("Error:", error);
+    if (error) {
+      console.log(error);
+      toast.error(error);
+    } else {
+      console.error("Unexpected error:", error);
       toast.error("Registration failed. Please try again.");
     }
   };
