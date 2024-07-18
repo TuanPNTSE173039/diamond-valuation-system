@@ -31,6 +31,7 @@ import {
 
 const AppointmentForm = () => {
   const { id } = useSelector((state) => state.auth.user);
+  console.log("User ID:", id);
 
   const { data: services, isLoading: isServiceLoading } = useQuery({
     queryKey: ["services"],

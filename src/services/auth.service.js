@@ -45,6 +45,22 @@ const login = async (usernameOrEmail, password) => {
   return response.data;
 };
 
+const googleLogin = async (googleData) => {
+  const response = await http.post("/auth/google-login", {
+    token: googleData.accessToken,
+  });
+
+  // Check the response status code
+  if (response.status !== 200) {
+    throw new Error(response.data?.message || "Error logging in with Google");
+  }
+
+  // Store user data in local storage
+  localStorage.setItem("auth", JSON.stringify(response.data));
+
+  return response.data;
+};
+
 const logout = () => {
   localStorage.removeItem("auth");
 };
@@ -64,6 +80,7 @@ const getCurrentToken = () => {
 
 const AuthService = {
   login,
+  googleLogin,
   logout,
   register,
   getCurrentUser,

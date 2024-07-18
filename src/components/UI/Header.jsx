@@ -30,7 +30,6 @@ export default function Header() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [showAppointmentDialog, setShowAppointmentDialog] = useState(false);
-  const [avatarURL, setAvatarURL] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -57,7 +56,7 @@ export default function Header() {
 
   const { data: customer } = useQuery({
     queryKey: ["customer"],
-    queryFn: () => getCustomer(currentUser.id),
+    queryFn: () => getCustomer(currentUser?.id),
   });
 
   console.log("customer", customer);
