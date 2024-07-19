@@ -63,7 +63,7 @@ const DiamondCheckInputForm = () => {
     } catch (error) {
       console.error("Error during form submission:", error); // Log the error
       if (error.response && error.response.status === 404) {
-        toast.error("Certificate ID or Valuation Code not found!");
+        toast.info("Certificate ID or Valuation Code not found!");
       } else {
         toast.error(error.message || "An unexpected error occurred.");
       }
@@ -106,10 +106,9 @@ const DiamondCheckInputForm = () => {
         <Box
           position="relative"
           width="100%"
-          maxWidth={674}
+          maxWidth={720}
           height="auto"
-          borderRadius={2}
-          p={5}
+          p={12}
         >
           <Box position="relative" width="100%" height="auto">
             <Typography
