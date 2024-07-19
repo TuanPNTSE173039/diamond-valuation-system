@@ -155,7 +155,7 @@ export default function Register() {
     console.log("Error:", error);
     if (error) {
       console.log(error);
-      toast.error(error);
+      toast.info(error);
     } else {
       console.error("Unexpected error:", error);
       toast.error("Registration failed. Please try again.");
@@ -202,7 +202,7 @@ export default function Register() {
               }}
             />
             <Typography component="h1" variant="h5">
-              Sign up
+              Sign Up
             </Typography>
             <Formik
               initialValues={initialValues}
