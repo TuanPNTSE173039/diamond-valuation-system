@@ -19,6 +19,7 @@ import RulePage from "./components/Rule/Rule.jsx";
 import Price from "./components/Price/Price.jsx";
 import RecordScreenResult from "./components/DiamondCheck/CheckResult/ResultRecord.jsx";
 import VerifyAccount from "./components/Auth/VerifyAccount.jsx";
+import RegisterByGoogle from "./components/Auth/RegisterByGoogle.jsx";
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,10 @@ const router = createBrowserRouter([
       {
         path: "/reset-password",
         element: <ResetPassword />,
+      },
+      {
+        path: "registerbygoogle",
+        element: <RegisterByGoogle />,
       },
     ],
   },

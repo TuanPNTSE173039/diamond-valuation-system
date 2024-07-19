@@ -27,6 +27,29 @@ const register = async (
   return response.data;
 };
 
+const registerByGoogle = async (
+  email,
+  firstName,
+  lastName,
+  phone,
+  address,
+  identityDocument,
+) => {
+  const response = await http.post("/auth/google-register", {
+    email,
+    firstName,
+    lastName,
+    phone,
+    address,
+    identityDocument,
+  });
+  console.log("Register API call response:", response);
+  if (response.status !== 201) {
+    throw new Error("Error registering");
+  }
+  return response.data;
+};
+
 const login = async (usernameOrEmail, password) => {
   const response = await http.post("/auth/login", {
     usernameOrEmail,
@@ -83,6 +106,7 @@ const AuthService = {
   googleLogin,
   logout,
   register,
+  registerByGoogle,
   getCurrentUser,
   getCurrentToken,
 };

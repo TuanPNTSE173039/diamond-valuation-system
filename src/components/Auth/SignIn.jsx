@@ -129,8 +129,8 @@ export default function SignIn({ open, onClose }) {
           response.status === 500
         ) {
           // Email not found, navigate to register page
-          toast.error("Email not found, please register");
-          navigate("/register", {
+          toast.info("Email not found, please register");
+          navigate("/registerbygoogle", {
             state: {
               email: decoded.email,
             },
