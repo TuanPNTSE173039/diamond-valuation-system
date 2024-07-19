@@ -31,13 +31,16 @@ const DiamondCheckInputForm = () => {
 
   const validationSchema = Yup.object({
     inputValue: Yup.string().when("checkType", {
-      is: "certificateId", // Condition: when `checkType` is "certificateId"
+      is: "certificateId",
       then: () =>
         string()
+          .required("Certificate ID is required")
           .matches(/^[0-9]+$/, "Certificate ID must be numeric")
           .length(10, "Certificate ID must be 10 characters."),
-      otherwise: () =>
-        string().matches(/^[0-9]+$/, "Valuation Code must be numeric"),
+      otherwise: Yup.string().matches(
+        /^[0-9]+$/,
+        "Valuation Code must be numeric",
+      ),
     }),
   });
 
