@@ -44,6 +44,35 @@ export const register = createAsyncThunk(
   },
 );
 
+export const registerByGoogle = createAsyncThunk(
+  "auth/google-register",
+  async (
+    { email, firstName, lastName, phone, address, identityDocument },
+    thunkAPI,
+  ) => {
+    try {
+      const response = await AuthService.registerByGoogle(
+        email,
+        firstName,
+        lastName,
+        phone,
+        address,
+        identityDocument,
+      );
+      console.log("Response:", response); // Log the entire response object
+      const message = response?.data?.message || "Registration successful";
+      thunkAPI.dispatch(setMessage(message));
+
+      return response.data;
+    } catch (error) {
+      const message =
+        error?.response?.data?.message || error.message || error.toString();
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  },
+);
+
 export const login = createAsyncThunk(
   "auth/login",
   async ({ usernameOrEmail, password, user }, thunkAPI) => {

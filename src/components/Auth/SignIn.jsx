@@ -111,6 +111,8 @@ export default function SignIn({ open, onClose }) {
       );
 
       const data = await response.json();
+      localStorage.setItem("auth", JSON.stringify(data));
+      console.log("Google login response:", data);
       if (response.ok) {
         // Handle success: dispatch login action with user data
         console.log("Login successful:", data);
@@ -127,8 +129,8 @@ export default function SignIn({ open, onClose }) {
           response.status === 500
         ) {
           // Email not found, navigate to register page
-          toast.error("Email not found, please register");
-          navigate("/register", {
+          toast.info("Email not found, please register");
+          navigate("/registerbygoogle", {
             state: {
               email: decoded.email,
             },

@@ -8,6 +8,7 @@ import friendly from "../../assets/images/friendly.png";
 import allurez from "../../assets/images/allurez.png";
 import adiamor from "../../assets/images/adiamor.png";
 import dreamstone from "../../assets/images/dreamstone.png";
+import diamond1 from "../../assets/images/diamond1.png";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { getSupplierByID } from "../../services/api.js";
 import { useQuery } from "@tanstack/react-query";
@@ -313,7 +314,10 @@ export const CalculateOutputForm = ({
                     left: 7,
                   }}
                 >
-                  <img src={diamond.diamondImage} alt="diamond" />
+                  <img
+                    src={diamond.diamondImage ? diamond1 : diamond.diamondImage}
+                    alt="diamond"
+                  />
                 </Box>
 
                 <Box
