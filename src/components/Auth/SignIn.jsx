@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { login } from "../../redux/authSlice";
@@ -245,13 +245,27 @@ export default function SignIn({ open, onClose }) {
                     <Typography
                       variant="body2"
                       onClick={handleForgotPasswordClick}
+                      style={{ cursor: "pointer" }}
+                      color="primary"
                     >
                       Forgot password?
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Link to={"/register"} replace={true} eariant="body2">
-                      {"Don't have an account? Sign Up"}
+                    <Link
+                      to={"/register"}
+                      replace={true}
+                      eariant="body2"
+                      onClick={onClose}
+                      color="primary"
+                    >
+                      <Typography
+                        style={{ cursor: "pointer" }}
+                        color="primary"
+                        variant="body2"
+                      >
+                        Don't have an account? Sign Up
+                      </Typography>
                     </Link>
                   </Grid>
                 </Grid>
