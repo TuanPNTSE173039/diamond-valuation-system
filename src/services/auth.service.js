@@ -62,6 +62,10 @@ const login = async (usernameOrEmail, password) => {
   }
 
   // If oke
+  // Check if the role is customer
+  if (response.data.role !== "customer") {
+    throw new Error("You are not authorized to log in");
+  }
   // Store user data in local storage
   localStorage.setItem("auth", JSON.stringify(response.data));
 

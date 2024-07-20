@@ -61,8 +61,16 @@ export default function SignIn({ open, onClose }) {
     setLoading(true);
 
     try {
-      await dispatch(login({ usernameOrEmail, password })).unwrap();
+      const user = await dispatch(
+        login({ usernameOrEmail, password }),
+      ).unwrap();
+      //await dispatch(login({ usernameOrEmail, password })).unwrap();
       setLoading(false);
+      if (user.role !== "customer") {
+        toast.error("You are not authorized to log in");
+        return;
+      }
+
       toast.success("Login successful");
       navigate("/", { replace: true });
       if (typeof onClose === "function") {
