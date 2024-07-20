@@ -194,20 +194,17 @@ const UITable = ({
                           <DeleteIcon />
                         </IconButton>
                       )}
-                    {cell.id === "view" &&
-                      showViewButton &&
-                      row.status !== "CANCEL" &&
-                      row.status !== "PENDING" && (
-                        <IconButton
-                          aria-label="view"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleView(row.id);
-                          }}
-                        >
-                          <VisibilityIcon />
-                        </IconButton>
-                      )}
+                    {cell.id === "view" && row.status === "APPROVED" && (
+                      <IconButton
+                        aria-label="view"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleView(row.id);
+                        }}
+                      >
+                        <VisibilityIcon />
+                      </IconButton>
+                    )}
                     {cell.id === "status"
                       ? convertStatus(row[cell.id])
                       : cellValue}
