@@ -48,13 +48,15 @@ const DiamondCheckInputForm = () => {
       let response;
       if (checkType === "certificateId") {
         response = await getDiamondCheckByCertificateId(inputValue);
-        if (!response.data) {
+        console.log("API Response for Certificate ID:", response); // Log the response
+        if (!response) {
           throw new Error("Certificate ID not found!");
         }
         navigate(`/check/certificate/${inputValue}`);
       } else if (checkType === "valuationCode") {
         response = await getValuationRequestDetails(inputValue);
-        if (!response.data) {
+        console.log("API Response for Valuation Code:", response); // Log the response
+        if (!response) {
           throw new Error("Valuation Code not found!");
         }
         navigate(`/check/valuation/${inputValue}`);
@@ -68,6 +70,7 @@ const DiamondCheckInputForm = () => {
       }
     }
   };
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -96,7 +99,7 @@ const DiamondCheckInputForm = () => {
       mt={3}
       height="calc(100vh - 243px)"
     >
-      <ToastContainer />
+      <ToastContainer containerId="diamondCheck" />
       <Box
         width="100vw"
         height="calc(100vh - 245px)"
