@@ -27,6 +27,29 @@ const register = async (
   return response.data;
 };
 
+const registerByGoogle = async (
+  email,
+  firstName,
+  lastName,
+  phone,
+  address,
+  identityDocument,
+) => {
+  const response = await http.post("/auth/google-register", {
+    email,
+    firstName,
+    lastName,
+    phone,
+    address,
+    identityDocument,
+  });
+  console.log("Register API call response:", response);
+  if (response.status !== 201) {
+    throw new Error("Error registering");
+  }
+  return response.data;
+};
+
 const login = async (usernameOrEmail, password) => {
   const response = await http.post("/auth/login", {
     usernameOrEmail,
@@ -39,6 +62,22 @@ const login = async (usernameOrEmail, password) => {
   }
 
   // If oke
+  // Store user data in local storage
+  localStorage.setItem("auth", JSON.stringify(response.data));
+
+  return response.data;
+};
+
+const googleLogin = async (googleData) => {
+  const response = await http.post("/auth/google-login", {
+    token: googleData.accessToken,
+  });
+
+  // Check the response status code
+  if (response.status !== 200) {
+    throw new Error(response.data?.message || "Error logging in with Google");
+  }
+
   // Store user data in local storage
   localStorage.setItem("auth", JSON.stringify(response.data));
 
@@ -64,8 +103,10 @@ const getCurrentToken = () => {
 
 const AuthService = {
   login,
+  googleLogin,
   logout,
   register,
+  registerByGoogle,
   getCurrentUser,
   getCurrentToken,
 };

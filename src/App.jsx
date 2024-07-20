@@ -1,4 +1,3 @@
-// App.jsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import CalculatePage from "./components/Calculate/Page.jsx";
@@ -9,7 +8,6 @@ import ValuationRequestList from "./components/ManageAppointment/List.jsx";
 import RootLayout from "./components/RootLayout.jsx";
 import AppointmentForm from "./components/Appointment/Form.jsx";
 import RequestItem from "./components/ManageAppointment/Item.jsx";
-import AuthGuard from "./components/Auth/AuthGuard.jsx";
 import GuestGuard from "./components/Auth/GuestGuard.jsx";
 import Register from "./components/Auth/Register.jsx";
 import About from "./components/About.jsx";
@@ -19,6 +17,9 @@ import ResetPassword from "./components/Auth/ResetPassword.jsx";
 import BlogDetail from "./components/Blog/Details.jsx";
 import RulePage from "./components/Rule/Rule.jsx";
 import Price from "./components/Price/Price.jsx";
+import RecordScreenResult from "./components/DiamondCheck/CheckResult/ResultRecord.jsx";
+import VerifyAccount from "./components/Auth/VerifyAccount.jsx";
+import RegisterByGoogle from "./components/Auth/RegisterByGoogle.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,9 +37,9 @@ const router = createBrowserRouter([
       {
         path: "appointment",
         element: (
-          <AuthGuard>
-            <AppointmentForm />
-          </AuthGuard>
+          // <AuthGuard>
+          <AppointmentForm />
+          //</AuthGuard>
         ),
       },
       {
@@ -86,8 +87,12 @@ const router = createBrowserRouter([
             element: <DiamondCheckInputPage />,
           },
           {
-            path: ":certificateID",
+            path: "certificate/:certificateID",
             element: <DiamondCheckResultPage />,
+          },
+          {
+            path: "valuation/:valuationCode",
+            element: <RecordScreenResult />,
           },
         ],
       },
@@ -112,7 +117,15 @@ const router = createBrowserRouter([
         path: "/reset-password",
         element: <ResetPassword />,
       },
+      {
+        path: "registerbygoogle",
+        element: <RegisterByGoogle />,
+      },
     ],
+  },
+  {
+    path: "/verify-account",
+    element: <VerifyAccount />,
   },
 ]);
 

@@ -14,14 +14,14 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import logo from "../../assets/images/logo (1).png";
 
-import { register } from "../../redux/authSlice";
+import { registerByGoogle } from "../../redux/authSlice";
 import { clearMessage } from "../../redux/messageSlide";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 
 const defaultTheme = createTheme();
 
-export default function Register() {
+export default function RegisterByGoogle() {
   const { message } = useSelector((state) => state.message);
   const location = useLocation();
   const navigate = useNavigate();
@@ -32,9 +32,7 @@ export default function Register() {
   }, [dispatch]);
 
   const initialValues = {
-    username: "",
     email: location.state?.email || "",
-    password: "",
     firstName: "",
     lastName: "",
     phone: "",
@@ -61,33 +59,9 @@ export default function Register() {
           val && val.toString().length >= 2 && val.toString().length <= 30,
       )
       .required("Last name is required!"),
-    username: Yup.string()
-      .matches(/^[A-Za-z]+$/, "The username must be alphabetic.")
-      .test(
-        "len",
-        "The username must be between 6 and 24 characters.",
-        (val) =>
-          val && val.toString().length >= 6 && val.toString().length <= 24,
-      )
-      .required("Username is required!"),
     email: Yup.string()
       .email("This is not a valid email.")
       .required("Email is required!"),
-    password: Yup.string()
-      .test(
-        "len",
-        "The password must be between 6 and 20 characters.",
-        (val) =>
-          val && val.toString().length >= 6 && val.toString().length <= 20,
-      )
-      .test(
-        "contains-number",
-        "The password must contain at least 1 number.",
-        (val) => {
-          return /\d/.test(val);
-        },
-      )
-      .required("Password is required!"),
     phone: Yup.string()
       .test(
         "len",
@@ -116,22 +90,12 @@ export default function Register() {
   });
 
   const handleRegister = async (formValue) => {
-    const {
-      username,
-      password,
-      email,
-      firstName,
-      lastName,
-      phone,
-      address,
-      identityDocument,
-    } = formValue;
+    const { email, firstName, lastName, phone, address, identityDocument } =
+      formValue;
 
     try {
       const response = await dispatch(
-        register({
-          username,
-          password,
+        registerByGoogle({
           email,
           firstName,
           lastName,
@@ -202,7 +166,7 @@ export default function Register() {
               }}
             />
             <Typography component="h1" variant="h5">
-              Sign Up
+              Sign Up By Google
             </Typography>
             <Formik
               initialValues={initialValues}
@@ -253,26 +217,7 @@ export default function Register() {
                           }
                         />
                       </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="username"
-                          label="Username"
-                          name="username"
-                          autoComplete="username"
-                          value={formik.values.username}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          error={
-                            formik.touched.username &&
-                            Boolean(formik.errors.username)
-                          }
-                          helperText={
-                            formik.touched.username && formik.errors.username
-                          }
-                        />
-                      </Grid>
+
                       <Grid item xs={12}>
                         <TextField
                           required
@@ -292,27 +237,7 @@ export default function Register() {
                           }
                         />
                       </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          name="password"
-                          label="Password"
-                          type="password"
-                          id="password"
-                          autoComplete="new-password"
-                          value={formik.values.password}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          error={
-                            formik.touched.password &&
-                            Boolean(formik.errors.password)
-                          }
-                          helperText={
-                            formik.touched.password && formik.errors.password
-                          }
-                        />
-                      </Grid>
+
                       <Grid item xs={12}>
                         <TextField
                           required

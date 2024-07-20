@@ -19,7 +19,6 @@ import {
   deleteValuationRequestByID,
   getDiamondValuationNoteByID,
 } from "../../services/api.js";
-import ItemDetailsDialog from "../ManageAppointment/ItemDetails.jsx";
 import { useNavigate } from "react-router-dom";
 import FeedbackDialog from "../ManageAppointment/FeedbackDialog.jsx";
 import TextField from "@mui/material/TextField";
@@ -29,6 +28,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { convertStatus } from "../../utilities/Status.jsx";
 import { toast, ToastContainer } from "react-toastify";
+import RecordScreenResult from "../ManageAppointment/ResultRecord.jsx";
 
 DialogActions.propTypes = { children: PropTypes.node };
 
@@ -146,16 +146,13 @@ const UITable = ({
     requestStatus === "FINISHED" || requestStatus === "CANCEL";
 
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ maxHeight: 440, marginRight: "30px" }}
-    >
+    <TableContainer component={Paper} sx={{ marginRight: "30px" }}>
       <ToastContainer />
       <Typography
         variant="h5"
         id="tableTitle"
         component="div"
-        sx={{ marginLeft: "30px", marginTop: "10px", fontWeight: "bold" }}
+        sx={{ marginTop: "10px", marginLeft: "20px", fontWeight: "bold" }}
       >
         {heading}
       </Typography>
@@ -197,20 +194,17 @@ const UITable = ({
                           <DeleteIcon />
                         </IconButton>
                       )}
-                    {cell.id === "view" &&
-                      showViewButton &&
-                      row.status !== "CANCEL" &&
-                      row.status !== "PENDING" && (
-                        <IconButton
-                          aria-label="view"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleView(row.id);
-                          }}
-                        >
-                          <VisibilityIcon />
-                        </IconButton>
-                      )}
+                    {cell.id === "view" && row.status === "APPROVED" && (
+                      <IconButton
+                        aria-label="view"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleView(row.id);
+                        }}
+                      >
+                        <VisibilityIcon />
+                      </IconButton>
+                    )}
                     {cell.id === "status"
                       ? convertStatus(row[cell.id])
                       : cellValue}
@@ -271,12 +265,13 @@ const UITable = ({
           </Button>
         </DialogActions>
       </Dialog>
-      <Dialog open={openViewDialog} onClose={handleCloseViewDialog}>
-        <ItemDetailsDialog
-          {...diamondDetails}
-          open={openViewDialog}
-          onClose={handleCloseViewDialog}
-        />
+      <Dialog
+        open={openViewDialog}
+        onClose={handleCloseViewDialog}
+        fullWidth
+        sx={{ "& .MuiDialog-paper": { width: "1000px", maxWidth: "1000px" } }}
+      >
+        <RecordScreenResult requestId={requestID} />
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button onClick={handleCloseViewDialog} color="primary">
             Close

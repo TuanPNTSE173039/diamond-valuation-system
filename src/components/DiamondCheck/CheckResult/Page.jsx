@@ -59,10 +59,10 @@ const DiamondCheckResultPage = () => {
           {diamondData && (
             <DiamondCheckResultForm
               certificateId={diamondData.certificateId}
-              priceEstimate={`$${diamondData.fairPrice}`}
-              estimateRange={`$${diamondData.minPrice} - $${diamondData.maxPrice}`}
+              priceEstimate={diamondData.fairPrice}
+              minPrice={diamondData.minPrice}
+              maxPrice={diamondData.maxPrice}
               cut_score={diamondData.cutScore}
-              visual_carat="1.0"
               shape={diamondData.shape}
               carat={diamondData.caratWeight}
               color={diamondData.color}

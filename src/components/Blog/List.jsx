@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Pagination, Stack, Typography } from "@mui/material";
 import { getAllBlogs } from "../../services/api.js"; // Assuming you have your API call in a separate file
-import Divider from "@mui/material/Divider";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 
 export const BlogList = () => {
@@ -39,8 +36,8 @@ export const BlogList = () => {
     <Box
       sx={{
         position: "relative",
-        width: 1181,
-        marginLeft: "100px",
+        marginX: "120px",
+        padding: "0 16px",
       }}
     >
       {selectedBlogs.map((blog) => (
@@ -48,6 +45,7 @@ export const BlogList = () => {
           key={blog.id}
           sx={{
             display: "flex",
+            flexDirection: { xs: "column", md: "row" },
             marginTop: 8,
             alignItems: "flex-start",
             gap: 2,
@@ -56,8 +54,8 @@ export const BlogList = () => {
           <Box
             component="img"
             sx={{
-              width: 250,
-              height: 160,
+              width: { xs: "100%", md: "250px" },
+              height: "auto",
               flexShrink: 0,
             }}
             alt="Thumbnail"

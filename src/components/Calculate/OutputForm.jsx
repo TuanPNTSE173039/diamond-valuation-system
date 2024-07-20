@@ -1,7 +1,17 @@
-import { Box, Typography } from "@mui/material";
-import diamond1 from "../../assets/images/diamond1.png";
+import { Box, IconButton, Typography } from "@mui/material";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
 import { useState } from "react";
+import stonealgo from "../../assets/images/stonealgo.png";
+import rockher from "../../assets/images/rockher.png";
+import daniel from "../../assets/images/daniel.png";
+import friendly from "../../assets/images/friendly.png";
+import allurez from "../../assets/images/allurez.png";
+import adiamor from "../../assets/images/adiamor.png";
+import dreamstone from "../../assets/images/dreamstone.png";
+import diamond1 from "../../assets/images/diamond1.png";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { getSupplierByID } from "../../services/api.js";
+import { useQuery } from "@tanstack/react-query";
 
 export const CalculateOutputForm = ({
   diamondData,
@@ -9,7 +19,6 @@ export const CalculateOutputForm = ({
   diamondError,
   marketData,
   isMarketLoading,
-  marketError,
 }) => {
   const formattedMoney = (money) => {
     if (money === "N/A" || money === 0) {
@@ -20,22 +29,6 @@ export const CalculateOutputForm = ({
       currency: "USD",
     }).format(money);
   };
-
-  if (isDiamondLoading || isMarketLoading)
-    return (
-      <Box
-        sx={{
-          width: 723,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          left: 120,
-        }}
-      >
-        <UICircularIndeterminate />
-      </Box>
-    );
 
   // Nếu diamondData không tồn tại hoặc có lỗi, trả về giá trị mặc định
   if (!diamondData || diamondError) {
@@ -59,21 +52,43 @@ export const CalculateOutputForm = ({
   const [visibleCount, setVisibleCount] = useState(5);
 
   const supplierImages = {
-    1: "stonealgo",
-    2: "rockher",
-    3: "daniel",
-    4: "friendly",
-    5: "allurez",
-    6: "adiamor",
-    7: "dreamstone",
+    1: stonealgo,
+    2: rockher,
+    3: daniel,
+    4: friendly,
+    5: allurez,
+    6: adiamor,
+    7: dreamstone,
   };
+
+  const { data: supplier, isLoading: isSupplierLoading } = useQuery({
+    queryKey: ["supplierByID"],
+    queryFn: () => getSupplierByID(marketData[0].supplierId),
+  });
+  console.log(supplier);
+
+  if (isDiamondLoading || isMarketLoading || isSupplierLoading)
+    return (
+      <Box
+        sx={{
+          width: 723,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          left: 120,
+        }}
+      >
+        <UICircularIndeterminate />
+      </Box>
+    );
 
   return (
     <Box
       sx={{
         position: "relative",
         width: 743,
-        left: 120,
+        left: 80,
         height: 850,
       }}
     >
@@ -299,7 +314,10 @@ export const CalculateOutputForm = ({
                     left: 7,
                   }}
                 >
-                  <img src={diamond1} alt="diamond" />
+                  <img
+                    src={diamond.diamondImage ? diamond1 : diamond.diamondImage}
+                    alt="diamond"
+                  />
                 </Box>
 
                 <Box
@@ -307,6 +325,7 @@ export const CalculateOutputForm = ({
                     width: 60,
                     top: 23,
                     left: 107,
+                    textAlign: "center",
                   }}
                 >
                   <Typography
@@ -332,6 +351,7 @@ export const CalculateOutputForm = ({
                   sx={{
                     top: 43,
                     left: 207,
+                    textAlign: "center",
                   }}
                 >
                   <Typography
@@ -363,6 +383,7 @@ export const CalculateOutputForm = ({
                     height: 35,
                     top: 23,
                     left: 275,
+                    textAlign: "center",
                   }}
                 >
                   <Typography
@@ -392,6 +413,7 @@ export const CalculateOutputForm = ({
                     height: 32,
                     top: 25,
                     left: 352,
+                    textAlign: "center",
                   }}
                 >
                   <Typography
@@ -440,6 +462,9 @@ export const CalculateOutputForm = ({
                 >
                   {formattedMoney(diamond.price)}
                 </Typography>
+                <IconButton onClick={() => window.open(diamond.link, "_blank")}>
+                  <ArrowForwardIosIcon />
+                </IconButton>
               </Box>
             ))}
         </Box>

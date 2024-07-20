@@ -1,7 +1,7 @@
 import { http } from "./config.js";
+import { useQuery } from "@tanstack/react-query";
 
-//APPOINTMENT
-
+//NEW_APPOINTMENT
 export const getCustomer = async (customerID) => {
   const response = await http.get(`customers/${customerID}`);
   return response.data;
@@ -17,7 +17,6 @@ export const addValuationRequest = (body) => {
 };
 
 //DIAMOND CHECK
-
 export const getDiamondCheckByCertificateId = async (certificateId) => {
   const response = await http.get(`diamond-valuation-notes/search`, {
     params: { certificateId },
@@ -36,8 +35,12 @@ export const getDiamondMarketData = async (params) => {
   return response.data;
 };
 
-//MANAGE
+export const getSupplierByID = async (supplierID) => {
+  const response = await http.get(`suppliers/${supplierID}`);
+  return response.data;
+};
 
+//MANAGE_APPOINTMENT
 export const getValuationRequestsByCustomerID = async (customerID) => {
   const response = await http.get(
     `valuation-requests/customer/${customerID}?sortBy=creationDate&sortDir=desc`,
@@ -77,7 +80,7 @@ export const updateCustomerPassword = async (authID, body) => {
 
 //POST
 export const getAllBlogs = async () => {
-  const response = await http.get(`posts`);
+  const response = await http.get(`posts?status=PUBLISHED`);
   return response.data;
 };
 
@@ -92,7 +95,7 @@ export const forgotPassword = async (email) => {
   return response.data;
 };
 
-//PRICE
+//PRICE_SERVICES
 export const getAllServices = async () => {
   const response = await http.get(`services`);
   return response.data;
@@ -101,4 +104,33 @@ export const getAllServices = async () => {
 export const getServiceByID = async (serviceID) => {
   const response = await http.get(`services/${serviceID}/service-price-lists`);
   return response.data;
+};
+
+//RECORD
+export const getValuationRequest = async (id) => {
+  const response = await http.get(`valuation-requests/${id}`);
+  return response.data;
+};
+
+export const getValuationRequestDetails = async (id) => {
+  const response = await http.get(`valuation-request-details/${id}`);
+  return response.data;
+};
+
+//HOMEPAGE
+export const getSupplier = async () => {
+  const response = await http.get(`suppliers`);
+  return response.data;
+};
+
+//NOTIFICATION
+export const useNotification = (accountId) => {
+  return useQuery({
+    queryKey: ["notification", { accountId: accountId }],
+    queryFn: async () => {
+      const response = await http.get(`notifications?accountId=${accountId}`);
+      return response.data;
+    },
+    enabled: !!accountId,
+  });
 };

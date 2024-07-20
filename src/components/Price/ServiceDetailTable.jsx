@@ -5,17 +5,17 @@ import { ServiceDetailHeadCells } from "../../utilities/Table.js";
 import Typography from "@mui/material/Typography";
 
 const serviceTitles = {
-  1: "Normal Valuation",
-  2: "Quick Valuation In 48 hours",
-  3: "Quick Valuation In 24 hours",
-  4: "Quick Valuation In 3 hours",
+  1: "Regular Valuation",
+  2: "Normal Valuation",
+  3: "Fast Valuation",
+  4: "Express Valuation",
 };
 
 const servicePricesUnder4mm = {
   1: "$15.00",
   2: "$30.00",
   3: "$45.00",
-  4: "$65.00",
+  4: "$60.00",
 };
 
 const ServiceDetailsTable = ({ serviceID }) => {
@@ -65,9 +65,7 @@ const ServiceDetailsTable = ({ serviceID }) => {
         headCells={ServiceDetailHeadCells}
         title={title}
       />
-      <Typography
-        sx={{ marginLeft: "250px", marginBottom: "30px", fontStyle: "italic" }}
-      >
+      <Typography sx={{ marginBottom: "30px", fontStyle: "italic" }}>
         **For diamonds &lt; 4,00 mm, valuating applies with a fee of{" "}
         {priceUnder4mm} per diamond.
       </Typography>

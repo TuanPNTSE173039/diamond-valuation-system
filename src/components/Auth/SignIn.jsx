@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -18,7 +18,10 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import UICircularIndeterminate from "../UI/CircularIndeterminate";
 import logo from "../../assets/images/logo (1).png";
-import ForgotPasswordDialog from "./ForgotPassword.jsx"; // Import the new dialog component
+import ForgotPasswordDialog from "./ForgotPassword.jsx";
+import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 export default function SignIn({ open, onClose }) {
   const navigate = useNavigate();
@@ -61,6 +64,7 @@ export default function SignIn({ open, onClose }) {
     try {
       await dispatch(login({ usernameOrEmail, password })).unwrap();
       setLoading(false);
+      toast.success("Login successful");
       navigate("/", { replace: true });
       if (typeof onClose === "function") {
         onClose(); // Safeguard: Close the dialog on successful login only if onClose is defined
@@ -89,6 +93,59 @@ export default function SignIn({ open, onClose }) {
     console.log("Attempting to open Forgot Password dialog...");
     setForgotPasswordOpen(true); // Open the Forgot Password dialog
     console.log("Forgot Password dialog state set to open");
+  };
+
+  const handleGoogleLoginSuccess = async (credentialResponse) => {
+    try {
+      const token = credentialResponse.credential;
+      const decoded = jwtDecode(token);
+      const response = await fetch(
+        "http://localhost:8080/api/v1/auth/google-login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token }),
+        },
+      );
+
+      const data = await response.json();
+      localStorage.setItem("auth", JSON.stringify(data));
+      console.log("Google login response:", data);
+      if (response.ok) {
+        // Handle success: dispatch login action with user data
+        console.log("Login successful:", data);
+        await dispatch(login({ user: data })).unwrap(); // Dispatch login action with user data
+        onClose(); // Close the dialog
+        toast.success("Login successful");
+        navigate("/", { replace: true });
+      } else {
+        // Handle error: show message, navigate, etc.
+        if (
+          response.status === 404 ||
+          response.status === 401 ||
+          response.status === 403 ||
+          response.status === 500
+        ) {
+          // Email not found, navigate to register page
+          toast.info("Email not found, please register");
+          navigate("/registerbygoogle", {
+            state: {
+              email: decoded.email,
+            },
+          });
+          onClose();
+        } else {
+          dispatch(setMessage(data.message || "Login failed"));
+          toast.error("Login failed");
+        }
+      }
+    } catch (error) {
+      console.error("Error during Google login:", error);
+      dispatch(setMessage("Login failed"));
+      toast.error("Login failed");
+    }
   };
 
   return (
@@ -200,12 +257,21 @@ export default function SignIn({ open, onClose }) {
                     </Link>
                   </Grid>
                 </Grid>
+                <Box sx={{ mt: 2 }}>
+                  <GoogleLogin
+                    onSuccess={handleGoogleLoginSuccess}
+                    onError={() => {
+                      console.log("Login Failed");
+                    }}
+                    style={{ width: "100%" }}
+                  />
+                </Box>
               </Box>
             </Box>
           </Container>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
+          <Button onClick={onClose} color="primary" size="small">
             Cancel
           </Button>
         </DialogActions>

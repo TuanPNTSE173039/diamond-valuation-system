@@ -12,7 +12,7 @@ import ShapeButton from "./Button/Shape.jsx";
 const CalculateInputForm = ({ setParams }) => {
   const [diamondOrigin, setDiamondOrigin] = useState({ NATURAL: "clicked" });
   const [shape, setShape] = useState({ ROUND: "clicked" });
-  const [carat, setCarat] = useState(1);
+  const [carat, setCarat] = useState(5);
   const [color, setColor] = useState({ I: "clicked" });
   const [clarity, setClarity] = useState({ VS2: "clicked" });
   const [cut, setCut] = useState({ EXCELLENT: "clicked" });
@@ -62,9 +62,8 @@ const CalculateInputForm = ({ setParams }) => {
       sx={{
         width: 410,
         position: "relative",
-        left: "80px",
         borderRadius: "6px",
-        height: showMoreInputs ? 975 : 675,
+        height: showMoreInputs ? 1000 : 675,
       }}
     >
       <Box
@@ -658,6 +657,7 @@ const CalculateInputForm = ({ setParams }) => {
               "&:hover": {
                 backgroundColor: "#3f51b5",
               },
+              cursor: "pointer",
             }}
           >
             <Typography
@@ -680,7 +680,7 @@ const CalculateInputForm = ({ setParams }) => {
               width: "380px",
               height: "40px",
               position: "absolute",
-              top: showMoreInputs ? 925 : 625,
+              top: showMoreInputs ? 930 : 625,
               left: "6px",
               borderRadius: "4px",
               textAlign: "left",
@@ -705,7 +705,7 @@ const CalculateInputForm = ({ setParams }) => {
                     handleClick(setCut, "FAIR");
                   }}
                   sx={{
-                    width: "90px",
+                    width: "71px",
                     height: "33px",
                     position: "absolute",
                     top: "30px",
@@ -725,10 +725,10 @@ const CalculateInputForm = ({ setParams }) => {
                     handleClick(setCut, "GOOD");
                   }}
                   sx={{
-                    width: "90px",
+                    width: "71px",
                     height: "33px",
                     position: "absolute",
-                    left: "95px",
+                    left: "75px",
                     top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
@@ -746,10 +746,10 @@ const CalculateInputForm = ({ setParams }) => {
                     handleClick(setCut, "vgood");
                   }}
                   sx={{
-                    width: "90px",
+                    width: "71px",
                     height: "33px",
                     position: "absolute",
-                    left: "190px",
+                    left: "150px",
                     top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
@@ -768,10 +768,10 @@ const CalculateInputForm = ({ setParams }) => {
                     handleClick(setCut, "EXCELLENT");
                   }}
                   sx={{
-                    width: "89px",
+                    width: "71px",
                     height: "32px",
                     position: "absolute",
-                    left: "284px",
+                    left: "225px",
                     top: "30px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
@@ -783,6 +783,27 @@ const CalculateInputForm = ({ setParams }) => {
                   }}
                 >
                   EX.
+                </Button>
+                <Button
+                  onClick={() => {
+                    handleClick(setCut, "IDEAL");
+                  }}
+                  sx={{
+                    width: "71px",
+                    height: "32px",
+                    position: "absolute",
+                    left: "300px",
+                    top: "30px",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "6px",
+                    backgroundColor:
+                      cut["IDEAL"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                    ":hover": { bgcolor: "#4F46E5", color: "white" },
+                    fontSize: "14px",
+                    color: cut["IDEAL"] === "clicked" ? "white" : "#171a1f",
+                  }}
+                >
+                  IDEAL
                 </Button>
               </Box>
               <Box position="absolute" top="640px" left="7px">
