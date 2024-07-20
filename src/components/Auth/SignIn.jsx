@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { login } from "../../redux/authSlice";
@@ -13,7 +13,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import UICircularIndeterminate from "../UI/CircularIndeterminate";
@@ -243,16 +242,15 @@ export default function SignIn({ open, onClose }) {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link
-                      href="#"
+                    <Typography
                       variant="body2"
                       onClick={handleForgotPasswordClick}
                     >
                       Forgot password?
-                    </Link>
+                    </Typography>
                   </Grid>
                   <Grid item>
-                    <Link href="/register" variant="body2">
+                    <Link to={"/register"} replace={true} eariant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>
