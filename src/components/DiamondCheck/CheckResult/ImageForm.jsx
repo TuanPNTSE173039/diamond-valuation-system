@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, ImageList, ImageListItem } from "@mui/material";
 
 const ImageGallery = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
+
+  useEffect(() => {
+    if (images.length > 0) {
+      setSelectedImage(images[0]);
+    }
+  }, [images]);
 
   return (
     <Box
@@ -21,26 +27,22 @@ const ImageGallery = ({ images }) => {
         cols={1}
         rowHeight={100}
       >
-        {images.map((item) => (
+        {images.map((item, index) => (
           <ImageListItem
-            key={item.img}
+            key={index}
             onClick={() => setSelectedImage(item)}
             sx={{
               cursor: "pointer",
               borderRadius: "6px",
-              border:
-                selectedImage.img === item.img
-                  ? "2px solid transparent"
-                  : "2px solid transparent",
               "&:hover": {
-                border: "2px solid transparent",
+                border: "2px solid #000", // Add a solid border on hover
               },
             }}
           >
             <img
-              src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
+              src={`${item}?w=164&h=164&fit=crop&auto=format`}
+              srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+              alt={`Image ${index + 1}`}
               loading="lazy"
               style={{
                 borderRadius: "6px",
@@ -52,17 +54,19 @@ const ImageGallery = ({ images }) => {
           </ImageListItem>
         ))}
       </ImageList>
-      <Box sx={{ ml: { xs: 0, md: 2 } }}>
-        <img
-          src={selectedImage.img}
-          alt={selectedImage.title}
-          style={{
-            width: "600px",
-            height: "450px",
-            borderRadius: "6px",
-            objectFit: "cover",
-          }}
-        />
+      <Box sx={{ ml: { xs: 0, md: 2 }, mt: { xs: 2, md: 0 } }}>
+        {selectedImage && (
+          <img
+            src={selectedImage}
+            alt="Selected"
+            style={{
+              width: "600px",
+              height: "450px",
+              borderRadius: "6px",
+              objectFit: "cover",
+            }}
+          />
+        )}
       </Box>
     </Box>
   );
