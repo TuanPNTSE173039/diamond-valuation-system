@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
-  FormControlLabel,
+  FormControlLabel, FormHelperText,
   Radio,
   RadioGroup,
   TextField,
@@ -16,49 +16,61 @@ import {
   getDiamondCheckByCertificateId,
   getValuationRequestDetails,
 } from "../../../services/api.js";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import {useFormik} from "formik";
 import * as Yup from "yup";
 import { string } from "yup";
 
 const DiamondCheckInputForm = () => {
-  const [checkType, setCheckType] = useState("certificateId");
   const navigate = useNavigate();
-
   const initialValues = {
     inputValue: "",
     checkType: "certificateId",
   };
 
-  const validationSchema = Yup.object({
+  // const validationSchema = Yup.object(({
+  //   // inputValue: Yup.string().when("checkType", {
+  //   //   is: (formik) => formik.values.checkType === "certificateId",
+  //   //   then: () =>
+  //   //     string()
+  //   //       .required("Certificate ID is required")
+  //   //       .matches(/^[0-9]+$/, "Certificate ID must be numeric")
+  //   //       .length(10, "Certificate ID must be 10 characters."),
+  //   //   otherwise: Yup.string().matches(
+  //   //     /^[0-9]+$/,
+  //   //     "Valuation Code must be numeric",
+  //   //   ),
+  //   // }),
+  // });
+  const validationSchema = Yup.object().shape({
     inputValue: Yup.string().when("checkType", {
       is: "certificateId",
-      then: () =>
-        string()
-          .required("Certificate ID is required")
-          .matches(/^[0-9]+$/, "Certificate ID must be numeric")
-          .length(10, "Certificate ID must be 10 characters."),
-      otherwise: Yup.string().matches(
+      then: () => string()
+        .required("Certificate ID is required")
+        .matches(/^[0-9]+$/, "Certificate ID must be numeric")
+        .length(10, "Certificate ID must be 10 characters."),
+      otherwise: () => string().required("Valuation Code is required").matches(
         /^[0-9]+$/,
-        "Valuation Code must be numeric",
+        "Valuation Code must be numeric"
       ),
-    }),
-  });
+    })
+  })
 
   const handleCheck = async (values) => {
+    const {inputValue, checkType} = values;
     try {
       let response;
       if (checkType === "certificateId") {
-        response = await getDiamondCheckByCertificateId(values.inputValue);
+        response = await getDiamondCheckByCertificateId(inputValue);
         if (!response.data) {
           throw new Error("Certificate ID not found!");
         }
-        navigate(`/check/certificate/${values.inputValue}`);
+        navigate(`/check/certificate/${inputValue}`);
       } else if (checkType === "valuationCode") {
-        response = await getValuationRequestDetails(values.inputValue);
+        response = await getValuationRequestDetails(inputValue);
         if (!response.data) {
           throw new Error("Valuation Code not found!");
         }
-        navigate(`/check/valuation/${values.inputValue}`);
+        navigate(`/check/valuation/${inputValue}`);
       }
     } catch (error) {
       console.error("Error during form submission:", error); // Log the error
@@ -68,7 +80,14 @@ const DiamondCheckInputForm = () => {
         toast.error(error.message || "An unexpected error occurred.");
       }
     }
+
   };
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: handleCheck,
+  })
+  console.log(formik.values)
   const CustomErrorMessage = ({ children }) => (
     <div
       style={{
@@ -143,29 +162,25 @@ const DiamondCheckInputForm = () => {
             and more for free
           </Typography>
 
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleCheck}
-          >
-            {({ values, handleChange, handleSubmit, isValid }) => (
-              <Form onSubmit={handleSubmit}>
+              <Box >
                 <RadioGroup
                   row
-                  value={checkType}
-                  onChange={(e) => {
-                    setCheckType(e.target.value);
-                    handleChange(e); // Update Formik value
-                  }}
+                  name={"checkType"}
+                  value={formik.values.checkType}
+                  onChange={formik.handleChange}
                   sx={{ position: "relative", top: 20 }}
                 >
                   <FormControlLabel
-                    value="certificateId"
+                    value={"certificateId"}
+                    checked={
+                      formik.values.checkType === "certificateId"
+                    }
                     control={<Radio />}
                     label="Check by Certificate ID"
                   />
                   <FormControlLabel
-                    value="valuationCode"
+                    value={"valuationCode"}
+                    checked={formik.values.checkType === "valuationCode"}
                     control={<Radio />}
                     label="Check by Valuation Code"
                   />
@@ -181,12 +196,11 @@ const DiamondCheckInputForm = () => {
                   borderRadius={1}
                   border="1px solid #9095a0"
                 >
-                  <Field
-                    as={TextField}
+                  <TextField
                     name="inputValue"
                     variant="standard"
                     placeholder={
-                      checkType === "certificateId"
+                      formik.values.checkType === "certificateId"
                         ? "Enter Certificate ID"
                         : "Enter Valuation Code"
                     }
@@ -200,16 +214,30 @@ const DiamondCheckInputForm = () => {
                         fontSize: 16,
                       },
                     }}
+                    value={formik.values.inputValue}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.inputValue && Boolean(formik.errors.inputValue)}
                   />
-                  <ErrorMessage
-                    name="inputValue"
-                    component={CustomErrorMessage}
-                  />
+
+                  {formik.touched.inputValue && formik.errors.inputValue && (
+                    <FormHelperText
+                      error={true}
+                      sx={{
+                        color: "#ffffff", // Customize your helper text styles here
+                        fontSize: '0.75rem',
+                        paddingLeft: '20px',
+                        marginTop: '12px',
+                      }}
+                    >
+                      {formik.errors.inputValue}
+                    </FormHelperText>
+                  )}
+
                 </Box>
 
                 <Button
                   type="submit"
-                  disabled={!isValid}
                   sx={{
                     position: "relative",
                     width: 151,
@@ -221,14 +249,13 @@ const DiamondCheckInputForm = () => {
                     textTransform: "none",
                     ":hover": { backgroundColor: "#6366f2" },
                   }}
+                  onClick={() => formik.submitForm()}
                 >
                   <Typography color="white" fontSize={16} lineHeight="26px">
                     Run free check
                   </Typography>
                 </Button>
-              </Form>
-            )}
-          </Formik>
+              </Box>
         </Box>
       </Box>
     </Box>
