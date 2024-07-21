@@ -85,6 +85,7 @@ const RequestItem = () => {
           showFeedbackRow={true}
           requestID={requestID}
           request={request}
+          isItemTable={true}
         />
       </div>
     </div>

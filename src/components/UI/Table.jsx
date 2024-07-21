@@ -40,6 +40,7 @@ const UITable = ({
   showFeedbackRow = false,
   requestID,
   request,
+  isItemTable = false,
 }) => {
   const navigate = useNavigate();
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -50,9 +51,10 @@ const UITable = ({
   const [deleteReason, setDeleteReason] = useState("");
   const [customReason, setCustomReason] = useState("");
 
-  const handleClick = async (requestID) => {
-    navigate(`/appointments/${requestID}`);
-    console.log("Request ID:", requestID);
+  const handleClick = (requestID) => {
+    if (!isItemTable) {
+      navigate(`/appointments/${requestID}`);
+    }
   };
 
   const queryClient = useQueryClient();
@@ -129,7 +131,7 @@ const UITable = ({
             <TableRow
               key={rowIndex}
               onClick={() => handleClick(row.number)}
-              sx={{ cursor: "pointer" }}
+              sx={{ cursor: isItemTable ? "default" : "pointer" }}
             >
               {headCells.map((cell) => {
                 const cellValue = row[cell.id];
