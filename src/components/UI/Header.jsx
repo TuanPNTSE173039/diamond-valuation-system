@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 import NotificationMenu from "../Notification/Menu.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { getCustomer } from "../../services/api.js";
+import UICircularIndeterminate from "./CircularIndeterminate.jsx";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -54,10 +55,14 @@ export default function Header() {
     }
   };
 
-  const { data: customer } = useQuery({
+  const { data: customer, isLoading: isCustomerLoading } = useQuery({
     queryKey: ["customer"],
     queryFn: () => getCustomer(currentUser?.id),
   });
+
+  if (isCustomerLoading) {
+    <UICircularIndeterminate />;
+  }
 
   console.log("customer", customer);
 
