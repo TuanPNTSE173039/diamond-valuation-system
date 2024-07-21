@@ -1,31 +1,32 @@
 import React, { useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
+import PropTypes from "prop-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
 import {
   deleteValuationRequestByID,
   getDiamondValuationNoteByID,
 } from "../../services/api.js";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useNavigate } from "react-router-dom";
 import FeedbackDialog from "../ManageAppointment/FeedbackDialog.jsx";
-import RecordScreenResult from "../ManageAppointment/ResultRecord.jsx";
 import { convertStatus } from "../../utilities/Status.jsx";
+import { toast, ToastContainer } from "react-toastify";
+import RecordScreenResult from "../ManageAppointment/ResultRecord.jsx";
 import DeleteReasonInput from "../../components/ManageAppointment/DeleteReasonInput.jsx";
+
+DialogActions.propTypes = { children: PropTypes.node };
 
 const UITable = ({
   heading,
@@ -35,6 +36,7 @@ const UITable = ({
   showTotalPrice = false,
   totalPrice = 0,
   requestStatus,
+  showViewButton = false,
   showFeedbackRow = false,
   requestID,
   request,
@@ -48,6 +50,11 @@ const UITable = ({
   const [deleteReason, setDeleteReason] = useState("");
   const [customReason, setCustomReason] = useState("");
 
+  const handleClick = async (requestID) => {
+    navigate(`/appointments/${requestID}`);
+    console.log("Request ID:", requestID);
+  };
+
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
@@ -55,23 +62,22 @@ const UITable = ({
     mutationFn: () => deleteValuationRequestByID(selectedRowId),
     onSuccess: () => {
       queryClient.invalidateQueries(["requests"]);
-      toast.success("Request deleted successfully!", {
-        position: "bottom-right",
-      });
+      toast.success("Request deleted successfully!");
     },
   });
 
   const handleDelete = (requestID) => {
     setSelectedRowId(requestID);
     setOpenDeleteDialog(true);
+    console.log("Selected row ID:", requestID);
   };
 
   const handleConfirmDelete = () => {
-    const reason = deleteReason === "Other" ? customReason : deleteReason;
+    const reason = deleteReason;
+    console.log("Delete reason:", reason);
     deleteMutation.mutate(selectedRowId);
     setOpenDeleteDialog(false);
     setDeleteReason("");
-    setCustomReason("");
   };
 
   const handleCloseDeleteDialog = () => {
@@ -91,10 +97,6 @@ const UITable = ({
   const handleCloseViewDialog = () => {
     setOpenViewDialog(false);
     setDiamondDetails(null);
-  };
-
-  const handleClick = (requestID) => {
-    navigate(`/appointments/${requestID}`);
   };
 
   const showTotal = requestStatus !== "PENDING" && requestStatus !== "CANCEL";
@@ -144,6 +146,7 @@ const UITable = ({
                           onClick={(e) => {
                             e.stopPropagation();
                             handleDelete(row.number);
+                            console.log("Row number:", row.number);
                           }}
                         >
                           <DeleteIcon />
@@ -226,21 +229,21 @@ const UITable = ({
         open={openViewDialog}
         onClose={handleCloseViewDialog}
         fullWidth
-        maxWidth="md"
+        sx={{ "& .MuiDialog-paper": { width: "1000px", maxWidth: "1000px" } }}
       >
-        <RecordScreenResult
-          details={diamondDetails}
-          onClose={handleCloseViewDialog}
-        />
+        <RecordScreenResult requestId={requestID} />
+        <DialogActions sx={{ justifyContent: "center" }}>
+          <Button onClick={handleCloseViewDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
       </Dialog>
-      {feedbackDialogOpen && (
-        <FeedbackDialog
-          open={feedbackDialogOpen}
-          onClose={() => setFeedbackDialogOpen(false)}
-          requestID={requestID}
-          request={request}
-        />
-      )}
+      <FeedbackDialog
+        open={feedbackDialogOpen}
+        onClose={() => setFeedbackDialogOpen(false)}
+        requestID={requestID}
+        initialRequest={request}
+      />
     </TableContainer>
   );
 };
