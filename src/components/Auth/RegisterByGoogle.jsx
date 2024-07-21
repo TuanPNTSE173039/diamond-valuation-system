@@ -74,16 +74,6 @@ export default function RegisterByGoogle() {
         return /^\d+$/.test(val);
       })
       .required("Phone number is required!"),
-    address: Yup.string().test(
-      "len",
-      "The address must be between 3 and 40 characters.",
-      (val) => val && val.toString().length >= 3 && val.toString().length <= 40,
-    ),
-    identityDocument: Yup.string().test(
-      "len",
-      "The identity document must be 12 characters.",
-      (val) => val && val.toString().length === 12,
-    ),
   });
 
   const handleRegister = async (formValue) => {

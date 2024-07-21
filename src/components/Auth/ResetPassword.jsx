@@ -20,8 +20,8 @@ const validationSchema = Yup.object({
   newPassword: Yup.string()
     .test(
       "len",
-      "The identity document must be 12 characters.",
-      (val) => val && val.toString().length === 12,
+      "The password must be between 6 and 20 characters.",
+      (val) => val && val.toString().length >= 6 && val.toString().length <= 20,
     )
     .required("New password is required!"),
   confirmPassword: Yup.string()
