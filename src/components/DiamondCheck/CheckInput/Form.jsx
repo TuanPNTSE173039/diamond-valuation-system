@@ -55,7 +55,10 @@ const DiamondCheckInputForm = () => {
         navigate(`/check/certificate/${inputValue}`);
       } else if (checkType === "valuationCode") {
         response = await getValuationRequestDetails(inputValue);
-        console.log("API Response for Valuation Code:", response); // Log the response
+        console.log("API Response for Valuation Code:", response);
+        if (response.status !== "APPROVED") {
+          throw new Error("Valuation Code not found!");
+        }
         if (!response) {
           throw new Error("Valuation Code not found!");
         }
@@ -99,7 +102,7 @@ const DiamondCheckInputForm = () => {
       mt={3}
       height="calc(100vh - 243px)"
     >
-      <ToastContainer containerId="diamondCheck" />
+      <ToastContainer containerId="diamondCheck" position="bottom-center" />
       <Box
         width="100vw"
         height="calc(100vh - 245px)"
