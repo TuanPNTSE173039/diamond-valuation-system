@@ -113,7 +113,7 @@ const CalculateInputForm = ({ setParams }) => {
               </Grid>
               <Grid item xs={6}>
                 <OriginButton
-                  buttonName={"LABGROWN"}
+                  buttonName={"LAB_GROWN"}
                   onClick={handleClick}
                   state={diamondOrigin}
                   setState={setDiamondOrigin}
@@ -743,7 +743,7 @@ const CalculateInputForm = ({ setParams }) => {
                 </Button>
                 <Button
                   onClick={() => {
-                    handleClick(setCut, "vgood");
+                    handleClick(setCut, "VERY_GOOD");
                   }}
                   sx={{
                     width: "71px",
@@ -858,7 +858,7 @@ const CalculateInputForm = ({ setParams }) => {
                 </Button>
                 <Button
                   onClick={() => {
-                    handleClick(setSymmetry, "vgood");
+                    handleClick(setSymmetry, "VERY_GOOD");
                   }}
                   sx={{
                     width: "90px",
@@ -958,7 +958,7 @@ const CalculateInputForm = ({ setParams }) => {
                 </Button>
                 <Button
                   onClick={() => {
-                    handleClick(setPolish, "vgood");
+                    handleClick(setPolish, "VERY_GOOD");
                   }}
                   sx={{
                     width: "90px",
