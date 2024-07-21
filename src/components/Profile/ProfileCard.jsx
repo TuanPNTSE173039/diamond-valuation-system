@@ -171,13 +171,33 @@ export default function ProfileCard(props) {
 
   const handleUpdate = async () => {
     const changedFields = getChangedFields();
+
     try {
-      if (avatarChanged) {
+      if (avatarChanged && changedFields) {
+        // Update both avatar and customer information
         await handleUploadAvatarImage();
-      } else {
+        await updateCustomerInformation(user.customerID, changedFields);
+        toast.dismiss();
+        toast.success("Updated successfully!", {
+          position: "bottom-right",
+        });
+      } else if (avatarChanged) {
+        // Only update avatar
+        await handleUploadAvatarImage();
+        toast.dismiss();
+        toast.success("Avatar updated successfully!", {
+          position: "bottom-right",
+        });
+      } else if (changedFields) {
+        // Only update customer information
         await updateCustomerInformation(user.customerID, changedFields);
         toast.dismiss();
         toast.success("Customer information updated successfully!", {
+          position: "bottom-right",
+        });
+      } else {
+        toast.dismiss();
+        toast.info("No changes detected.", {
           position: "bottom-right",
         });
       }
@@ -304,9 +324,9 @@ export default function ProfileCard(props) {
         avatar: downloadURL,
       });
       console.log("Update response:", updateResponse.data);
-      toast.success("Avatar updated successfully", {
-        position: "bottom-right",
-      });
+      // toast.success("Avatar updated successfully", {
+      //   position: "bottom-right",
+      // });
     } catch (error) {
       console.error("Error uploading avatar or updating database:", error);
       toast.error("Failed to upload avatar or update database", {
