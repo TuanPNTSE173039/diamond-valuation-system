@@ -6,7 +6,7 @@ import notFoundImage from "../assets/images/notFoundImage.jpg";
 
 const NotFound = () => {
   return (
-    <Container sx={{ textAlign: "center", mt: 1 }}>
+    <Container sx={{ textAlign: "center", mt: 1, height: "520px" }}>
       <Box display="flex" justifyContent="center" alignContent="center">
         <img
           src={notFoundImage}
