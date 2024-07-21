@@ -63,9 +63,14 @@ const BlogDetail = () => {
         alt="Thumbnail"
         src={blog.thumbnail}
       />
-      <Typography variant="body1" sx={{ textAlign: "justify" }}>
-        {blog.content}
-      </Typography>
+      <Box
+        dangerouslySetInnerHTML={{
+          __html: blog.content,
+        }}
+        variant="body1"
+        sx={{ textAlign: "justify" }}
+      />
+      {}
     </Container>
   );
 };

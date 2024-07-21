@@ -74,15 +74,19 @@ export const BlogList = () => {
                 {blog.title}
               </Typography>
             </Link>
-            <Typography
+
+            <Box
+              component="div"
+              dangerouslySetInnerHTML={{
+                __html: blog.content.slice(0, 300),
+              }}
               sx={{
                 color: "#171a1f",
                 fontSize: "16px",
                 marginTop: 1,
               }}
-            >
-              {blog.content.slice(0, 300)}
-            </Typography>
+            />
+
             <Typography
               sx={{
                 color: "#9095a0",
