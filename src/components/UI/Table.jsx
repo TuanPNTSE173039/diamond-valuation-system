@@ -1,76 +1,31 @@
 import React, { useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
-import PropTypes from "prop-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import {
   deleteValuationRequestByID,
   getDiamondValuationNoteByID,
 } from "../../services/api.js";
-import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  IconButton,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import FeedbackDialog from "../ManageAppointment/FeedbackDialog.jsx";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import { convertStatus } from "../../utilities/Status.jsx";
-import { toast, ToastContainer } from "react-toastify";
 import RecordScreenResult from "../ManageAppointment/ResultRecord.jsx";
-
-DialogActions.propTypes = { children: PropTypes.node };
-
-const DeleteReasonInput = ({ deleteReason, setDeleteReason }) => {
-  const initialValue = deleteReason === "Other" ? "" : deleteReason;
-  return (
-    <FormControl
-      fullWidth
-      margin="normal"
-      sx={{ ml: 2, mr: 2, width: "400px" }}
-    >
-      <InputLabel id="delete-reason-label">Reason</InputLabel>
-      {deleteReason === "Other" ? (
-        <TextField
-          fullWidth
-          margin="normal"
-          value={initialValue}
-          onChange={(e) => setDeleteReason(e.target.value)}
-        />
-      ) : (
-        <Select
-          labelId="delete-reason-label"
-          id="delete-reason"
-          value={initialValue}
-          onChange={(e) => setDeleteReason(e.target.value)}
-          label="Reason"
-        >
-          <MenuItem value="I want to change service">
-            I want to change service
-          </MenuItem>
-          <MenuItem value="I want to change amount of diamond">
-            I want to change amount of diamond
-          </MenuItem>
-          <MenuItem value="I want to change information">
-            I want to change information
-          </MenuItem>
-          <MenuItem value="Other">Other</MenuItem>
-        </Select>
-      )}
-    </FormControl>
-  );
-};
+import { convertStatus } from "../../utilities/Status.jsx";
+import DeleteReasonInput from "../../components/ManageAppointment/DeleteReasonInput.jsx";
 
 const UITable = ({
   heading,
@@ -80,7 +35,6 @@ const UITable = ({
   showTotalPrice = false,
   totalPrice = 0,
   requestStatus,
-  showViewButton = false,
   showFeedbackRow = false,
   requestID,
   request,
@@ -92,11 +46,7 @@ const UITable = ({
   const [diamondDetails, setDiamondDetails] = useState(null);
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
   const [deleteReason, setDeleteReason] = useState("");
-
-  const handleClick = async (requestID) => {
-    navigate(`/appointments/${requestID}`);
-    console.log("Request ID:", requestID);
-  };
+  const [customReason, setCustomReason] = useState("");
 
   const queryClient = useQueryClient();
 
@@ -114,20 +64,20 @@ const UITable = ({
   const handleDelete = (requestID) => {
     setSelectedRowId(requestID);
     setOpenDeleteDialog(true);
-    console.log("Selected row ID:", requestID);
   };
 
   const handleConfirmDelete = () => {
-    const reason = deleteReason;
-    console.log("Delete reason:", reason);
+    const reason = deleteReason === "Other" ? customReason : deleteReason;
     deleteMutation.mutate(selectedRowId);
     setOpenDeleteDialog(false);
     setDeleteReason("");
+    setCustomReason("");
   };
 
   const handleCloseDeleteDialog = () => {
     setOpenDeleteDialog(false);
     setDeleteReason("");
+    setCustomReason("");
   };
 
   const handleView = async (diamondID) => {
@@ -141,6 +91,10 @@ const UITable = ({
   const handleCloseViewDialog = () => {
     setOpenViewDialog(false);
     setDiamondDetails(null);
+  };
+
+  const handleClick = (requestID) => {
+    navigate(`/appointments/${requestID}`);
   };
 
   const showTotal = requestStatus !== "PENDING" && requestStatus !== "CANCEL";
@@ -190,7 +144,6 @@ const UITable = ({
                           onClick={(e) => {
                             e.stopPropagation();
                             handleDelete(row.number);
-                            console.log("Row number:", row.number);
                           }}
                         >
                           <DeleteIcon />
@@ -257,6 +210,8 @@ const UITable = ({
         <DeleteReasonInput
           deleteReason={deleteReason}
           setDeleteReason={setDeleteReason}
+          customReason={customReason}
+          setCustomReason={setCustomReason}
         />
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button onClick={handleCloseDeleteDialog} color="primary">
@@ -271,21 +226,21 @@ const UITable = ({
         open={openViewDialog}
         onClose={handleCloseViewDialog}
         fullWidth
-        sx={{ "& .MuiDialog-paper": { width: "1000px", maxWidth: "1000px" } }}
+        maxWidth="md"
       >
-        <RecordScreenResult requestId={requestID} />
-        <DialogActions sx={{ justifyContent: "center" }}>
-          <Button onClick={handleCloseViewDialog} color="primary">
-            Close
-          </Button>
-        </DialogActions>
+        <RecordScreenResult
+          details={diamondDetails}
+          onClose={handleCloseViewDialog}
+        />
       </Dialog>
-      <FeedbackDialog
-        open={feedbackDialogOpen}
-        onClose={() => setFeedbackDialogOpen(false)}
-        requestID={requestID}
-        initialRequest={request}
-      />
+      {feedbackDialogOpen && (
+        <FeedbackDialog
+          open={feedbackDialogOpen}
+          onClose={() => setFeedbackDialogOpen(false)}
+          requestID={requestID}
+          request={request}
+        />
+      )}
     </TableContainer>
   );
 };
