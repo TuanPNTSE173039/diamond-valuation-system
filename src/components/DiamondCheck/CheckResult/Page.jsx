@@ -1,3 +1,6 @@
+import diamond1 from "../../../assets/images/diamond1.png";
+import dimond2 from "../../../assets/images/dimond2.png";
+import diamond3 from "../../../assets/images/diamond3.png";
 import DiamondCheckResultForm from "./ResultForm.jsx";
 import ImageGallery from "../CheckResult/ImageForm";
 import { Box } from "@mui/material";
@@ -13,6 +16,21 @@ const DiamondCheckResultPage = () => {
   console.log(certificateID);
   const [diamondData, setDiamondData] = useState(null);
   const [uploadedDiamondImages, setUploadedDiamondImages] = useState([]);
+
+  const images = [
+    {
+      img: diamond1,
+      title: "First Diamond Image",
+    },
+    {
+      img: dimond2,
+      title: "Second Diamond Image",
+    },
+    {
+      img: diamond3,
+      title: "Thirst Diamond Image",
+    },
+  ];
 
   useEffect(() => {
     const fetchDiamondData = async () => {
@@ -66,7 +84,11 @@ const DiamondCheckResultPage = () => {
         justifyContent="space-between"
       >
         <Box width="50%">
-          <ImageGallery images={uploadedDiamondImages} />
+          <ImageGallery
+            images={
+              uploadedDiamondImages.length > 0 ? uploadedDiamondImages : images
+            }
+          />
         </Box>
         <Box width="50%" marginLeft="70px">
           {diamondData && (

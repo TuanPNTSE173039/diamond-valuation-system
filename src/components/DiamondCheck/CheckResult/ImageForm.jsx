@@ -34,9 +34,6 @@ const ImageGallery = ({ images }) => {
             sx={{
               cursor: "pointer",
               borderRadius: "6px",
-              "&:hover": {
-                border: "2px solid #000", // Add a solid border on hover
-              },
             }}
           >
             <img
