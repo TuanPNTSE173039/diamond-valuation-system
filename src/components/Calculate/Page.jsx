@@ -2,7 +2,7 @@ import CalculateInputForm from "./InputForm/InputForm.jsx";
 import CalculateOutputForm from "./OutputForm.jsx";
 import { Container, Grid } from "@mui/material";
 import { getDiamondData, getDiamondMarketData } from "../../services/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,11 +38,16 @@ function CalculatePage() {
     queryFn: () => getDiamondMarketData(params),
   });
 
-  if (diamondError) {
-    toast.info("The diamond corresponding to the fields could not be found.", {
-      position: "bottom-right",
-    });
-  }
+  useEffect(() => {
+    if (diamondError || marketError) {
+      toast.info(
+        "The diamond corresponding to the fields could not be found.",
+        {
+          position: "bottom-right",
+        },
+      );
+    }
+  }, [diamondError, marketError]);
 
   return (
     <Container
