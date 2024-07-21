@@ -15,6 +15,9 @@ export default function Footer() {
         padding: "20px 60px",
         backgroundColor: "#e0e0e0",
         height: "150px",
+        bottom: 0,
+        width: "100%",
+        zIndex: 1000,
       }}
     >
       <Box sx={{ flex: "1 1 100%", maxWidth: "35%" }}>

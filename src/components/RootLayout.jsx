@@ -5,18 +5,20 @@ import CustomSeparator from "./UI/BreadCrumb.jsx";
 
 function RootLayout() {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <Header />
 
       <div
         style={{
           paddingTop: "80px",
           backgroundColor: "#f5f5f5",
-          minHeight: "70vh",
+          flex: "1 0 auto",
         }}
       >
         <CustomSeparator />
-        <Outlet />
+        <Outlet sx={{ height: "100%" }} />
       </div>
       <Footer />
     </div>

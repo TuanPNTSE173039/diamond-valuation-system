@@ -38,6 +38,7 @@ export const BlogList = () => {
         position: "relative",
         marginX: "120px",
         padding: "0 16px",
+        height: "550px",
       }}
     >
       {selectedBlogs.map((blog) => (

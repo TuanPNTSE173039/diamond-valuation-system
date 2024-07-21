@@ -60,21 +60,27 @@ const Price = () => {
         justifyItems: "center",
       }}
     >
-      <PriceTable
-        rows={serviceRows}
-        headCells={PriceListHeadCells}
-        title="SERVICES LIST"
-        onRowClick={handleServiceClick}
-      />
-      {services?.map((service) => (
-        <div
-          key={service.id}
-          ref={(el) => (serviceRefs.current[service.id] = el)}
-          style={{ marginTop: "50px" }}
-        >
-          <ServiceDetailsTable serviceID={service.id} />
-        </div>
-      ))}
+      <Box
+        sx={{
+          width: "80%",
+        }}
+      >
+        <PriceTable
+          rows={serviceRows}
+          headCells={PriceListHeadCells}
+          title="SERVICES LIST"
+          onRowClick={handleServiceClick}
+        />
+        {services?.map((service) => (
+          <div
+            key={service.id}
+            ref={(el) => (serviceRefs.current[service.id] = el)}
+            style={{ marginTop: "50px" }}
+          >
+            <ServiceDetailsTable serviceID={service.id} />
+          </div>
+        ))}
+      </Box>
     </Box>
   );
 };
