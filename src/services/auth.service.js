@@ -60,10 +60,11 @@ const login = async (usernameOrEmail, password) => {
   if (response.status !== 200) {
     throw new Error("Error logging in");
   }
+  console.log("Login API call response:", response.data);
 
   // If oke
   // Check if the role is customer
-  if (response.data.role !== "customer") {
+  if (response.data?.userInformation?.account.role !== "CUSTOMER") {
     throw new Error("You are not authorized to log in");
   }
   // Store user data in local storage

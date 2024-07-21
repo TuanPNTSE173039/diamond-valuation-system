@@ -21,6 +21,7 @@ import ForgotPasswordDialog from "./ForgotPassword.jsx";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
+import { beURL } from "../../services/config.js";
 
 export default function SignIn({ open, onClose }) {
   const navigate = useNavigate();
@@ -66,7 +67,8 @@ export default function SignIn({ open, onClose }) {
       ).unwrap();
       //await dispatch(login({ usernameOrEmail, password })).unwrap();
       setLoading(false);
-      if (user.role !== "customer") {
+      console.log("User data:", user);
+      if (user?.user.account.role !== "CUSTOMER") {
         toast.error("You are not authorized to log in");
         return;
       }
@@ -106,16 +108,13 @@ export default function SignIn({ open, onClose }) {
     try {
       const token = credentialResponse.credential;
       const decoded = jwtDecode(token);
-      const response = await fetch(
-        "http://localhost:8080/api/v1/auth/google-login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ token }),
+      const response = await fetch(`${beURL}auth/google-login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({ token }),
+      });
 
       const data = await response.json();
       localStorage.setItem("auth", JSON.stringify(data));
