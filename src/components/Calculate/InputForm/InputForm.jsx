@@ -754,10 +754,10 @@ const CalculateInputForm = ({ setParams }) => {
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
-                      cut["cvgood"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                      cut["VERY_GOOD"] === "clicked" ? "#4F46E5" : "#f5f5f5",
                     ":hover": { bgcolor: "#4F46E5", color: "white" },
                     fontSize: "14px",
-                    color: cut["cvgood"] === "clicked" ? "white" : "#171a1f",
+                    color: cut["VERY_GOOD"] === "clicked" ? "white" : "#171a1f",
                   }}
                 >
                   V.GOOD
@@ -869,11 +869,13 @@ const CalculateInputForm = ({ setParams }) => {
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
-                      symmetry["svgood"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                      symmetry["VERY_GOOD"] === "clicked"
+                        ? "#4F46E5"
+                        : "#f5f5f5",
                     ":hover": { bgcolor: "#4F46E5", color: "white" },
                     fontSize: "14px",
                     color:
-                      symmetry["svgood"] === "clicked" ? "white" : "#171a1f",
+                      symmetry["VERY_GOOD"] === "clicked" ? "white" : "#171a1f",
                   }}
                 >
                   V.GOOD
@@ -970,10 +972,11 @@ const CalculateInputForm = ({ setParams }) => {
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "6px",
                     backgroundColor:
-                      polish["pvgood"] === "clicked" ? "#4F46E5" : "#f5f5f5",
+                      polish["VERY_GOOD"] === "clicked" ? "#4F46E5" : "#f5f5f5",
                     ":hover": { bgcolor: "#4F46E5", color: "white" },
                     fontSize: "14px",
-                    color: polish["pvgood"] === "clicked" ? "white" : "#171a1f",
+                    color:
+                      polish["VERY_GOOD"] === "clicked" ? "white" : "#171a1f",
                   }}
                 >
                   V.GOOD
