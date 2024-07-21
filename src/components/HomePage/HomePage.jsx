@@ -65,7 +65,7 @@ function HomePage() {
   }
 
   return (
-    <div>
+    <div style={{ overflowX: "hidden" }}>
       <div>
         <Poster />
       </div>
