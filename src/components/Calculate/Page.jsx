@@ -39,7 +39,9 @@ function CalculatePage() {
   });
 
   if (diamondError) {
-    toast.info("The diamond corresponding to the fields could not be found.");
+    toast.info("The diamond corresponding to the fields could not be found.", {
+      position: "bottom-right",
+    });
   }
 
   return (

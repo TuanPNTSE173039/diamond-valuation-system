@@ -67,9 +67,13 @@ const DiamondCheckInputForm = () => {
     } catch (error) {
       console.error("Error during form submission:", error); // Log the error
       if (error.response && error.response.status === 404) {
-        toast.info("Certificate ID not found!");
+        toast.info("Certificate ID not found!", {
+          position: "bottom-right",
+        });
       } else {
-        toast.info(error.message || "An unexpected error occurred.");
+        toast.info(error.message || "An unexpected error occurred.", {
+          position: "bottom-right",
+        });
       }
     }
   };
@@ -102,7 +106,7 @@ const DiamondCheckInputForm = () => {
       mt={3}
       height="calc(100vh - 243px)"
     >
-      <ToastContainer containerId="diamondCheck" position="bottom-center" />
+      <ToastContainer containerId="diamondCheck" />
       <Box
         width="100vw"
         height="calc(100vh - 245px)"

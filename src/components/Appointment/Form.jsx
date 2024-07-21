@@ -98,12 +98,16 @@ const AppointmentForm = () => {
     },
     onSuccess: (data) => {
       setValuationRequestId(data.data.id);
-      toast.success("Appointment created successfully");
+      toast.success("Appointment created successfully", {
+        position: "bottom-right",
+      });
       setOpen(true);
     },
     onError: (error) => {
       console.log(error);
-      toast.error("Failed to create appointment");
+      toast.error("Failed to create appointment", {
+        position: "bottom-right",
+      });
     },
   });
 

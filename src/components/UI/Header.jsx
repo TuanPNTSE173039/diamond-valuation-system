@@ -130,7 +130,9 @@ export default function Header() {
         break;
       case "Logout":
         dispatch(logout());
-        toast.success("Logout successful!");
+        toast.success("Logout successful!", {
+          position: "bottom-right",
+        });
         navigate("/");
         break;
       default:

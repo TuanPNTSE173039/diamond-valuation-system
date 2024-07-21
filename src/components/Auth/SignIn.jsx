@@ -69,11 +69,15 @@ export default function SignIn({ open, onClose }) {
       setLoading(false);
       console.log("User data:", user);
       if (user?.user.account.role !== "CUSTOMER") {
-        toast.error("You are not authorized to log in");
+        toast.error("You are not authorized to log in", {
+          position: "bottom-right",
+        });
         return;
       }
 
-      toast.success("Login successful");
+      toast.success("Login successful", {
+        position: "bottom-right",
+      });
       navigate("/", { replace: true });
       if (typeof onClose === "function") {
         onClose(); // Safeguard: Close the dialog on successful login only if onClose is defined
@@ -124,7 +128,9 @@ export default function SignIn({ open, onClose }) {
         console.log("Login successful:", data);
         await dispatch(login({ user: data })).unwrap(); // Dispatch login action with user data
         onClose(); // Close the dialog
-        toast.success("Login successful");
+        toast.success("Login successful", {
+          position: "bottom-right",
+        });
         navigate("/", { replace: true });
       } else {
         // Handle error: show message, navigate, etc.
@@ -135,7 +141,9 @@ export default function SignIn({ open, onClose }) {
           response.status === 500
         ) {
           // Email not found, navigate to register page
-          toast.info("Email not found, please register");
+          toast.info("Email not found, please register", {
+            position: "bottom-right",
+          });
           navigate("/registerbygoogle", {
             state: {
               email: decoded.email,
@@ -144,13 +152,17 @@ export default function SignIn({ open, onClose }) {
           onClose();
         } else {
           dispatch(setMessage(data.message || "Login failed"));
-          toast.error("Login failed");
+          toast.error("Login failed", {
+            position: "bottom-right",
+          });
         }
       }
     } catch (error) {
       console.error("Error during Google login:", error);
       dispatch(setMessage("Login failed"));
-      toast.error("Login failed");
+      toast.error("Login failed", {
+        position: "bottom-right",
+      });
     }
   };
 

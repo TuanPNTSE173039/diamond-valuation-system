@@ -105,7 +105,9 @@ const UITable = ({
     mutationFn: () => deleteValuationRequestByID(selectedRowId),
     onSuccess: () => {
       queryClient.invalidateQueries(["requests"]);
-      toast.success("Request deleted successfully!");
+      toast.success("Request deleted successfully!", {
+        position: "bottom-right",
+      });
     },
   });
 

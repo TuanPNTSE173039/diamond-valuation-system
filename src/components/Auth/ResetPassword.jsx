@@ -73,11 +73,15 @@ const ResetPassword = () => {
         setOpen(false);
         navigate("/");
         // dispatch(setSignInDialogOpen(true)); // Open sign-in dialog
-        toast.success(data?.message || "Password reset successful.");
+        toast.success(data?.message || "Password reset successful.", {
+          position: "bottom-right",
+        });
       } catch (error) {
         console.error("Error resetting password:", error.message);
         dispatch(setMessage("Failed to reset password."));
-        toast.error("Failed to reset password.");
+        toast.error("Failed to reset password.", {
+          position: "bottom-right",
+        });
       } finally {
         setLoading(false);
       }

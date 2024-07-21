@@ -23,13 +23,17 @@ const FeedbackDialog = ({ open, onClose, requestID, initialRequest }) => {
     },
     onSuccess: () => {
       onClose();
-      toast.success("Feedback sent successfully!");
+      toast.success("Feedback sent successfully!", {
+        position: "bottom-right",
+      });
       console.log("Feedback sent successfully!");
       setIsFeedbackSent(true);
     },
     onError: (error) => {
       console.error("Error updating feedback:", error);
-      toast.error("Error sending feedback.");
+      toast.error("Error sending feedback.", {
+        position: "bottom-right",
+      });
     },
   });
 

@@ -135,6 +135,9 @@ export default function Register() {
 
       toast.success(
         "Register successfully! Please check your email to verify!",
+        {
+          position: "bottom-right",
+        },
       );
     } catch (error) {
       handleError(error);
@@ -145,10 +148,14 @@ export default function Register() {
     console.log("Error:", error);
     if (error) {
       console.log(error);
-      toast.info(error);
+      toast.info(error, {
+        position: "bottom-right",
+      });
     } else {
       console.error("Unexpected error:", error);
-      toast.error("Registration failed. Please try again.");
+      toast.error("Registration failed. Please try again.", {
+        position: "bottom-right",
+      });
     }
   };
 

@@ -177,11 +177,15 @@ export default function ProfileCard(props) {
       } else {
         await updateCustomerInformation(user.customerID, changedFields);
         toast.dismiss();
-        toast.success("Customer information updated successfully!");
+        toast.success("Customer information updated successfully!", {
+          position: "bottom-right",
+        });
       }
     } catch (error) {
       toast.dismiss();
-      toast.error("Failed to update customer information.");
+      toast.error("Failed to update customer information.", {
+        position: "bottom-right",
+      });
       console.error("Failed to update customer information", error);
     }
   };
@@ -192,9 +196,13 @@ export default function ProfileCard(props) {
       if (response && response.data && response.data.message) {
         const message = response.data.message;
         dispatch(setMessage(message));
-        toast.error(message);
+        toast.error(message, {
+          position: "bottom-right",
+        });
       } else {
-        toast.success("Password updated successfully!");
+        toast.success("Password updated successfully!", {
+          position: "bottom-right",
+        });
         handleClose();
         setPasswords({ oldPassword: "", newPassword: "" });
         formik.resetForm({
@@ -210,10 +218,14 @@ export default function ProfileCard(props) {
 
       if (error?.response?.data?.message === "Incorrect old password") {
         toast.dismiss();
-        toast.info("Incorrect old password");
+        toast.info("Incorrect old password", {
+          position: "bottom-right",
+        });
       } else {
         toast.dismiss();
-        toast.error(message);
+        toast.error(message, {
+          position: "bottom-right",
+        });
         console.error("Failed to update password", error);
       }
     }
@@ -292,10 +304,14 @@ export default function ProfileCard(props) {
         avatar: downloadURL,
       });
       console.log("Update response:", updateResponse.data);
-      toast.success("Avatar updated successfully");
+      toast.success("Avatar updated successfully", {
+        position: "bottom-right",
+      });
     } catch (error) {
       console.error("Error uploading avatar or updating database:", error);
-      toast.error("Failed to upload avatar or update database");
+      toast.error("Failed to upload avatar or update database", {
+        position: "bottom-right",
+      });
     }
   };
 
