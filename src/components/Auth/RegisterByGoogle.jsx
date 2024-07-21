@@ -263,7 +263,6 @@ export default function RegisterByGoogle() {
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
-                          required
                           fullWidth
                           id="address"
                           label="Address"
@@ -272,18 +271,10 @@ export default function RegisterByGoogle() {
                           value={formik.values.address}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          error={
-                            formik.touched.address &&
-                            Boolean(formik.errors.address)
-                          }
-                          helperText={
-                            formik.touched.address && formik.errors.address
-                          }
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
-                          required
                           fullWidth
                           id="identityDocument"
                           label="Identity Document"
@@ -292,14 +283,6 @@ export default function RegisterByGoogle() {
                           value={formik.values.identityDocument}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          error={
-                            formik.touched.identityDocument &&
-                            Boolean(formik.errors.identityDocument)
-                          }
-                          helperText={
-                            formik.touched.identityDocument &&
-                            formik.errors.identityDocument
-                          }
                         />
                       </Grid>
                     </Grid>
