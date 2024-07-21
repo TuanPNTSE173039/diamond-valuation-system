@@ -2,12 +2,17 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import UICircularIndeterminate from "../UI/CircularIndeterminate.jsx";
-import { getValuationRequestByID } from "../../services/api.js";
+import {
+  getValuationRequestByID,
+  getValuationRequestsByCustomerID,
+} from "../../services/api.js";
 import { DetailHeadCells } from "../../utilities/Table.js";
 import UITable from "../UI/Table.jsx";
 import Drawer from "../UI/Drawer.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
+import NotFound from "../NotFound.jsx";
 
 const RequestItem = () => {
   const formattedMoney = (money) => {
@@ -27,19 +32,32 @@ const RequestItem = () => {
     return `${size} mm`;
   };
 
+  const { id: userId } = useSelector((state) => state.auth.user);
   const { requestID } = useParams();
 
-  const { data: request, isLoading } = useQuery({
+  const { data: requests, isFetching: isRequestFetching } = useQuery({
+    queryKey: ["requests"],
+    queryFn: () => getValuationRequestsByCustomerID(userId),
+  });
+
+  const { data: request, isLoading: isRequestLoading } = useQuery({
     queryKey: ["request", { requestId: requestID }],
     queryFn: () => getValuationRequestByID(requestID),
   });
-  console.log("Request:", request);
 
-  if (isLoading) {
+  console.log("requests", requests);
+
+  if (isRequestFetching || isRequestLoading) {
     return <UICircularIndeterminate />;
   }
 
-  const detailRows = request.valuationRequestDetails.map((item, index) => {
+  const requestIDList = requests?.content.map((req) => req.id);
+
+  if (!requestIDList.includes(Number(requestID))) {
+    return <NotFound />;
+  }
+
+  const detailRows = request?.valuationRequestDetails.map((item, index) => {
     const row = {
       number: index + 1,
       service: request.service.name,
@@ -51,14 +69,14 @@ const RequestItem = () => {
         item.servicePrice === "0.0" || item.servicePrice === null
           ? "N/A"
           : formattedMoney(item.servicePrice),
-      status: item.status,
+      status: item?.status,
       ...(item.status !== "CANCEL" &&
         item.status !== "PENDING" && { id: item.diamondValuationNote.id }),
     };
     return row;
   });
 
-  const totalPriceFormat = formattedMoney(request.totalServicePrice);
+  const totalPriceFormat = formattedMoney(request?.totalServicePrice);
 
   return (
     <div>
