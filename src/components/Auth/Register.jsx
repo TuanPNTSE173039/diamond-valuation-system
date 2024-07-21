@@ -1,12 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -18,6 +17,9 @@ import { register } from "../../redux/authSlice";
 import { clearMessage } from "../../redux/messageSlide";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import SignIn from "./SignIn.jsx";
 
 const defaultTheme = createTheme();
 
@@ -167,6 +169,16 @@ export default function Register() {
     validationSchema,
     onSubmit: handleRegister,
   });
+
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleDialogOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -395,13 +407,19 @@ export default function Register() {
                     </Button>
                     <Grid container justifyContent="flex-end">
                       <Grid item>
-                        <Link
-                          href="#"
+                        <Button
                           variant="body2"
-                          onClick={() => navigate("/login")}
+                          onClick={handleDialogOpen}
+                          color="primary"
                         >
-                          Already have an account? Sign in
-                        </Link>
+                          <Typography
+                            style={{ cursor: "pointer" }}
+                            color="primary"
+                            fontSize="12px"
+                          >
+                            Already have an account? Sign in
+                          </Typography>
+                        </Button>
                       </Grid>
                     </Grid>
                   </Box>
@@ -411,6 +429,11 @@ export default function Register() {
           </Box>
         </Container>
       </Box>
+      <Dialog open={openDialog} onClose={handleDialogClose}>
+        <DialogContent>
+          <SignIn open={openDialog} onClose={handleDialogClose} />
+        </DialogContent>
+      </Dialog>
     </ThemeProvider>
   );
 }

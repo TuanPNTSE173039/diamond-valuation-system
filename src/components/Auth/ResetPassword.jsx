@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { beURL } from "../../services/config.js";
 
 const validationSchema = Yup.object({
   newPassword: Yup.string()
@@ -48,7 +49,7 @@ const ResetPassword = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/auth/reset-password?token=${token}`,
+          `${beURL}auth/reset-password?token=${token}`,
           {
             method: "POST",
             headers: {
