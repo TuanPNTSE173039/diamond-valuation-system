@@ -20,6 +20,7 @@ import Price from "./components/Price/Price.jsx";
 import RecordScreenResult from "./components/DiamondCheck/CheckResult/ResultRecord.jsx";
 import VerifyAccount from "./components/Auth/VerifyAccount.jsx";
 import RegisterByGoogle from "./components/Auth/RegisterByGoogle.jsx";
+import NotFound from "./components/NotFound.jsx";
 
 const router = createBrowserRouter([
   {
@@ -121,11 +122,19 @@ const router = createBrowserRouter([
         path: "registerbygoogle",
         element: <RegisterByGoogle />,
       },
+      {
+        path: "*", // Catch-all route for 404 Not Found
+        element: <NotFound />,
+      },
     ],
   },
   {
     path: "/verify-account",
     element: <VerifyAccount />,
+  },
+  {
+    path: "*", // Catch-all route for 404 Not Found
+    element: <NotFound />,
   },
 ]);
 
