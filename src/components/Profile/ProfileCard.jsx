@@ -216,7 +216,7 @@ export default function ProfileCard(props) {
 
       if (error?.response?.data?.message === "Incorrect old password") {
         toast.dismiss();
-        toast.error("Incorrect old password");
+        toast.info("Incorrect old password");
       } else {
         toast.dismiss();
         toast.error(message);
