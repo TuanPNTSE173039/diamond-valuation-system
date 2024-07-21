@@ -55,7 +55,7 @@ export default function ProfileCard(props) {
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
-      .matches(/^[A-Za-z]+$/, "The first name must be alphabetic.")
+      .matches(/^[A-Za-z\s]+$/, "The first name must be alphabetic.")
       .test(
         "len",
         "The first name must be between 2 and 30 characters.",
@@ -64,7 +64,7 @@ export default function ProfileCard(props) {
       )
       .required("First name is required!"),
     lastName: Yup.string()
-      .matches(/^[A-Za-z]+$/, "The last name must be alphabetic.")
+      .matches(/^[A-Za-z\s]+$/, "The last name must be alphabetic.")
       .test(
         "len",
         "The last name must be between 2 and 30 characters.",
@@ -73,7 +73,6 @@ export default function ProfileCard(props) {
       )
       .required("Last name is required!"),
     username: Yup.string()
-      .matches(/^[A-Za-z]+$/, "The username must be alphabetic.")
       .test(
         "len",
         "The username must be between 6 and 24 characters.",
@@ -94,21 +93,16 @@ export default function ProfileCard(props) {
         return /^\d+$/.test(val);
       })
       .required("Phone number is required!"),
-    address: Yup.string()
-      .test(
-        "len",
-        "The address must be between 3 and 40 characters.",
-        (val) =>
-          val && val.toString().length >= 3 && val.toString().length <= 40,
-      )
-      .required("Address is required!"),
-    identityDocument: Yup.string()
-      .test(
-        "len",
-        "The identity document must be 12 characters.",
-        (val) => val && val.toString().length === 12,
-      )
-      .required("Identity document is required!"),
+    address: Yup.string().test(
+      "len",
+      "The address must be between 3 and 40 characters.",
+      (val) => val && val.toString().length >= 3 && val.toString().length <= 40,
+    ),
+    identityDocument: Yup.string().test(
+      "len",
+      "The identity document must be 12 characters.",
+      (val) => val && val.toString().length === 12,
+    ),
     oldPassword: Yup.string()
       .test(
         "len",

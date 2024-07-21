@@ -44,7 +44,7 @@ export default function RegisterByGoogle() {
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
-      .matches(/^[A-Za-z]+$/, "The first name must be alphabetic.")
+      .matches(/^[A-Za-z\s]+$/, "The first name must be alphabetic.")
       .test(
         "len",
         "The first name must be between 2 and 30 characters.",
@@ -53,7 +53,7 @@ export default function RegisterByGoogle() {
       )
       .required("First name is required!"),
     lastName: Yup.string()
-      .matches(/^[A-Za-z]+$/, "The last name must be alphabetic.")
+      .matches(/^[A-Za-z\s]+$/, "The last name must be alphabetic.")
       .test(
         "len",
         "The last name must be between 2 and 30 characters.",
@@ -74,21 +74,16 @@ export default function RegisterByGoogle() {
         return /^\d+$/.test(val);
       })
       .required("Phone number is required!"),
-    address: Yup.string()
-      .test(
-        "len",
-        "The address must be between 3 and 40 characters.",
-        (val) =>
-          val && val.toString().length >= 3 && val.toString().length <= 40,
-      )
-      .required("Address is required!"),
-    identityDocument: Yup.string()
-      .test(
-        "len",
-        "The identity document must be 12 characters.",
-        (val) => val && val.toString().length === 12,
-      )
-      .required("Identity document is required!"),
+    address: Yup.string().test(
+      "len",
+      "The address must be between 3 and 40 characters.",
+      (val) => val && val.toString().length >= 3 && val.toString().length <= 40,
+    ),
+    identityDocument: Yup.string().test(
+      "len",
+      "The identity document must be 12 characters.",
+      (val) => val && val.toString().length === 12,
+    ),
   });
 
   const handleRegister = async (formValue) => {
