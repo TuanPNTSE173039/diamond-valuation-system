@@ -19,11 +19,9 @@ import { beURL } from "../../services/config.js";
 const validationSchema = Yup.object({
   newPassword: Yup.string()
     .test(
-      "contains-number",
-      "The password must contain at least 1 number.",
-      (val) => {
-        return /\d/.test(val);
-      },
+      "len",
+      "The identity document must be 12 characters.",
+      (val) => val && val.toString().length === 12,
     )
     .required("New password is required!"),
   confirmPassword: Yup.string()

@@ -116,13 +116,6 @@ export default function ProfileCard(props) {
         (val) =>
           val && val.toString().length >= 6 && val.toString().length <= 20,
       )
-      .test(
-        "contains-number",
-        "The password must contain at least 1 number.",
-        (val) => {
-          return /\d/.test(val);
-        },
-      )
       .required("Old password is required!"),
     newPassword: Yup.string()
       .test(
@@ -130,13 +123,6 @@ export default function ProfileCard(props) {
         "The password must be between 6 and 20 characters.",
         (val) =>
           val && val.toString().length >= 6 && val.toString().length <= 20,
-      )
-      .test(
-        "contains-number",
-        "The password must contain at least 1 number.",
-        (val) => {
-          return /\d/.test(val);
-        },
       )
       .required("New password is required!"),
   });
