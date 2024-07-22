@@ -82,6 +82,7 @@ export const CalculateOutputForm = ({
         <UICircularIndeterminate />
       </Box>
     );
+  console.log(marketData)
 
   return (
     <Box
