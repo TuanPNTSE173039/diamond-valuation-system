@@ -52,6 +52,15 @@ const RecordScreenResult = ({ requestId }) => {
   };
   const { toPDF, targetRef } = usePDF(options);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+  };
+
   const { data: request, isLoading: isValuationRequestLoading } = useQuery({
     queryKey: ["request", { requestId: requestId }],
     queryFn: () => getValuationRequest(requestId),
@@ -130,6 +139,8 @@ const RecordScreenResult = ({ requestId }) => {
                   <div className="flex gap-10">
                     <div className="flex w-1/2">
                       <div className="w-1/2">
+                        <p className="mb-1 p-0">Certificate Id</p>
+                        <p className="mb-1 p-0">Certificate Date</p>
                         <p className="mb-1 p-0">Diamond Origin</p>
                         <p className="mb-1 p-0">Carat</p>
                         <p className="mb-1 p-0">Color</p>
@@ -142,6 +153,14 @@ const RecordScreenResult = ({ requestId }) => {
                         <p className="mb-1 p-0">Clarity Characteristics</p>
                       </div>
                       <div className="w-1/2 text-right">
+                        <p className="mb-1 p-0">
+                          {item.diamondValuationNote.certificateId}
+                        </p>
+                        <p className="mb-1 p-0">
+                          {formatDate(
+                            item.diamondValuationNote.certificateDate,
+                          )}
+                        </p>
                         <p className="mb-1 p-0">
                           {item.diamondValuationNote.diamondOrigin}
                         </p>
@@ -262,9 +281,10 @@ const RecordScreenResult = ({ requestId }) => {
                 </table>
               </div>
               <hr className="my-6" />
-              This is some additional content to to inform you that Acme Inc. is
-              a fake company and this is a fake receipt. This is just a demo to
-              show you how you can create a beautiful receipt with Onedoc.{" "}
+              Diamonds are valued based on the 4Cs: Carat (weight), Clarity
+              (clarity), Color, and Cut. This information helps determine the
+              accurate value of your diamond. Please note that this value is for
+              reference only and may change based on the market.
             </div>
           </main>
         ))}
